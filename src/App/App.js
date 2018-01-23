@@ -25,6 +25,7 @@ class App extends Component {
             <h3>Site under construction, please be patient</h3>
         </header>
 
+          {/*this is where our list of retrieved sounds goes*/}
           <ul>
               {sounds}
           </ul>

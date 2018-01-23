@@ -27,11 +27,23 @@ class Player extends Component{
     }
 
     handleToggle(){
-        //player/pause implementation here
         this.setState({
            playing: !this.state.playing
         });
     }
+
+    handleLoopToggle(){
+        this.setState({
+           loop: !this.state.loop
+        });
+    }
+
+    handleMuteToggle(){
+        this.setState({
+            mute: !this.state.mute
+        })
+    }
+
 
     handleOnLoad(){
         //load event implementation here
@@ -53,13 +65,8 @@ class Player extends Component{
         //player seeking event implementation here
     }
 
-    handleLoopToggle(){
-        //loop/unloop implementation here
-    }
 
-    handleMuteToggle(){
-        //mute/unmute implementation here
-    }
+
 
 
 
@@ -70,13 +77,25 @@ class Player extends Component{
 
         return(
             <div className="Player">
+
+                <h4 className="status">
+
+                </h4>
+
                 <button onClick={this.handleToggle}>
                     {(this.state.playing) ? 'Pause' : 'Play'}
+                </button>
+                <button onClick={this.handleLoopToggle}>
+                    {(this.state.loop) ?  'Unloop' : 'Loop'}
+                </button>
+                <button onClick={this.handleMuteToggle}>
+                    {(this.state.mute) ? 'Unmute' : 'Mute'}
                 </button>
 
                 <ReactHowler
                     //TODO: this src property currently just retrieves a sound file from public/audio
-                    //That will need to change
+                    //The audio filenames correspond to the data retrieved in testData.json
+                    //Yeah, I know that's janky. We'll implement a better system for testing soon
                     src={'audio/' + this.props.file}
                     playing={this.state.playing}
                     loop={this.state.loop}

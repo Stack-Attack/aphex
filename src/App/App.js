@@ -4,15 +4,19 @@ import './App.css';
 import data from '../Assets/testData.json';
 import Player from '../Components/Player.js';
 
+
+//TODO: load sounds from REST API along with other pertinent data
+//TODO: some kind of procedural loading
+
 class App extends Component {
   render() {
 
     const d = data["sounds"];
-    const sounds = d.map((entry) => {
+    const content = d.map((entry) => {
        return(
+           //iterate through every player object
            <li key={entry.id}>
-               <h2>{entry.title}</h2>
-               <Player file={entry.file}/>
+               <Player title = {entry.title} file={entry.file}/>
            </li>
        );
     });
@@ -25,9 +29,8 @@ class App extends Component {
             <h3>Site under construction, please be patient</h3>
         </header>
 
-          {/*this is where our list of retrieved sounds goes*/}
           <ul>
-              {sounds}
+              {content}
           </ul>
 
       </div>

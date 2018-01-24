@@ -1,12 +1,15 @@
 //Player component. Will encapsulate all functionality for the player of a single sound
+//TODO: css here is temporary for testing. Change it
+//TODO: implement other audio player features
+//TODO: encapsulate player component in a larger player
 
 import React, {Component} from 'react';
 import ReactHowler from 'react-howler';
+import './Player.css';
 
-class Player extends Component{
+class Player extends Component {
 
-
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -26,83 +29,91 @@ class Player extends Component{
         this.handleMuteToggle = this.handleMuteToggle.bind(this);
     }
 
-    handleToggle(){
+    handleToggle() {
         this.setState({
-           playing: !this.state.playing
+            playing: !this.state.playing
         });
     }
 
-    handleLoopToggle(){
+    handleLoopToggle() {
         this.setState({
-           loop: !this.state.loop
+            loop: !this.state.loop
         });
     }
 
-    handleMuteToggle(){
+    handleMuteToggle() {
         this.setState({
             mute: !this.state.mute
         })
     }
 
 
-    handleOnLoad(){
-        //load event implementation here
+    handleOnLoad() {
+        this.setState({
+            loaded: true
+        })
     }
 
-    handleOnPlay(){
-        //play event implementation here
+    handleOnPlay() {
+        this.setState({
+            playing: true
+        })
     }
 
-    handleOnEnd(){
-        //end event implementation here
+    handleOnEnd() {
+        this.setState({
+            playing: false
+        })
     }
 
-    handleStop(){
-        //stop event implementation here
+    handleStop() {
+        //handles if stop is invoked. so stop event is fired currently, so won't be called
+        this.setState({
+            playing: false
+        })
     }
 
-    renderSeekPos(){
+    renderSeekPos() {
         //player seeking event implementation here
     }
 
 
+    render() {
 
-
-
-
-
-
-
-    render(){
-
-        return(
+        return (
             <div className="Player">
 
-                <h4 className="status">
-
+                <h4 className="Title">
+                    {this.props.title}
                 </h4>
 
-                <button onClick={this.handleToggle}>
-                    {(this.state.playing) ? 'Pause' : 'Play'}
-                </button>
-                <button onClick={this.handleLoopToggle}>
-                    {(this.state.loop) ?  'Unloop' : 'Loop'}
-                </button>
-                <button onClick={this.handleMuteToggle}>
-                    {(this.state.mute) ? 'Unmute' : 'Mute'}
-                </button>
+                <div className={'Waveform' + (this.state.playing ? ' playing' : ' paused')}>
+                    <ReactHowler
+                        //TODO: this src property currently just retrieves a sound file from public/audio
+                        //The audio filenames correspond to the data retrieved in testData.json
+                        //Yeah, I know that's janky. We'll implement a better system for testing soon
+                        src={'audio/' + this.props.file}
+                        onLoad={this.handleOnLoad}
+                        onPlay={this.handleOnPlay}
+                        onEnd={this.handleOnEnd}
+                        playing={this.state.playing}
+                        loop={this.state.loop}
+                        mute={this.state.mute}
+                        volume={this.state.volume}
+                    />
+                </div>
 
-                <ReactHowler
-                    //TODO: this src property currently just retrieves a sound file from public/audio
-                    //The audio filenames correspond to the data retrieved in testData.json
-                    //Yeah, I know that's janky. We'll implement a better system for testing soon
-                    src={'audio/' + this.props.file}
-                    playing={this.state.playing}
-                    loop={this.state.loop}
-                    mute={this.state.mute}
-                    volume={this.state.volume}
-                />
-
+                <div className="Controls">
+                    <button onClick={this.handleToggle}>
+                        {(this.state.playing) ? 'Pause' : 'Play'}
+                    </button>
+                    <button onClick={this.handleLoopToggle}>
+                        {(this.state.loop) ? 'Unloop' : 'Loop'}
+                    </button>
+                    <button onClick={this.handleMuteToggle}>
+                        {(this.state.mute) ? 'Unmute' : 'Mute'}
+                    </button>
+                </div>
             </div>
 
         );

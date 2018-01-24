@@ -1,0 +1,29 @@
+
+.Player{
+    border: 1px solid black;
+    text-align: left;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.Waveform{
+    height: 50px;
+    width: 90%;
+    border: 1px solid darkslategrey;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.playing{
+    background-color: aquamarine;
+}
+
+.paused{
+    background-color: azure;
+}
+
+.Controls{
+    margin: auto;
+    width: 90%;
+}

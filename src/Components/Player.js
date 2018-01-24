@@ -6,6 +6,9 @@
 import React, {Component} from 'react';
 import ReactHowler from 'react-howler';
 import './Player.css';
+import MuteButton from './Controls/MuteButton';
+import PlayButton from './Controls/PlayButton';
+import LoopButton from './Controls/LoopButton';
 
 class Player extends Component {
 
@@ -104,15 +107,9 @@ class Player extends Component {
                 </div>
 
                 <div className="Controls">
-                    <button onClick={this.handleToggle}>
-                        {(this.state.playing) ? 'Pause' : 'Play'}
-                    </button>
-                    <button onClick={this.handleLoopToggle}>
-                        {(this.state.loop) ? 'Unloop' : 'Loop'}
-                    </button>
-                    <button onClick={this.handleMuteToggle}>
-                        {(this.state.mute) ? 'Unmute' : 'Mute'}
-                    </button>
+                    <MuteButton onClick={this.handleMuteToggle} mute={this.state.mute}/>
+                    <PlayButton onClick={this.handleToggle} playing={this.state.playing}/>
+                    <LoopButton onClick={this.handleLoopToggle} loop={this.state.loop}/>
                 </div>
             </div>
 

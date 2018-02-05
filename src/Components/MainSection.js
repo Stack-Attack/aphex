@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Users from './Users.js';
-import Home from '../Components/Home.js';
+import Home from './Home.js';
+import Login from './Login.js';
 
 class MainSection extends Component {
 
@@ -11,8 +12,7 @@ class MainSection extends Component {
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/users' component={Users}/>
-
-
+                    <Route exact path='/login' component={Login}/>
                 </Switch>
 
             </div>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import logo from '../Assets/logo.svg';
+import {Link} from 'react-router-dom';
 
 class Header extends Component {
     render() {
@@ -10,10 +11,12 @@ class Header extends Component {
                     <h1 className="App-title">Hello, welcome to Aphex.</h1>
                     <h3>Site under construction, please be patient</h3>
                 </header>
-                <ul>
-                    <li>Home</li>
-                    <li>User</li>
-                </ul>
+                <nav>
+                    <ul>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/users'>Users</Link></li>
+                    </ul>
+                </nav>
             </div>
         )
     }

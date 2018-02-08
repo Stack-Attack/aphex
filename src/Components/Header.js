@@ -6,18 +6,16 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Hello, welcome to Aphex.</h1>
-                    <h3>Site under construction, please be patient</h3>
-                </header>
-                <nav>
-                    <ul>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/users'>Users</Link></li>
-                        <li><Link to='/login'>Login</Link></li>
-                    </ul>
-                </nav>
+                    {/*<img src={logo} className="App-logo" alt="logo"/>*/}
+                    <nav>
+                        <ul>
+                            <a href="#"><Link to='/'>Home</Link></a>
+                            <a href="#"><input type="text"></input></a>
+                            <a href="#"><Link to='/login'>Login</Link></a>
+                            <a href="#"><Link to='/upload'>Upload</Link></a>
+                            <a href="#"><Link to='/account'>My Account</Link></a>
+                        </ul>
+                    </nav>
             </div>
         )
     }

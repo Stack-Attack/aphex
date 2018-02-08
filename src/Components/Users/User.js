@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import UsersAPI from '../Assets/testUsersAPI';
+import UsersAPI from '../../Assets/testUsersAPI';
 
 class User extends Component{
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import UsersAPI from '../Assets/testUsersAPI';
+import UsersAPI from '../../Assets/testUsersAPI';
 import {Link} from 'react-router-dom';
 
 class UserList extends Component{

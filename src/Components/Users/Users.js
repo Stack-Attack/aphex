@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom';
-import User from '../Components/User.js';
-import UserList from '../Components/UserList.js';
+import User from './User.js';
+import UserList from './UserList.js';
 
 
 class Users extends Component{

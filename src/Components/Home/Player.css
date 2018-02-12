@@ -2,8 +2,9 @@
 .Player{
     border: 1px solid black;
     text-align: left;
-    width: 50%;
-    margin-bottom: 20px;
+    margin: auto;
+
+    margin-bottom: 40px;
 }
 
 .Waveform{

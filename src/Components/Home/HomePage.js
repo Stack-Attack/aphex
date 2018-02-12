@@ -73,6 +73,12 @@ class Home extends Component {
     }
 
 
+
+
+
+
+
+
     render() {
         const content = this.state.loadedSounds.map((entry) => {
             return (
@@ -104,7 +110,11 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className="right-pane">
-                    <ItemInfo data={this.state.activeInfo} displayControls={this.state.playerOutOfFocus}/>
+                    <ItemInfo
+                        onToggle={id => this.playerToggle(id)}
+                        playing={this.state.playing}
+                        data={this.state.activeInfo}
+                        displayControls={this.state.playerOutOfFocus}/>
                 </div>
 
 

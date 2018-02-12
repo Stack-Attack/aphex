@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Sticky from 'react-stickynode';
 import './ItemInfo.css';
+import PlayButton from './Controls/PlayButton';
 
 
 class ItemInfo extends Component {
@@ -9,10 +10,12 @@ class ItemInfo extends Component {
 
         let title = '';
         let fileName = '';
+        let id = '';
 
         if (this.props.data) {
             title = this.props.data.title;
             fileName = this.props.data.file;
+            id = this.props.data.id;
 
         }
 
@@ -20,7 +23,7 @@ class ItemInfo extends Component {
             <Sticky>
                 <div className={'item-info' + (!this.props.data ? ' hidden' : '')}>
                     <div className={(!this.props.displayControls ? 'hidden' : '')}>
-                        <strong>controls here</strong>
+                        <PlayButton onClick={() => this.props.onToggle(this.props.data)} playing={this.props.playing}/>
                     </div>
 
                     <h1>

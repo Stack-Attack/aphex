@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import Sticky from 'react-stickynode';
+import './ItemInfo.css';
+
 
 class ItemInfo extends Component {
 
@@ -7,24 +10,28 @@ class ItemInfo extends Component {
         let title = '';
         let fileName = '';
 
-        if(this.props.data){
+        if (this.props.data) {
             title = this.props.data.title;
             fileName = this.props.data.file;
 
         }
 
         return (
-            <div>
-                <h1>
-                    {title}
-                </h1>
-                <p>
-                    Some info will go here. A visualization
-                </p>
-                <p>
-                    {fileName}
-                </p>
-            </div>
+            <Sticky>
+                <div className={'item-info' + (!this.props.data ? ' hidden' : '')}>
+                    <div className={(!this.props.displayControls ? 'hidden' : '')}>
+                        <strong>controls here</strong>
+                    </div>
+
+                    <h1>
+                        {title}
+                    </h1>
+
+                    <p>
+                        {fileName}
+                    </p>
+                </div>
+            </Sticky>
         );
     }
 

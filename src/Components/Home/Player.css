@@ -1,10 +1,10 @@
 
 .Player{
-    border: 1px solid black;
+    border: 1px solid #ccc;
+    height: 200px;
     text-align: left;
-    margin: auto;
-
-    margin-bottom: 40px;
+    margin:auto;
+    margin-bottom: 300px;
 }
 
 .Waveform{
@@ -24,7 +24,3 @@
     background-color: azure;
 }
 
-.Controls{
-    margin: auto;
-    width: 90%;
-}

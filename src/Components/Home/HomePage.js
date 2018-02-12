@@ -3,6 +3,7 @@ import data from '../../Assets/testData.json';
 import Player from './Player.js';
 import ItemInfo from './ItemInfo.js';
 
+
 class Home extends Component {
 
     constructor(props) {
@@ -13,20 +14,22 @@ class Home extends Component {
             activeInfo: null,
             playing: false,
             loop: true,
+            playerOutOfFocus: false,
             loadedSounds: [],
             loadIndex: 0
         };
         this.handleScroll = this.handleScroll.bind(this);
+        this.detectViewPort = this.detectViewPort.bind(this);
     }
 
     componentDidMount() {
         //TODO: http request to get initial set of sounds
         this.getList(3);
-    //    window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("scroll", this.detectViewPort);
     }
 
     componentWillUnmount() {
-      //  window.removeEventListener("scroll", this.handleScroll);
+        //  window.removeEventListener("scroll", this.handleScroll);
     }
 
     getList(num) {
@@ -42,13 +45,17 @@ class Home extends Component {
     }
 
 
-    playerToggle(entry){
+    playerToggle(entry) {
         let startPlaying;
         //if user has selected new sound to toggle, immediately start playing it
-        if(this.state.activeID != entry.id){
+        if (this.state.activeID != entry.id) {
             startPlaying = true;
+            this.setState({
+                playerOutOfFocus: false
+            });
+
         }
-        else{
+        else {
             startPlaying = !this.state.playing;
         }
 
@@ -59,18 +66,17 @@ class Home extends Component {
         });
     }
 
-    onPlayerStart(entry){
+    onPlayerStart(entry) {
         this.setState({
             playing: true
         })
     }
 
 
-
     render() {
         const content = this.state.loadedSounds.map((entry) => {
             return (
-                <li key={entry.id} >
+                <li key={entry.id} id={"entry_" + entry.id}>
                     <Player
                         title={entry.title}
                         file={entry.file}
@@ -87,36 +93,36 @@ class Home extends Component {
 
         return (
             <div>
-                <div className="newsfeed">
+                <div className="left-pane">
                     <ul>
                         {content}
                     </ul>
+                    <div>
+                        <button onClick={() => this.getList(1)}>
+                            Get more sounds
+                        </button>
+                    </div>
+                </div>
+                <div className="right-pane">
+                    <ItemInfo data={this.state.activeInfo} displayControls={this.state.playerOutOfFocus}/>
                 </div>
 
-                <div className={'item-info' + (!this.state.activeInfo ? ' hidden' : '')}>
-                    <ItemInfo data={this.state.activeInfo}/>
-                </div>
 
-                <div>
-                    <button onClick={() => this.getList(1)}>
-                        Get more sounds
-                    </button>
-                </div>
             </div>
         );
     }
 
 
-
     //we may not even end up needed the three below handlers
 
 
-    onPlayerEnd(entry){
+    onPlayerEnd(entry) {
         this.setState({
             playing: false
         })
     }
-    playerLoaded(entry){
+
+    playerLoaded(entry) {
     }
 
     handleScroll() {
@@ -136,6 +142,32 @@ class Home extends Component {
                 message: 'not at bottom'
             });
         }
+    }
+
+
+    detectViewPort() {
+        if (this.state.activeID != null) {
+            let currentElement = document.getElementById("entry_" + this.state.activeID);
+            let rect = currentElement.getBoundingClientRect();
+            // console.log(rect);
+            if (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+            ) {
+                this.setState({
+                    playerOutOfFocus: false
+                })
+
+            } else {
+                console.log("out of focus");
+                this.setState({
+                    playerOutOfFocus: true
+                })
+            }
+        }
+
     }
 }
 

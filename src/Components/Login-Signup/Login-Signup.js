@@ -6,14 +6,10 @@ class Login extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        //this.Auth = new AuthService(); authservice not ready to implement yet
     }
 
     componentWillMount(){
 
-        // if(this.Auth.loggedIn()){
-        //     this.props.history.replace('/');
-        // }
     }
 
     render() {

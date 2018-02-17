@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Player from './Player.js';
 import ItemInfo from './ItemInfo.js';
-import * as api from "../Sounds.js";
+import * as api from "../../api/SoundsService.js";
 
 
 class Home extends Component {

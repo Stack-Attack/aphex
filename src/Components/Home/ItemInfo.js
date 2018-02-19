@@ -16,7 +16,6 @@ class ItemInfo extends Component {
             title = this.props.data.title;
             fileName = this.props.data.file;
             id = this.props.data.id;
-
         }
 
         return (

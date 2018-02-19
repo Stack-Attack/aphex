@@ -1,27 +1,30 @@
 import React, {Component} from 'react';
 import Player from './Player.js';
 import ItemInfo from './ItemInfo.js';
-import * as api from "../../api/SoundsService.js";
+import PropTypes from 'prop-types';
 
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            activeID: null,
-            activeInfo: null,
-            playing: false,
-            loop: true,
-            playerOutOfFocus: false,
-            loadedSounds: []
-        };
         this.detectViewPort = this.detectViewPort.bind(this);
     }
 
+
+    static propTypes = {
+        activeID: PropTypes.number,
+        activeInfo: PropTypes.object,
+        loadedSounds: PropTypes.array.isRequired,
+        playerToggle: PropTypes.func.isRequired,
+        retrieveSounds: PropTypes.func.isRequired,
+        playing: PropTypes.bool.isRequired,
+        loop: PropTypes.bool.isRequired,
+
+    }
+
     componentDidMount() {
-        this.getSingle();
+        this.props.retrieveSounds();
         window.addEventListener("scroll", this.detectViewPort);
     }
 
@@ -30,8 +33,8 @@ class Home extends Component {
     }
 
     detectViewPort() {
-        if (this.state.activeID != null) {
-            let currentElement = document.getElementById("entry_" + this.state.activeID);
+        if (this.props.activeID != null) {
+            let currentElement = document.getElementById("entry_" + this.props.activeID);
             let rect = currentElement.getBoundingClientRect();
             // console.log(rect);
             if (
@@ -40,79 +43,47 @@ class Home extends Component {
                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
             ) {
-                this.setState({
-                    playerOutOfFocus: false
-                })
+
+                this.props.adjustFocus(true);
 
             } else {
-                console.log("out of focus");
-                this.setState({
-                    playerOutOfFocus: true
-                })
+                this.props.adjustFocus(false);
             }
         }
 
     }
-
-    playerToggle(entry) {
-        let startPlaying;
-        //if user has selected new sound to toggle, immediately start playing it
-        if (this.state.activeID != entry.id) {
-            startPlaying = true;
-            this.setState({
-                playerOutOfFocus: false
-            });
-
-        }
-        else {
-            startPlaying = !this.state.playing;
-        }
-
-        this.setState({
-            activeID: entry.id,
-            activeInfo: entry,
-            playing: startPlaying
-        });
-    }
-
-    onPlayerStart(entry) {
-        this.setState({
-            playing: true
-        })
-    }
-
     getSingle() {
-        let newContent = api.get();
-        this.setState({
-            loadedSounds: this.state.loadedSounds.concat(newContent)
-        });
+        // let newContent = api.get();
+        // this.setState({
+        //     loadedSounds: this.state.loadedSounds.concat(newContent)
+        // });
     }
 
     getMultiple() {
         //retrieve new set of sounds from server and append them to the existing array of sounds
-        let newArray = [];
-
-        api.getSounds().map((entry) => {
-            newArray.push(entry);
-        });
-
-        this.setState({
-            loadedSounds: this.state.loadedSounds.concat(newArray)
-        })
+        // let newArray = [];
+        //
+        // api.getSounds().map((entry) => {
+        //     newArray.push(entry);
+        // });
+        //
+        // this.setState({
+        //     loadedSounds: this.state.loadedSounds.concat(newArray)
+        // })
     }
 
     render() {
         let content;
-        if (this.state.loadedSounds) {
-             content = this.state.loadedSounds.map((entry) => {
+        if (this.props.loadedSounds) {
+             content = this.props.loadedSounds.map((entry) => {
                 return (
                     <li key={entry.id} id={"entry_" + entry.id}>
                         <Player
                             title={entry.title}
                             file={entry.file}
-                            playing={this.state.playing && this.state.activeID == entry.id}
-                            loop={this.state.loop}
-                            onToggle={() => this.playerToggle(entry)}
+                            playing={this.props.playing && this.props.activeID == entry.id}
+                            loop={this.props.loop}
+                            onToggle={() => this.props.playerToggle(entry)}
                             onPlay={() => this.onPlayerStart(entry)}
                             onEnd={() => this.onPlayerEnd(entry)}
                             onLoad={() => this.playerLoaded(entry)}
@@ -139,10 +110,10 @@ class Home extends Component {
                 </div>
                 <div className="right-pane">
                     <ItemInfo
-                        onToggle={id => this.playerToggle(id)}
-                        playing={this.state.playing}
-                        data={this.state.activeInfo}
-                        displayControls={this.state.playerOutOfFocus}/>
+                        onToggle={id => this.props.playerToggle(id)}
+                        playing={this.props.playing}
+                        data={this.props.activeInfo}
+                        displayControls={!this.props.playerInFocus}/>
                 </div>
 
 
@@ -151,13 +122,14 @@ class Home extends Component {
     }
 
 
-    //we may not even end up needed the three below handlers
+    //we may not even end up needed the below functions
 
+    onPlayerStart(entry){
+
+    }
 
     onPlayerEnd(entry) {
-        this.setState({
-            playing: false
-        })
+
     }
 
     playerLoaded(entry) {
@@ -185,5 +157,6 @@ class Home extends Component {
 
 
 }
+
 
 export default Home;

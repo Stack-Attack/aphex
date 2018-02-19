@@ -1,10 +1,13 @@
+import sounds from '../api/sounds';
+
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
 
 export const requestLogin = (creds) => ({
@@ -81,15 +84,81 @@ export function logoutUser() {
 }
 
 
-export const togglePlay = (id) => ({
-    type: 'TOGGLE_PLAY',
+
+
+
+export const playPressed = (id) => (dispatch, getState) => {
+    let isPlaying = getState().controls.playing;
+    let activeID = getState().controls.activeID;
+
+    if(activeID != id){
+        dispatch(playSound(id));
+    }
+    else{
+        if(!isPlaying){
+            dispatch(playSound(id));
+        }
+        else{
+            dispatch(pauseSound(id));
+        }
+    }
+}
+
+export const playSound = (id) => ({
+    type: 'PLAY_SOUND',
     id
 })
 
-export const addSong = (id) => ({
+export const pauseSound = (id) => ({
+    type: 'PAUSE_SOUND',
+    id
+})
+
+
+export const adjustFocus = (inFocus) => ({
+    type: 'ADJUST_FOCUS',
+    inFocus
+})
+
+
+
+
+
+
+
+export const addSound = (id) => ({
     type: 'ADD_SOUND',
     id
 })
+
+
+
+export const getAllSounds = () => dispatch => {
+    //currently does not query backend
+    sounds.getSounds(sounds => {
+        dispatch(receiveSounds(sounds))
+    })
+}
+
+export const receiveSounds = sounds => ({
+    //action for when we receive new sounds from the server. TODO: send logical action to loaded sounds
+    type: 'RECEIVE_SOUNDS',
+    sounds
+})
+
+
+export const requestSounds = (num) => ({
+    //request sounds from the server
+    type: 'REQUEST_SOUNDS',
+    num
+})
+
+export const fetchSounds = (num) => dispatch => {
+    dispatch(requestSounds(num));
+    return fetch('http request with ' + num + 'as parameter')
+        .then(response => response.json())
+        .then(json => receiveSounds(json));
+}
 
 
 

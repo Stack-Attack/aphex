@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {adjustFocus, playPressed, getAllSounds} from "../Actions/index";
+import {adjustFocus, playPressed, fetchSounds} from "../Actions/index";
 
 import HomePage from '../Components/Home/HomePage';
 
@@ -15,8 +15,13 @@ const mapStateToProps = state => ({
     playerInFocus: state.controls.playerInFocus
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     playerToggle: (entry) => {
+        dispatch(adjustFocus(true))
+        dispatch(playPressed(entry.id))
+    },
+
+    infoControlPlayToggle: (entry) => {
         dispatch(playPressed(entry.id))
     },
 
@@ -24,17 +29,16 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(adjustFocus(isInFocus))
     },
 
-    retrieveSounds: () => {
-        console.log("retrieving");
-        dispatch(getAllSounds());
+    loadSounds: () => {
+        dispatch(fetchSounds());
     }
 
 })
 
-const SoundList = connect(
+const HomeContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(HomePage)
 
-export default SoundList;
+export default HomeContainer;
 

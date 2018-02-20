@@ -8,7 +8,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+export const API_ENDPOINT = '';
 
+
+//Actions for the Auth Reducer
 
 export const requestLogin = (creds) => ({
     type: LOGIN_REQUEST,
@@ -44,61 +47,56 @@ export const receiveLogout = () => ({
     isAuthenticated: false
 })
 
-export function loginUser(creds) {
 
+export const loginUser = (creds) => dispatch => {
     let config = {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'username=${creds.username}&password=${creds.password'
+        body: 'username=${creds.username}&password=${creds.password}'
     }
 
-    return dispatch => {
-        dispatch(requestLogin(creds));
+    dispatch(requestLogin(creds));
 
-        return fetch('our api endpoint', config)
-            .then(response =>
-                response.json().then(user => ({user, response})))
-            .then(({user, response}) => {
-                if (!response.ok) {
-                    //there was a problem
-                    dispatch(loginError(user.message));
-                    return Promise.reject(user);
-                }
-                else {
-                    localStorage.setItem('id_token', user.id_token);
-                    localStorage.setItem('id_token', user.access_token);
-                    dispatch(receiveLogin(user));
-                }
-            }).catch(err => console.log("Error: ", err));
-
-    }
+    return fetch(API_ENDPOINT, config)
+        .then(response =>
+            response.json().then(user => ({user, response})))
+        .then(({user, response}) => {
+            if (!response.ok) {
+                //there was a problem
+                dispatch(loginError(user.message));
+                return Promise.reject(user);
+            }
+            else {
+                localStorage.setItem('id_token', user.id_token);
+                localStorage.setItem('id_token', user.access_token);
+                dispatch(receiveLogin(user));
+            }
+        })
+        .catch(err => console.log("Error: ", err));
 }
 
-export function logoutUser() {
-    return dispatch => {
-        dispatch(requestLogout());
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('access_token');
-        dispatch(receiveLogout());
-    }
+export const logoutUser = () => dispatch => {
+    dispatch(requestLogout());
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    dispatch(receiveLogout());
 }
 
 
-
-
+//Actions for the Controls Reducer
 
 export const playPressed = (id) => (dispatch, getState) => {
     let isPlaying = getState().controls.playing;
     let activeID = getState().controls.activeID;
 
-    if(activeID != id){
+    if (activeID != id) {
         dispatch(playSound(id));
     }
-    else{
-        if(!isPlaying){
+    else {
+        if (!isPlaying) {
             dispatch(playSound(id));
         }
-        else{
+        else {
             dispatch(pauseSound(id));
         }
     }
@@ -121,44 +119,33 @@ export const adjustFocus = (inFocus) => ({
 })
 
 
+//Actions for the Sounds Reducer
 
+export const fetchSounds = () => dispatch => {
+    dispatch(requestSounds());
 
-
-
-
-export const addSound = (id) => ({
-    type: 'ADD_SOUND',
-    id
-})
-
-
-
-export const getAllSounds = () => dispatch => {
-    //currently does not query backend
+    //TODO: replace this with fetchSounds. it will then dispatch receiveSounds
     sounds.getSounds(sounds => {
         dispatch(receiveSounds(sounds))
     })
+
+    // return fetch('http request with ' + num + 'as parameter')
+    //     .then(response => response.json())
+    //     .then(json => dispatch(receiveSounds(json)));
 }
 
 export const receiveSounds = sounds => ({
-    //action for when we receive new sounds from the server. TODO: send logical action to loaded sounds
+    //action for when we receive new sounds from the server.
+    //'sounds' should be an array of sound objects from the server
     type: 'RECEIVE_SOUNDS',
     sounds
 })
 
-
 export const requestSounds = (num) => ({
     //request sounds from the server
-    type: 'REQUEST_SOUNDS',
-    num
+    type: 'REQUEST_SOUNDS'
 })
 
-export const fetchSounds = (num) => dispatch => {
-    dispatch(requestSounds(num));
-    return fetch('http request with ' + num + 'as parameter')
-        .then(response => response.json())
-        .then(json => receiveSounds(json));
-}
 
 
 

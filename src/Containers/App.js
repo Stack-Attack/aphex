@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
-import './App.css';
+import '../App/App.css';
 import Header from '../Components/Header.js';
 import {Switch, Route} from 'react-router-dom';
 import Upload from '../Components/Upload/UploadPage.js';
 import Login  from '../Components/Login-Signup/Login-Signup.js';
 import Account from '../Components/Account/AccountPage.js';
 import HomeContainer from '../Containers/HomeContainer';
+import {connect} from 'react-redux';
+import {loginUser, logoutUser} from "../Actions/index";
+
+
+
 
 
 //TODO: load sounds from REST API along with other pertinent data
-//TODO: some kind of procedural loading
-//TODO: implement redux state
 
 class App extends Component {
-
-
-
     render() {
         return (
             <div className="App">
@@ -36,5 +36,26 @@ class App extends Component {
 }
 
 
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    errorMessage: state.auth.errorMessage
+})
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+
+    loginClicked: (creds) => {
+        dispatch(loginUser(creds));
+    },
+
+    logoutClicked: (creds) => {
+        dispatch(logoutUser())
+    }
+
+})
+
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

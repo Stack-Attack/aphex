@@ -11,32 +11,30 @@ class Home extends Component {
         this.detectViewPort = this.detectViewPort.bind(this);
     }
 
-
     static propTypes = {
         activeID: PropTypes.number,
         activeInfo: PropTypes.object,
         loadedSounds: PropTypes.array.isRequired,
         playerToggle: PropTypes.func.isRequired,
-        retrieveSounds: PropTypes.func.isRequired,
+        infoControlPlayToggle: PropTypes.func.isRequired,
+        loadSounds: PropTypes.func.isRequired,
         playing: PropTypes.bool.isRequired,
         loop: PropTypes.bool.isRequired,
 
     }
 
     componentDidMount() {
-        this.props.retrieveSounds();
+       // this.props.loadSounds();
         window.addEventListener("scroll", this.detectViewPort);
     }
 
     componentWillUnmount() {
-        //  window.removeEventListener("scroll", this.handleScroll);
     }
 
     detectViewPort() {
         if (this.props.activeID != null) {
             let currentElement = document.getElementById("entry_" + this.props.activeID);
             let rect = currentElement.getBoundingClientRect();
-            // console.log(rect);
             if (
                 rect.top >= 0 &&
                 rect.left >= 0 &&
@@ -50,26 +48,6 @@ class Home extends Component {
                 this.props.adjustFocus(false);
             }
         }
-
-    }
-    getSingle() {
-        // let newContent = api.get();
-        // this.setState({
-        //     loadedSounds: this.state.loadedSounds.concat(newContent)
-        // });
-    }
-
-    getMultiple() {
-        //retrieve new set of sounds from server and append them to the existing array of sounds
-        // let newArray = [];
-        //
-        // api.getSounds().map((entry) => {
-        //     newArray.push(entry);
-        // });
-        //
-        // this.setState({
-        //     loadedSounds: this.state.loadedSounds.concat(newArray)
-        // })
     }
 
     render() {
@@ -103,14 +81,14 @@ class Home extends Component {
                         {content}
                     </ul>
                     <div>
-                        <button onClick={() => this.getMultiple()}>
+                        <button onClick={() => this.props.loadSounds()}>
                             Get more sounds
                         </button>
                     </div>
                 </div>
                 <div className="right-pane">
                     <ItemInfo
-                        onToggle={id => this.props.playerToggle(id)}
+                        onToggle={entry => this.props.infoControlPlayToggle(entry)}
                         playing={this.props.playing}
                         data={this.props.activeInfo}
                         displayControls={!this.props.playerInFocus}/>

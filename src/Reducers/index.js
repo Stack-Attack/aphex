@@ -49,17 +49,13 @@ const sounds = (state = {
         case 'RECEIVE_SOUNDS':
             return {
                 ...state,
-                loadedSounds: action.sounds
+                isFetching: false,
+                loadedSounds: state.loadedSounds.concat(action.sounds)
             };
-
-        case 'ADD_SOUND':
+        case 'REQUEST_SOUNDS':
             return {
                 ...state,
-                loadedSounds: [
-                    ...state.loadedSounds,
-                    {}
-                ]
-
+                isFetching: true
             }
 
         default:
@@ -104,6 +100,6 @@ const controls = (state = {
 };
 
 
-const aphexApp = combineReducers({controls, sounds})
+const aphexApp = combineReducers({controls, sounds, auth})
 
 export default aphexApp;

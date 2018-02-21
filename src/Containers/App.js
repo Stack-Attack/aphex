@@ -8,7 +8,7 @@ import Signout from '../Components/Login-Signup/Signout.js';
 import Account from '../Components/Account/AccountPage.js';
 import HomeContainer from '../Containers/HomeContainer';
 import {connect} from 'react-redux';
-import {loginUser, logoutUser} from "../Actions/index";
+import {loginUser, logoutUser, signUpUser} from "../Actions/index";
 import {withRouter} from 'react-router-dom';
 
 
@@ -18,32 +18,47 @@ class App extends Component {
 
 
     render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <Navbar
-                        isAuthenticated={this.props.isAuthenticated}
-                        logoutClicked={() => this.props.logoutClicked()}
-                    />
-                </header>
-                <main className="App-main-section">
-                    <Switch>
-                        <Route exact path='/' render={() => (
-                            this.props.isAuthenticated ?
-                                (<HomeContainer/>) :
-                                (<Redirect to='/login'/>))
-                        }/>
-                        <Route exact path='/login' render={() =>
-                            <Signin
-                                loginClicked={creds => this.props.loginClicked(creds)}
-                                errorMessage={this.props.errorMessage}/>
-                        }/>
-                        <Route exact path='/upload' render={() => <Upload/>}/>
-                        <Route exact path='/account' render={() => <Account/>}/>
-                    </Switch>
-                </main>
-            </div>
-        );
+
+        if (this.props.isAuthenticated) {
+            return (
+                <div className="App">
+                    <header className="App-header">
+                        <Navbar
+                            isAuthenticated={this.props.isAuthenticated}
+                            logoutClicked={() => this.props.logoutClicked()}
+                        />
+                    </header>
+                    <main className="App-main-section">
+                        <Switch>
+                            <Route exact path='/' render={() =>
+                                <HomeContainer/>
+                            }/>
+                            <Route exact path='/upload' render={() =>
+                                <Upload/>
+                            }/>
+                            <Route exact path='/account' render={() =>
+                                <Account/>
+                            }/>
+                        </Switch>
+                    </main>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="App">
+                    <main className="App-main-section">
+                        <Signin
+                            loginClicked={creds => this.props.loginClicked(creds)}
+                            signupClicked={creds => this.props.signupClicked(creds)}
+                            errorMessage={this.props.errorMessage}/>
+
+                    </main>
+                </div>
+            );
+        }
+
+
     }
 }
 
@@ -55,14 +70,19 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 
+    signupClicked: (creds) => {
+        dispatch(signUpUser(creds));
+    },
+
     loginClicked: (creds) => {
         dispatch(loginUser(creds));
-     //   console.log(creds);
+        //   console.log(creds);
     },
+
 
     logoutClicked: () => {
         dispatch(logoutUser())
-      //  console.log("dispatching logout");
+        //  console.log("dispatching logout");
     }
 
 })

@@ -6,9 +6,12 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
-export const API_ENDPOINT = '';
+export const LOGIN_ENDPOINT = '';
+export const SIGNUP_ENDPOINT = '';
 
 
 //Actions for the Auth Reducer
@@ -48,6 +51,17 @@ export const receiveLogout = () => ({
 })
 
 
+export const requestSignup = () => ({
+    type: SIGNUP_REQUEST,
+    isFetching: true
+})
+
+export const receiveSignup = () => ({
+    type: SIGNUP_SUCCESS,
+    isFetching: false
+})
+
+
 export const loginUser = (creds) => dispatch => {
     let config = {
         method: 'POST',
@@ -57,7 +71,7 @@ export const loginUser = (creds) => dispatch => {
 
     dispatch(requestLogin(creds));
 
-    return fetch(API_ENDPOINT, config)
+    return fetch(LOGIN_ENDPOINT, config)
         .then(response =>
             response.json().then(user => ({user, response})))
         .then(({user, response}) => {
@@ -73,6 +87,22 @@ export const loginUser = (creds) => dispatch => {
             }
         })
         .catch(err => console.log("Error: ", err));
+}
+
+
+
+export const signUpUser = (creds) => dispatch => {
+    //TODO: finish this action
+    let config = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'email=${creds.email}username=${creds.username}&password=${creds.password}'
+    }
+
+    return fetch(SIGNUP_ENDPOINT, config)
+        .then(response => response.json())
+
+
 }
 
 export const logoutUser = () => dispatch => {

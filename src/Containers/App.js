@@ -17,7 +17,6 @@ import {withRouter} from 'react-router-dom';
 
 class App extends Component {
 
-
     render() {
 
         if (this.props.isAuthenticated) {

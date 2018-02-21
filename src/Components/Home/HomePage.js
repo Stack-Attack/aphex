@@ -101,18 +101,9 @@ class Home extends Component {
 
 
     //we may not even end up needed the below functions
-
-    onPlayerStart(entry){
-
-    }
-
-    onPlayerEnd(entry) {
-
-    }
-
-    playerLoaded(entry) {
-    }
-
+    onPlayerStart(entry){}
+    onPlayerEnd(entry) {}
+    playerLoaded(entry) {}
     handleScroll() {
         const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
         const body = document.body;
@@ -131,9 +122,6 @@ class Home extends Component {
             });
         }
     }
-
-
-
 }
 
 

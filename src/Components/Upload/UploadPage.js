@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
+import {PropTypes} from 'prop-types';
 
 class Upload extends Component{
 
-    constructor(props){
-        super(props);
-
-
+    static propTypes = {
+        fileUpload: PropTypes.func.isRequired
     }
 
 
-    onChange(e){
-        console.log(e.target);
-        this.setState({
-            file: e.target.files[0]
-        });
+
+    handleUpload(){
+
+        const file = this.fileUpload.files[0];
+        this.props.fileUpload(file);
     }
 
 
@@ -21,7 +20,10 @@ class Upload extends Component{
         return(
             <div>
                 <h1>Upload</h1>
-                <input type="file" onChange={this.onChange} />
+                <input type="file" ref={(ref) => this.fileUpload = ref} />
+                <button onClick={() => this.handleUpload()}>
+                    Upload
+                </button>
             </div>
         )
     }

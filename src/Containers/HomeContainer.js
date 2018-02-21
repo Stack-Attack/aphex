@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
-import {adjustFocus, playPressed, fetchSounds} from "../Actions/index";
+import {adjustFocus, playPressed} from "../Actions/controls";
+import {fetchSounds} from "../Actions/sounds";
 
 import HomePage from '../Components/Home/HomePage';
 

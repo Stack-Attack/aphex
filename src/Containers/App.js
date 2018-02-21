@@ -8,7 +8,8 @@ import Signout from '../Components/Login-Signup/Signout.js';
 import Account from '../Components/Account/AccountPage.js';
 import HomeContainer from '../Containers/HomeContainer';
 import {connect} from 'react-redux';
-import {loginUser, logoutUser, signUpUser} from "../Actions/index";
+import {loginUser, logoutUser, signUpUser} from "../Actions/user";
+import {uploadSound} from "../Actions/sounds";
 import {withRouter} from 'react-router-dom';
 
 
@@ -34,10 +35,10 @@ class App extends Component {
                                 <HomeContainer/>
                             }/>
                             <Route exact path='/upload' render={() =>
-                                <Upload/>
+                                <Upload fileUpload={(file) => this.props.fileUpload(file)}/>
                             }/>
                             <Route exact path='/account' render={() =>
-                                <Account/>
+                                <Account userInfo={this.props.userInfo}/>
                             }/>
                         </Switch>
                     </main>
@@ -64,8 +65,10 @@ class App extends Component {
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    errorMessage: state.auth.errorMessage
+//    isAuthenticated: state.user.isAuthenticated, //TODO: change back to map the authentication to state
+    isAuthenticated: true,
+    errorMessage: state.user.errorMessage,
+    userInfo: state.user.userInfo
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -76,13 +79,14 @@ const mapDispatchToProps = dispatch => ({
 
     loginClicked: (creds) => {
         dispatch(loginUser(creds));
-        //   console.log(creds);
     },
-
 
     logoutClicked: () => {
         dispatch(logoutUser())
-        //  console.log("dispatching logout");
+    },
+
+    fileUpload: (file) => {
+        dispatch(uploadSound(file, localStorage.getItem('id_token')))
     }
 
 })

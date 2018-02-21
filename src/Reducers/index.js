@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
-} from "../Actions/index";
+} from "../Actions/user";
 
 
-const auth = (state = {
+const user = (state = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('id_token') ? true : false
 }, action) => {
@@ -100,6 +100,6 @@ const controls = (state = {
 };
 
 
-const aphexApp = combineReducers({controls, sounds, auth})
+const aphexApp = combineReducers({controls, sounds, user})
 
 export default aphexApp;

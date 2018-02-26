@@ -1,20 +1,25 @@
 import sounds from '../api/sounds';
 
-//Actions for the Sounds Reducer
+/*
+    Actions for the sounds reducer. A container will dispatch one of these actions upon the user
+    interacting with the app. The sounds reducer will receive one of these actions and adjust the
+    Redux state accordingly.
+ */
 
+//called when a request to load more sounds from the server is sent. Notice how API calls will be made in this method, NOT in the reducer.
 export const fetchSounds = () => dispatch => {
     dispatch(requestSounds());
 
-    //TODO: replace this with fetchSounds. it will then dispatch receiveSounds
+    //TODO: replace this with a FETCH request. it will then dispatch receiveSounds
     sounds.getSounds(sounds => {
         dispatch(receiveSounds(sounds))
     })
-
     // return fetch('http request with ' + num + 'as parameter')
     //     .then(response => response.json())
     //     .then(json => dispatch(receiveSounds(json)));
 }
 
+//called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
 export const uploadSound = (file, tokenFromStorage)=> dispatch => {
     console.log(file);
 
@@ -22,7 +27,7 @@ export const uploadSound = (file, tokenFromStorage)=> dispatch => {
         console.log("won't work")
     }
 
-    //TODO: complete implementation of uploading sound. unclear if we want to
+    //TODO: complete implementation of uploading sound.
     let config = {
         method: 'POST',
         headers: {
@@ -31,13 +36,7 @@ export const uploadSound = (file, tokenFromStorage)=> dispatch => {
         },
         body: file
     }
-
-
 }
-
-
-
-
 
 export const receiveSounds = sounds => ({
     //action for when we receive new sounds from the server.

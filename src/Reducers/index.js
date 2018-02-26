@@ -3,7 +3,19 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
 } from "../Actions/user";
 
+/*
+    This file encapsulates a series of reducer contants which are then combined together to form a master
+    reducer for the Redux store. Currently, there are three reducers that get connected. Each reducer handles
+    a different part of the state: user, sounds, and controls.
+ */
 
+
+/*
+    user reducer: this handles state functions for everything pertaining to the user and the authentication
+    that accompanies them. Any time an action is dispatched for logging in, logging out, or authenticating
+    the user, this reducer handles the action appropriately. It also sets the state to whatever the auth
+    token in local storage dictates.
+ */
 const user = (state = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('id_token') ? true : false
@@ -41,6 +53,14 @@ const user = (state = {
     }
 }
 
+
+/*
+    sounds reducer: describes the state of whatever sound clips have been loaded into the browser. The state
+    includes a 'loadedSounds' array which contains all of the current sounds loaded on the clientside. They
+    can be rendered accordingly by the correct components. It also determines whether an asynchronous request
+    is being made to load more sounds from the server.
+ */
+
 const sounds = (state = {
     isFetching: false,
     loadedSounds: []
@@ -64,6 +84,12 @@ const sounds = (state = {
     }
 
 };
+
+/*
+    controls reducer: describes all aspects of the user interface on the homepage, and how playing of sound
+    files is handled. It encapsulates the state of what sound is playing, where it is, and what info is
+    associated with that sound.
+ */
 
 const controls = (state = {
     activeID: null,
@@ -99,7 +125,7 @@ const controls = (state = {
     }
 };
 
-
+//combine all of the reducers and export them for the store to use.
 const aphexApp = combineReducers({controls, sounds, user})
 
 export default aphexApp;

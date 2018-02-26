@@ -27,62 +27,17 @@ export const UPDATE_USER_EMAIL = 'UPDATE_USER_EMAIL';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-
-
+//endpoint constants for our API calls. Currently empty.
 export const LOGIN_ENDPOINT = '';
 export const SIGNUP_ENDPOINT = '';
 
-//Actions for the User Reducer
+/*
+    Actions for the user reducer. A container will dispatch one of these actions upon the user
+    interacting with the app. The sounds reducer will receive one of these actions and adjust the
+    Redux state accordingly.
+ */
 
-export const requestLogin = (creds) => ({
-    type: LOGIN_REQUEST,
-    isFetching: true,
-    isAuthenticated: false,
-    creds
-})
-export const requestLogout = () => ({
-    type: LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
-})
-export const requestSignup = () => ({
-    type: SIGNUP_REQUEST,
-    isFetching: true
-})
-
-
-export const receiveLogin = (user) => ({
-    type: LOGIN_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    id_token: user.id_token
-})
-export const receiveLogout = () => ({
-    type: LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false
-})
-export const receiveSignup = (user) => ({
-    type: SIGNUP_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    id_token: user.id_token
-})
-
-
-export const loginError = (message) => ({
-    type: LOGIN_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    message
-})
-export const signupError = (message) => ({
-    type: SIGNUP_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    message
-})
-
+//called when user logins in with a pair of credentials. Posts the credential data, and if it's authenticated on the server, returns a JWT
 export const loginUser = (creds) => dispatch => {
     let config = {
         method: 'POST',
@@ -109,9 +64,9 @@ export const loginUser = (creds) => dispatch => {
         .catch(err => console.log("Error: ", err));
 }
 
-
+//called when a user signs up with a set of credentials
 export const signUpUser = (creds) => dispatch => {
-    //TODO: finish this action
+    //TODO: complete signup user action
     let config = {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -137,9 +92,57 @@ export const signUpUser = (creds) => dispatch => {
         .catch(err => console.log("Error: ", err));
 }
 
+
+//called when a user clicks the 'logout' button on the navbar
 export const logoutUser = () => dispatch => {
     dispatch(requestLogout());
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
     dispatch(receiveLogout());
 }
+
+//the rest of the below actions are simple actions which simply are received by the user reducer and change the state
+export const requestLogin = (creds) => ({
+    type: LOGIN_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds
+})
+export const requestLogout = () => ({
+    type: LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: true
+})
+export const requestSignup = () => ({
+    type: SIGNUP_REQUEST,
+    isFetching: true
+})
+export const receiveLogin = (user) => ({
+    type: LOGIN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
+})
+export const receiveLogout = () => ({
+    type: LOGOUT_SUCCESS,
+    isFetching: false,
+    isAuthenticated: false
+})
+export const receiveSignup = (user) => ({
+    type: SIGNUP_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
+})
+export const loginError = (message) => ({
+    type: LOGIN_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
+})
+export const signupError = (message) => ({
+    type: SIGNUP_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
+})

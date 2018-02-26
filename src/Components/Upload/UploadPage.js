@@ -3,14 +3,16 @@ import {PropTypes} from 'prop-types';
 
 class Upload extends Component{
 
+    /*
+    Presentational component for audio upload component. Upon uploading a file, its data will be sent
+    up to the parent component where it will be handled accordingly.
+ */
+
     static propTypes = {
         fileUpload: PropTypes.func.isRequired
     }
 
-
-
     handleUpload(){
-
         const file = this.fileUpload.files[0];
         this.props.fileUpload(file);
     }

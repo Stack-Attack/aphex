@@ -3,6 +3,11 @@ import Player from './Player.js';
 import ItemInfo from './ItemInfo.js';
 import PropTypes from 'prop-types';
 
+/*
+    Presentational component for the 'Home' Page. Handles all of the audio selection and playback of sounds.
+    Works in conjunction with the ../Containers/HomeContainer.js to get the state via props, and to send
+    action dispatches via prop methods.
+ */
 
 class Home extends Component {
 
@@ -24,7 +29,8 @@ class Home extends Component {
     }
 
     componentDidMount() {
-       // this.props.loadSounds();
+        //TODO: eventually, we will want to load a series of sounds from the server upon the component loading
+        // this.props.loadSounds();
         window.addEventListener("scroll", this.detectViewPort);
     }
 
@@ -32,6 +38,7 @@ class Home extends Component {
     }
 
     detectViewPort() {
+        //checks if the current playing element is out of the viewport. Send a focus event accordingly.
         if (this.props.activeID != null) {
             let currentElement = document.getElementById("entry_" + this.props.activeID);
             let rect = currentElement.getBoundingClientRect();
@@ -41,7 +48,6 @@ class Home extends Component {
                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
             ) {
-
                 this.props.adjustFocus(true);
 
             } else {
@@ -52,8 +58,9 @@ class Home extends Component {
 
     render() {
         let content;
+        //display loaded sounds from the server if there are any
         if (this.props.loadedSounds) {
-             content = this.props.loadedSounds.map((entry) => {
+            content = this.props.loadedSounds.map((entry) => {
                 return (
                     <li key={entry.id} id={"entry_" + entry.id}>
                         <Player
@@ -70,7 +77,7 @@ class Home extends Component {
                 );
             });
         }
-        else{
+        else {
             content = "Unable to load sounds"
         }
 
@@ -93,17 +100,21 @@ class Home extends Component {
                         data={this.props.activeInfo}
                         displayControls={!this.props.playerInFocus}/>
                 </div>
-
-
             </div>
         );
     }
 
 
     //we may not even end up needed the below functions
-    onPlayerStart(entry){}
-    onPlayerEnd(entry) {}
-    playerLoaded(entry) {}
+    onPlayerStart(entry) {
+    }
+
+    onPlayerEnd(entry) {
+    }
+
+    playerLoaded(entry) {
+    }
+
     handleScroll() {
         const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
         const body = document.body;
@@ -123,6 +134,5 @@ class Home extends Component {
         }
     }
 }
-
 
 export default Home;

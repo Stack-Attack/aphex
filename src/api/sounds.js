@@ -1,3 +1,8 @@
+/*
+    This file is only used to simulate the retrieval of sound files from the backend. It will not be used
+    in production.
+ */
+
 const _sounds = [
     {
         "id": 0,

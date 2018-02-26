@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Signout from '../Components/Login-Signup/Signout';
 import PropTypes from 'prop-types';
 
 class Navbar extends Component {
 
+    /*
+    Presentational component for the navbar of the application. Displays the correct information to the
+    user based on whether they have authentication.
+ */
 
     static propTypes = {
         isAuthenticated: PropTypes.bool.isRequired,

@@ -1,14 +1,17 @@
-//Player component. Will encapsulate all functionality for the player of a single sound
-//TODO: css here is temporary for testing. Change it
-//TODO: implement other audio player features
-//TODO: encapsulate player component in a larger player
-
 import React, {Component} from 'react';
 import ReactHowler from 'react-howler';
 import './Player.css';
 import MuteButton from './Controls/MuteButton';
 import PlayButton from './Controls/PlayButton';
 import LoopButton from './Controls/LoopButton';
+
+/*
+    Presentational component for the audio player for a single sound. This player holds all playback and
+    UI info for the given sound. All interactions and properties of this player will be passed up to the
+    parent component (the HomePage)
+ */
+
+//TODO: css here is temporary for testing. Change it
 
 class Player extends Component {
     render() {

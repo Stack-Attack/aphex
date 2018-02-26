@@ -3,6 +3,10 @@ import Sticky from 'react-stickynode';
 import './ItemInfo.css';
 import PlayButton from './Controls/PlayButton';
 
+/*
+    Presentational component for Item Info that is displayed when a sound is playing. This component is
+    positioned adjacent to the list of loaded sounds, and will display info on the currently selected sound
+*/
 
 class ItemInfo extends Component {
 
@@ -36,7 +40,6 @@ class ItemInfo extends Component {
             </Sticky>
         );
     }
-
 }
 
 export default ItemInfo;

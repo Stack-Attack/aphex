@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Containers/App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Containers/App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
+import "../App/App.css";
+import Navbar from "../Components/Navbar.js";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Upload from "../Components/Upload/UploadPage.js";
+import Signin from "../Components/Login-Signup/Signin.js";
+import Account from "../Components/Account/AccountPage.js";
+import HomeContainer from "../Containers/HomeContainer";
+import { connect } from "react-redux";
+import { loginUser, logoutUser, signUpUser } from "../Actions/user";
+import { uploadSound } from "../Actions/sounds";
+import { withRouter } from "react-router-dom";
+
+//TODO: load sounds from REST API along with other pertinent data
+//TODO: change isAuthenticated back to map the authentication to state
+
+/**
+ * Containers/App.js
+ *
+ *Main container component which encapulates the entire application. This component is loaded from the index.js. From here, all child components take care of each piece of functionality of the frontend.
+ *
+ *The component first renders a NavBar child component. View this in ./Components/Navbar.js
+ *
+ *Next, the component checks to see what route has been provided and renders the corresponding component accordingly. Each rendered component can be examined in the ./Components/* directory.
+ */
+class App extends Component {
+  //render the components that make up the application
+  render() {
+    if (this.props.isAuthenticated) {
+      //if the user has signed in and authenticated, direct them to full app
+      return (
+        &lt;div className="App">
+          &lt;header className="App-header">
+            &lt;Navbar
+              isAuthenticated={this.props.isAuthenticated}
+              logoutClicked={() => this.props.logoutClicked()}
+            />
+          &lt;/header>
+          &lt;main className="App-main-section">
+            &lt;Switch>
+              &lt;Route exact path="/" render={() => &lt;HomeContainer />} />
+              &lt;Route
+                exact
+                path="/upload"
+                render={() => (
+                  &lt;Upload fileUpload={file => this.props.fileUpload(file)} />
+                )}
+              />
+              &lt;Route
+                exact
+                path="/account"
+                render={() => &lt;Account userInfo={this.props.userInfo} />}
+              />
+            &lt;/Switch>
+          &lt;/main>
+        &lt;/div>
+      );
+    } else {
+      //user is not signed in and authenticated; direct them to the signin page
+      return (
+        &lt;div className="App">
+          &lt;main className="App-main-section">
+            &lt;Signin
+              loginClicked={creds => this.props.loginClicked(creds)}
+              signupClicked={creds => this.props.signupClicked(creds)}
+              errorMessage={this.props.errorMessage}
+            />
+          &lt;/main>
+        &lt;/div>
+      );
+    }
+  }
+}
+
+/**
+ * mapStateToProps takes the global redux state, and maps the necessary pieces of state to the props of this component. That way, the global state can be passed down to each child component.
+ */
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticated: true, //comment this out to use correct authentication state mapping
+  errorMessage: state.user.errorMessage,
+  userInfo: state.user.userInfo
+});
+
+/**
+ * Similarly to mapStateToProps, mapDispatchToProps assigns a series of component methods to actions that Redux will emit onto the state. As a result, state can be directly controlled via this component, so that child components have no knowledge of the state. This keeps things nice and clean.
+ */
+
+const mapDispatchToProps = dispatch => ({
+  signupClicked: creds => {
+    dispatch(signUpUser(creds));
+  },
+
+  loginClicked: creds => {
+    dispatch(loginUser(creds));
+  },
+
+  logoutClicked: () => {
+    dispatch(logoutUser());
+  },
+
+  fileUpload: file => {
+    dispatch(uploadSound(file, localStorage.getItem("id_token")));
+  }
+});
+
+/**
+ * Last part is to connect the above Redux boilerplate to this component, and gets React to render it. Now we have a React component that connects to the Redux state, with a series of child components that will interact with the state via their parent.
+ */
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Account.html">Account</a></li><li><a href="App.html">App</a></li><li><a href="ItemInfo.html">ItemInfo</a></li><li><a href="LoopButton.html">LoopButton</a></li><li><a href="MuteButton.html">MuteButton</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="PlayButton.html">PlayButton</a></li><li><a href="Player.html">Player</a></li><li><a href="playPressed.html">playPressed</a></li><li><a href="Signin.html">Signin</a></li><li><a href="Upload.html">Upload</a></li></ul><h3>Global</h3><ul><li><a href="global.html#controls">controls</a></li><li><a href="global.html#fetchSounds">fetchSounds</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#signUpUser">signUpUser</a></li><li><a href="global.html#sounds">sounds</a></li><li><a href="global.html#uploadSound">uploadSound</a></li><li><a href="global.html#user">user</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 27 2018 23:52:20 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

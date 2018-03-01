@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 /**
  * Loop button component
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class LoopButton extends Component {

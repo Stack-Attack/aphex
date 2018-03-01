@@ -39,6 +39,7 @@ export const SIGNUP_ENDPOINT = "";
 
 /**
  * called when user logins in with a pair of credentials. Posts the credential data, and if it's authenticated on the server, returns a JWT
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export const loginUser = creds => dispatch => {
@@ -68,6 +69,7 @@ export const loginUser = creds => dispatch => {
 
 /**
  * called when a user signs up with a set of credentials
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export const signUpUser = creds => dispatch => {
@@ -98,6 +100,7 @@ export const signUpUser = creds => dispatch => {
 
 /**
  * called when a user clicks the 'logout' button on the navbar
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export const logoutUser = () => dispatch => {

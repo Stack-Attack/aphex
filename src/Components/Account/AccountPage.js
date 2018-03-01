@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 /**
  * Presentational component for the 'Account' Page. In the final build, should display user account info. Currently just displays some basic user info to the console.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 class Account extends Component {
   static propTypes = {

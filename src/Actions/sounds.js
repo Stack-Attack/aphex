@@ -8,6 +8,7 @@ import sounds from "../api/sounds";
 
 /**
  * Called when a request to load more sounds from the server is sent. Notice how API calls will be made in this method, NOT in the reducer.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export const fetchSounds = () => dispatch => {
@@ -24,6 +25,7 @@ export const fetchSounds = () => dispatch => {
 
 /**
  * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export const uploadSound = (file, tokenFromStorage) => dispatch => {

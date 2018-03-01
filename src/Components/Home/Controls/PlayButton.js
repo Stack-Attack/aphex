@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 /**
  * Play button component
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class PlayButton extends Component {

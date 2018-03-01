@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 /**
  * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class Navbar extends Component {

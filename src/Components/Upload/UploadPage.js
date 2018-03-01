@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types";
 
 /**
  * Presentational component for audio upload component. Upon uploading a file, its data will be sent up to the parent component where it will be handled accordingly.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class Upload extends Component {

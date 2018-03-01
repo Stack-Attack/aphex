@@ -16,12 +16,12 @@ import { withRouter } from "react-router-dom";
 
 /**
  * Containers/App.js
+ * @author Peter Luft <pwluft@lakeheadu.ca>
+ * Main container component which encapulates the entire application. This component is loaded from the index.js. From here, all child components take care of each piece of functionality of the frontend.
  *
- *Main container component which encapulates the entire application. This component is loaded from the index.js. From here, all child components take care of each piece of functionality of the frontend.
+ * The component first renders a NavBar child component. View this in ./Components/Navbar.js
  *
- *The component first renders a NavBar child component. View this in ./Components/Navbar.js
- *
- *Next, the component checks to see what route has been provided and renders the corresponding component accordingly. Each rendered component can be examined in the ./Components/* directory.
+ * Next, the component checks to see what route has been provided and renders the corresponding component accordingly. Each rendered component can be examined in the ./Components/* directory.
  */
 class App extends Component {
   //render the components that make up the application
@@ -74,6 +74,7 @@ class App extends Component {
 
 /**
  * mapStateToProps takes the global redux state, and maps the necessary pieces of state to the props of this component. That way, the global state can be passed down to each child component.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 const mapStateToProps = state => ({
@@ -85,6 +86,7 @@ const mapStateToProps = state => ({
 
 /**
  * Similarly to mapStateToProps, mapDispatchToProps assigns a series of component methods to actions that Redux will emit onto the state. As a result, state can be directly controlled via this component, so that child components have no knowledge of the state. This keeps things nice and clean.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 const mapDispatchToProps = dispatch => ({
@@ -107,6 +109,7 @@ const mapDispatchToProps = dispatch => ({
 
 /**
  * Last part is to connect the above Redux boilerplate to this component, and gets React to render it. Now we have a React component that connects to the Redux state, with a series of child components that will interact with the state via their parent.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

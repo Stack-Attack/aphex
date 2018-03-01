@@ -8,6 +8,7 @@ import LoopButton from "./Controls/LoopButton";
 /**
  *
  * Presentational component for the audio player for a single sound. This player holds all playback and UI info for the given sound. All interactions and properties of this player will be passed up to the parent component (the HomePage)
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 //TODO: css here is temporary for testing. Change it
 

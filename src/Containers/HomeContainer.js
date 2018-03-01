@@ -9,6 +9,7 @@ import HomePage from "../Components/Home/HomePage";
 
 /**
  * mapStateToProps takes our current Redux state and maps each relevant piece of the state to a prop in this component which can be interacted with and passed to child components. This way, HomePage.js exists with no knowledge of the Redux state; it simply passes everything via props to this container.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapStateToProps = state => ({
   loadedSounds: state.sounds.loadedSounds,
@@ -23,6 +24,7 @@ const mapStateToProps = state => ({
 
 /**
  * mapDispatch to props defines a series of methods that can be called from HomePage.js, passed to that file via props. Each method maps to a Redux action dispatch, which will modify the state accordingly. Similarly to mapStateToProps, this allows HomePage.js to fire actions with no knowledge of the global state.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapDispatchToProps = dispatch => ({
   playerToggle: entry => {

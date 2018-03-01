@@ -6,6 +6,7 @@
  * Called when the user presses the play button. Toggles whether the sound is playing or not
  * @constructor
  * @param {string} id - ID of snippet to be played
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 export const playPressed = id => (dispatch, getState) => {
   let isPlaying = getState().controls.playing;

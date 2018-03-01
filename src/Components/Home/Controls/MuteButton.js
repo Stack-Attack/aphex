@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 /**
  * Mute button component
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class MuteButton extends Component {

@@ -12,6 +12,7 @@ import {
 
 /**
  * user reducer: this handles state functions for everything pertaining to the user and the authentication that accompanies them. Any time an action is dispatched for logging in, logging out, or authenticating the user, this reducer handles the action appropriately. It also sets the state to whatever the auth token in local storage dictates.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 const user = (
@@ -56,6 +57,7 @@ const user = (
 
 /**
  * sounds reducer: describes the state of whatever sound clips have been loaded into the browser. The state includes a 'loadedSounds' array which contains all of the current sounds loaded on the clientside. They can be rendered accordingly by the correct components. It also determines whether an asynchronous request is being made to load more sounds from the server.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 const sounds = (
@@ -85,6 +87,7 @@ const sounds = (
 
 /**
  * controls reducer: describes all aspects of the user interface on the homepage, and how playing of sound files is handled. It encapsulates the state of what sound is playing, where it is, and what info is associated with that sound.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 const controls = (

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 /**
  * Presentational component for the Signin/Login page. Will send signin credentials up to the parent component.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
 class Signin extends Component {

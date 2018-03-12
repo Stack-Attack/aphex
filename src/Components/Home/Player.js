@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactHowler from "react-howler";
 import "./Player.css";
-import MuteButton from "./Controls/MuteButton";
+// import MuteButton from "./Controls/MuteButton";
 import PlayButton from "./Controls/PlayButton";
-import LoopButton from "./Controls/LoopButton";
+// import LoopButton from "./Controls/LoopButton";
 
 /**
  *

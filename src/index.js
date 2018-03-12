@@ -27,7 +27,7 @@ let store = createStore(reducer, applyMiddleware(...middleware));
 console.log(store.getState());
 
 //log each state change. This is a very handy tool for debugging
-const unsubscribe = store.subscribe(() => console.log(store.getState()));
+const unsubscribe = store.subscribe(() => console.log(store.getState())); // eslint-disable-line no-unused-vars
 
 //finally, render the root component
 ReactDOM.render(

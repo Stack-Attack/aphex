@@ -12,7 +12,7 @@ export const playPressed = id => (dispatch, getState) => {
   let isPlaying = getState().controls.playing;
   let activeID = getState().controls.activeID;
 
-  if (activeID != id) {
+  if (activeID !== id) {
     dispatch(playSound(id));
   } else {
     if (!isPlaying) {

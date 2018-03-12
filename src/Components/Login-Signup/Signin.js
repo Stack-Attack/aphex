@@ -31,7 +31,7 @@ class Signin extends Component {
     const password = this.refs.suPassword;
     const confirm = this.refs.suConfirm;
 
-    if (password.value != confirm.value) {
+    if (password.value !== confirm.value) {
       alert("passwords don't match");
       return;
     }

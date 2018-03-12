@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../App/App.css";
 import Navbar from "../Components/Navbar.js";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Upload from "../Components/Upload/UploadPage.js";
 import Signin from "../Components/Login-Signup/Signin.js";
 import Account from "../Components/Account/AccountPage.js";
@@ -78,7 +78,7 @@ class App extends Component {
  */
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  // isAuthenticated: state.user.isAuthenticated,
   isAuthenticated: true, //comment this out to use correct authentication state mapping
   errorMessage: state.user.errorMessage,
   userInfo: state.user.userInfo

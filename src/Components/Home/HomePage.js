@@ -68,7 +68,7 @@ class Home extends Component {
             <Player
               title={entry.title}
               file={entry.file}
-              playing={this.props.playing && this.props.activeID == entry.id}
+              playing={this.props.playing && this.props.activeID === entry.id}
               loop={this.props.loop}
               onToggle={() => this.props.playerToggle(entry)}
               onPlay={() => this.onPlayerStart(entry)}

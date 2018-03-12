@@ -36,10 +36,10 @@ export const uploadSound = (file, tokenFromStorage) => dispatch => {
   }
 
   //TODO: complete implementation of uploading sound.
-  let config = {
+  let config = { // eslint-disable-line no-unused-vars  
     method: "POST",
     headers: {
-      Authorization: "Bearer ${tokenFromStorage}",
+      Authorization: `Bearer ${tokenFromStorage}`,
       "Content-Type": "Possibly define content type"
     },
     body: file

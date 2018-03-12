@@ -12,7 +12,7 @@ class ItemInfo extends Component {
   render() {
     let title = "";
     let fileName = "";
-    let id = "";
+    let id = ""; // eslint-disable-line no-unused-vars
 
     if (this.props.data) {
       title = this.props.data.title;

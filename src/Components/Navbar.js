@@ -1,55 +1,47 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-class Navbar extends Component {
-
-    /*
-    Presentational component for the navbar of the application. Displays the correct information to the
-    user based on whether they have authentication.
+/**
+ * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.
+ * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-    static propTypes = {
-        isAuthenticated: PropTypes.bool.isRequired,
-        logoutClicked: PropTypes.func.isRequired
+class Navbar extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logoutClicked: PropTypes.func.isRequired
+  };
+
+  render() {
+    let content = null;
+
+    if (this.props.isAuthenticated) {
+      content = (
+        <button onClick={() => this.props.logoutClicked}>Sign Out</button>
+      );
+    } else {
+      content = <Link to="/login">Sign In</Link>;
     }
 
-    render() {
+    return (
+      <div>
+        <nav>
+          <ul>
+            <Link to="/">Home</Link>
 
-        let content = null;
+            <input type="text" />
 
-        if (this.props.isAuthenticated) {
-            content = (
+            <Link to="/upload">Upload</Link>
 
-                <button onClick={() => this.props.logoutClicked}>
-                    Sign Out
-                </button>);
-        }
-        else{
-            content = (
-                <Link to='/login'>Sign In</Link>
-            );
-        }
+            <Link to="/account">My Account</Link>
 
-        return (
-            <div>
-                <nav>
-                    <ul>
-                        <Link to='/'>Home</Link>
-
-                        <input type="text"></input>
-
-                        <Link to='/upload'>Upload</Link>
-
-                        <Link to='/account'>My Account</Link>
-
-                        {content}
-                    </ul>
-                </nav>
-            </div>
-        )
-    }
-
+            {content}
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 }
 
 export default Navbar;

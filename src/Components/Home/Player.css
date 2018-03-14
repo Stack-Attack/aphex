@@ -1,26 +1,24 @@
-
-.Player{
-    border: 1px solid #ccc;
-    height: 200px;
-    text-align: left;
-    margin:auto;
-    margin-bottom: 300px;
+.Player {
+  border: 1px solid #ccc;
+  height: 200px;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 300px;
 }
 
-.Waveform{
-    height: 50px;
-    width: 90%;
-    border: 1px solid darkslategrey;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.Waveform {
+  height: 50px;
+  width: 90%;
+  border: 1px solid darkslategrey;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.playing{
-    background-color: aquamarine;
+.playing {
+  background-color: aquamarine;
 }
 
-.paused{
-    background-color: azure;
+.paused {
+  background-color: azure;
 }
-

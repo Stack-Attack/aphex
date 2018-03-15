@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import faker from "faker";
 
-import { Menu, Input, Dropdown, Icon, Image } from "semantic-ui-react";
+import { Menu, Input, Dropdown, Icon, Image, Button } from "semantic-ui-react";
 
 /**
  * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.
@@ -46,8 +46,12 @@ class Navbar extends Component {
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <Icon name="upload" />
-            <Link to="/upload">Upload</Link>
+            <Link to="/upload">
+              <Button inverted icon labelPosition="left">
+                <Icon name="upload" />
+                Upload
+              </Button>
+            </Link>
           </Menu.Item>
 
           <Dropdown item trigger={trigger} pointing="top left" icon={null}>

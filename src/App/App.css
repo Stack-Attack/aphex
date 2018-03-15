@@ -58,6 +58,12 @@ li {
   color: black !important;
 }
 
+/* HACK for custom theme color  */
 .ui.inverted.blue.menu {
   background-color: #002a3a !important;
+}
+
+.hoverClick:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: rgba(0, 0, 0, 0.95) !important;
 }

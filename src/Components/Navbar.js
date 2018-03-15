@@ -45,28 +45,31 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Menu position="right">
-          <Menu.Item color="blue">
+          <Menu.Item>
             <Icon name="upload" />
             <Link to="/upload">Upload</Link>
           </Menu.Item>
 
           <Dropdown item trigger={trigger} pointing="top left" icon={null}>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                <Icon name="user" />
-                <Link className="black" to="/account">
-                  Account
-                </Link>
-              </Dropdown.Item>
+              <Link to="/account">
+                <Dropdown.Item
+                  className="black hoverClick"
+                  text="&nbsp;&nbsp;Account"
+                  icon="user"
+                />
+              </Link>
 
-              <Dropdown.Item>
-                <Icon name="settings" />
-                <Link className="black" to="/settings">
-                  Settings
-                </Link>
-              </Dropdown.Item>
+              <Link to="/settings">
+                <Dropdown.Item
+                  className="black hoverClick"
+                  text="&nbsp;&nbsp;Settings"
+                  icon="settings"
+                />
+              </Link>
+
               <Dropdown.Item
-                text="Sign out"
+                text="Sign Out"
                 icon="sign out"
                 onClick={() => this.props.logoutClicked}
               />

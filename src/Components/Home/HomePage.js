@@ -3,6 +3,8 @@ import Player from "./Player.js";
 import ItemInfo from "./ItemInfo.js";
 import PropTypes from "prop-types";
 
+import { Button } from "semantic-ui-react";
+
 /*
     Presentational component for the 'Home' Page. Handles all of the audio selection and playback of sounds.
     Works in conjunction with the ../Containers/HomeContainer.js to get the state via props, and to send
@@ -87,9 +89,9 @@ class Home extends Component {
         <div className="left-pane">
           <ul>{content}</ul>
           <div>
-            <button onClick={() => this.props.loadSounds()}>
+            <Button primary onClick={() => this.props.loadSounds()}>
               Get more sounds
-            </button>
+            </Button>
           </div>
         </div>
         <div className="right-pane">

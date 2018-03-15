@@ -34,10 +34,14 @@ class Navbar extends Component {
       </span>
     );
 
+    const logo = require("../assets/logoDece.svg");
+
     return (
       <Menu fixed="top" inverted size="huge" color="blue">
         <Menu.Item>
-          <Link to="/">APHEX(home)</Link>
+          <Link to="/">
+            <Image src={logo} size="small" />
+          </Link>
         </Menu.Item>
 
         <Menu.Item>

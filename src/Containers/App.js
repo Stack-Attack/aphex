@@ -30,12 +30,12 @@ class App extends Component {
       //if the user has signed in and authenticated, direct them to full app
       return (
         <div className="App">
-          <header className="App-header">
+          <div>
             <Navbar
               isAuthenticated={this.props.isAuthenticated}
               logoutClicked={() => this.props.logoutClicked()}
             />
-          </header>
+          </div>
           <main className="App-main-section">
             <Switch>
               <Route exact path="/" render={() => <HomeContainer />} />

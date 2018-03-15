@@ -12,7 +12,7 @@ li {
   height: 80px;
 }
 
-.App-header {
+/* .App-header {
   background-color: rebeccapurple;
   height: 30px;
   padding: 20px;
@@ -23,7 +23,7 @@ li {
   color: white;
   margin-right: 60px;
   text-decoration: none;
-}
+} */
 
 .App-title {
   font-size: 1.5em;
@@ -48,4 +48,16 @@ li {
 
 .hidden {
   visibility: hidden;
+}
+
+.black {
+  color: black !important;
+}
+
+.black:hover {
+  color: black !important;
+}
+
+.ui.inverted.blue.menu {
+  background-color: #002a3a !important;
 }

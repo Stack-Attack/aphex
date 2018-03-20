@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
-} from "../Actions/user";
+} from "../Constants/UserActionTypes";
 
 /*
     This file encapsulates a series of reducer contants which are then combined together to form a master

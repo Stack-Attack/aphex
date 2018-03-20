@@ -12,28 +12,28 @@ import * as types from '../Constants/UserActionTypes';
  */
 
 export const loginUser = creds => dispatch => {
-  let config = {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `username=${creds.username}&password=${creds.password}`
-  };
+    let config = {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: `username=${creds.username}&password=${creds.password}`
+    };
 
-  dispatch(requestLogin(creds));
+    dispatch(requestLogin(creds));
 
-  return fetch(types.LOGIN_ENDPOINT, config)
-    .then(response => response.json().then(user => ({ user, response })))
-    .then(({ user, response }) => {
-      if (!response.ok) {
-        //there was a problem
-        dispatch(loginError(user.message));
-        return Promise.reject(user);
-      } else {
-        localStorage.setItem("id_token", user.id_token);
-        //localStorage.setItem('id_token', user.access_token);
-        dispatch(receiveLogin(user));
-      }
-    })
-    .catch(err => console.log("Error: ", err));
+    return fetch(types.LOGIN_ENDPOINT, config)
+        .then(response => response.json().then(user => ({user, response})))
+        .then(({user, response}) => {
+            if (!response.ok) {
+                //there was a problem
+                dispatch(loginError(user.message));
+                return Promise.reject(user);
+            } else {
+                localStorage.setItem("id_token", user.id_token);
+                //localStorage.setItem('id_token', user.access_token);
+                dispatch(receiveLogin(user));
+            }
+        })
+        .catch(err => console.log("Error: ", err));
 };
 
 /**
@@ -42,29 +42,29 @@ export const loginUser = creds => dispatch => {
  */
 
 export const signUpUser = creds => dispatch => {
-  //TODO: complete signup user action
-  let config = {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body:
-      `email=${creds.email}username=${creds.username}&password=${creds.password}`
-  };
+    //TODO: complete signup user action
+    let config = {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body:
+            `email=${creds.email}username=${creds.username}&password=${creds.password}`
+    };
 
-  dispatch(requestSignup(creds));
+    dispatch(requestSignup(creds));
 
-  return fetch(types.SIGNUP_ENDPOINT, config)
-    .then(response => response.json().then(user => ({ user, response })))
-    .then(({ user, response }) => {
-      if (!response.ok) {
-        //there was a problem signing up
-        dispatch(signupError(user.message));
-        return Promise.reject(user);
-      } else {
-        localStorage.setItem("id_token", user.id_token);
-        dispatch(receiveSignup(user));
-      }
-    })
-    .catch(err => console.log("Error: ", err));
+    return fetch(types.SIGNUP_ENDPOINT, config)
+        .then(response => response.json().then(user => ({user, response})))
+        .then(({user, response}) => {
+            if (!response.ok) {
+                //there was a problem signing up
+                dispatch(signupError(user.message));
+                return Promise.reject(user);
+            } else {
+                localStorage.setItem("id_token", user.id_token);
+                dispatch(receiveSignup(user));
+            }
+        })
+        .catch(err => console.log("Error: ", err));
 };
 
 /**
@@ -73,54 +73,54 @@ export const signUpUser = creds => dispatch => {
  */
 
 export const logoutUser = () => dispatch => {
-  dispatch(requestLogout());
-  localStorage.removeItem("id_token");
-  localStorage.removeItem("access_token");
-  dispatch(receiveLogout());
+    dispatch(requestLogout());
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
+    dispatch(receiveLogout());
 };
 
 //the rest of the below actions are simple actions which simply are received by the user reducer and change the state
 export const requestLogin = creds => ({
-  type: types.LOGIN_REQUEST,
-  isFetching: true,
-  isAuthenticated: false,
-  creds
+    type: types.LOGIN_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds
 });
 export const requestLogout = () => ({
-  type: types.LOGOUT_REQUEST,
-  isFetching: true,
-  isAuthenticated: true
+    type: types.LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: true
 });
 export const requestSignup = () => ({
-  type: types.SIGNUP_REQUEST,
-  isFetching: true
+    type: types.SIGNUP_REQUEST,
+    isFetching: true
 });
 export const receiveLogin = user => ({
-  type: types.LOGIN_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  id_token: user.id_token
+    type: types.LOGIN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
 });
 export const receiveLogout = () => ({
-  type: types.LOGOUT_SUCCESS,
-  isFetching: false,
-  isAuthenticated: false
+    type: types.LOGOUT_SUCCESS,
+    isFetching: false,
+    isAuthenticated: false
 });
 export const receiveSignup = user => ({
-  type: types.SIGNUP_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  id_token: user.id_token
+    type: types.SIGNUP_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
 });
 export const loginError = message => ({
-  type: types.LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message
+    type: types.LOGIN_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
 });
 export const signupError = message => ({
-  type: types.SIGNUP_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message
+    type: types.SIGNUP_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
 });

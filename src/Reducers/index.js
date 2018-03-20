@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import * as userTypes from '../Constants/UserActionTypes';
 import * as soundTypes from '../Constants/SoundActionTypes';
+import * as controlTypes from '../Constants/ControlsActionTypes';
 
 /**
  * This file encapsulates a series of reducer contants which are then combined together to form a master reducer for the Redux store. Currently, there are three reducers that get connected. Each reducer handles a different part of the state: user, sounds, and controls.
@@ -75,7 +76,12 @@ const sounds = (
         ...state,
         isFetching: true
       };
-
+      case soundTypes.FAILURE_SOUND:
+        return {
+            ...state,
+            isFetching: false,
+            errorMessage: action.message
+        }
     default:
       return state;
   }
@@ -98,20 +104,20 @@ const controls = (
   action
 ) => {
   switch (action.type) {
-    case "PLAY_SOUND":
+    case controlTypes.PLAY_SOUND:
       return {
         ...state,
         playing: true,
         activeID: action.id
       };
 
-    case "PAUSE_SOUND":
+    case controlTypes.PAUSE_SOUND:
       return {
         ...state,
         playing: false,
         activeID: action.id
       };
-    case "ADJUST_FOCUS":
+    case controlTypes.ADJUST_FOCUS:
       return {
         ...state,
         playerInFocus: action.inFocus

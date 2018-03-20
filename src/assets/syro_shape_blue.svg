@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96.553001mm"
+   height="57.254002mm"
+   viewBox="0 0 96.553 57.254002"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="syro_shape_blue.svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient2283"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2279" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop2281" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="1"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="177.11924"
+     inkscape:cy="104.52873"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:measure-start="334.96,802.692"
+     inkscape:measure-end="338.433,798.084"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-239.746)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'Decima Mono';-inkscape-font-specification:'Decima Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="20.599703"
+       y="119.91817"
+       id="text825"><tspan
+         sodipodi:role="line"
+         id="tspan823"
+         x="20.599703"
+         y="164.36816"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Poiret One';-inkscape-font-specification:'Poiret One';stroke-width:0.26458332" /></text>
+    <path
+       style="fill:none;stroke:#003042;stroke-width:1.42900002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 69.664149,283.0673 C 61.728979,288.24531 10.799786,320.23955 0.97152766,260.73182 -3.7703942,232.02063 56.544233,239.89101 82.35542,247.76576"
+       id="path833"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc"
+       inkscape:export-xdpi="221.81888"
+       inkscape:export-ydpi="221.81888"
+       inkscape:export-filename="C:\Users\kyle7\Google Drive\School\Aphex\syro_final_dot.png" />
+    <text
+       id="text839"
+       y="272.18756"
+       x="56.528625"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'poiret one';-inkscape-font-specification:'poiret one';letter-spacing:0px;word-spacing:0px;fill:#003042;fill-opacity:1;stroke:none;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"
+       inkscape:export-xdpi="221.81888"
+       inkscape:export-ydpi="221.81888"
+       inkscape:export-filename="C:\Users\kyle7\Google Drive\School\Aphex\syro_final_dot.png"><tspan
+         rotate="16.5 0"
+         dy="8.5"
+         dx="0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'poiret one';-inkscape-font-specification:'poiret one';fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
+         y="272.18756"
+         x="56.528625"
+         id="tspan837"
+         sodipodi:role="line"><tspan
+           dy="7.5500002"
+           id="tspan835"
+           style="letter-spacing:-10.58333302px;fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none">9</tspan></tspan></text>
+  </g>
+</svg>

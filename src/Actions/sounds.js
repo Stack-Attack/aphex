@@ -1,4 +1,5 @@
 import sounds from "../api/sounds";
+import * as types from '../Constants/SoundActionTypes';
 
 /*
     Actions for the sounds reducer. A container will dispatch one of these actions upon the user
@@ -49,11 +50,11 @@ export const uploadSound = (file, tokenFromStorage) => dispatch => {
 export const receiveSounds = sounds => ({
   //action for when we receive new sounds from the server.
   //'sounds' should be an array of sound objects from the server
-  type: "RECEIVE_SOUNDS",
+  type: types.RECEIVE_SOUND,
   sounds
 });
 
 export const requestSounds = num => ({
   //request sounds from the server
-  type: "REQUEST_SOUNDS"
+  type: types.REQUEST_SOUND
 });

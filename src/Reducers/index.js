@@ -1,10 +1,6 @@
 import { combineReducers } from "redux";
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_SUCCESS
-} from "../Actions/user";
+import * as userTypes from '../Constants/UserActionTypes';
+import * as soundTypes from '../Constants/SoundActionTypes';
 
 /**
  * This file encapsulates a series of reducer contants which are then combined together to form a master reducer for the Redux store. Currently, there are three reducers that get connected. Each reducer handles a different part of the state: user, sounds, and controls.
@@ -23,28 +19,28 @@ const user = (
   action
 ) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case userTypes.LOGIN_REQUEST:
       return {
         ...state,
         isFetching: true,
         isAuthenticated: false,
         user: action.creds
       };
-    case LOGIN_SUCCESS:
+    case userTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: true,
         errorMessage: ""
       };
-    case LOGIN_FAILURE:
+    case userTypes.LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: false,
         errorMessage: action.message
       };
-    case LOGOUT_SUCCESS:
+    case userTypes.LOGOUT_SUCCESS:
       return {
         ...state,
         isFetching: true,
@@ -68,13 +64,13 @@ const sounds = (
   action
 ) => {
   switch (action.type) {
-    case "RECEIVE_SOUNDS":
+    case soundTypes.RECEIVE_SOUND:
       return {
         ...state,
         isFetching: false,
         loadedSounds: state.loadedSounds.concat(action.sounds)
       };
-    case "REQUEST_SOUNDS":
+    case soundTypes.REQUEST_SOUND:
       return {
         ...state,
         isFetching: true

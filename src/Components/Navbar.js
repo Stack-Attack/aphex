@@ -34,7 +34,7 @@ class Navbar extends Component {
       </span>
     );
 
-    const logo = require("../assets/logoDece.svg");
+    const logo = require("../Assets/logoDece.svg");
 
     return (
       <Menu fixed="top" inverted size="huge" color="blue">

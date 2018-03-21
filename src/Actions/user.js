@@ -11,7 +11,7 @@ import * as types from '../Constants/UserActionTypes';
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const authEndpoint = 'https://syro.dannykivi.com:403/authentication';
+const authEndpoint = 'https://syro.dannykivi.com:443/authentication';
 const createUserEndpoint = 'https://syro.dannykivi.com/users';
 
 // POST /authenticate
@@ -20,30 +20,25 @@ export const loginUser = creds => dispatch => {
     let config = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        body: {
-            'email': creds.email,
-            'password': creds.password
-        }
+        body: JSON.stringify({
+            "email": creds.email,
+            "password": creds.password
+        })
     };
-
-    console.log(config);
-
     dispatch(requestLogin());
 
-    fetch(authEndpoint, config)
+    return fetch(authEndpoint, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
             console.log(user);
             console.log(response);
             if (!response.ok) {
                 //there was a problem
-
                 dispatch(failureLogin(user.message));
                 return Promise.reject(user);
             } else {
-                console.log(user);
                 localStorage.setItem("id_token", user.accessToken);
                 dispatch(receiveLogin(user));
             }
@@ -62,7 +57,7 @@ export const signUpUser = creds => dispatch => {
     //TODO: complete signup user action
 
     let config = {
-        method: "POST",
+        method: "post",
         headers: {
             'Content-Type': 'application/json'
         },
@@ -77,6 +72,8 @@ export const signUpUser = creds => dispatch => {
     return fetch(createUserEndpoint, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
+            console.log(user);
+            console.log(response);
             if (!response.ok) {
                 //there was a problem signing up
                 dispatch(failureCreateUser(user.message));

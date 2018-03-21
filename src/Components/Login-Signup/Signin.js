@@ -14,11 +14,11 @@ class Signin extends Component {
   };
 
   handleLogin() {
-    const username = this.refs.username;
+    const username = this.refs.email;
     const password = this.refs.password;
 
     const creds = {
-      username: username.value.trim(),
+      email: username.value.trim(),
       password: password.value.trim()
     };
 
@@ -38,7 +38,6 @@ class Signin extends Component {
 
     const creds = {
       email: email.value.trim(),
-      username: username.value.trim(),
       password: password.value.trim()
     };
     this.props.signupClicked(creds);
@@ -57,9 +56,9 @@ class Signin extends Component {
           <h1>Login</h1>
           <input
             className="form-item"
-            placeholder="Username goes here"
+            placeholder="Email goes here"
             type="text"
-            ref="username"
+            ref="email"
           />
           <input
             className="form-item"

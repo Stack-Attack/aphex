@@ -78,7 +78,7 @@ class App extends Component {
  */
 
 const mapStateToProps = state => ({
-  // isAuthenticated: state.user.isAuthenticated,
+   isAuthenticated: state.user.isAuthenticated,
   isAuthenticated: true, //comment this out to use correct authentication state mapping
   errorMessage: state.user.errorMessage,
   userInfo: state.user.userInfo

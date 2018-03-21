@@ -12,16 +12,67 @@ import * as types from '../Constants/SoundActionTypes';
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-export const fetchSounds = () => dispatch => {
+const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
+
+
+//GET sample/{id}
+export const fetchSingleSound = (id, token) => dispatch => {
+        dispatch(requestSound());
+
+        let config = {
+            headers: {
+                'Authorization': token
+            }
+        };
+
+        return fetch(SAMPLE_ENDPOINT + '/${id}', config)
+            .then(response => response.json().then(sound => ({sound, response})))
+            .then(({sound, response}) => {
+                    if (!response.ok) {
+                        //error in fetching single sound
+                        dispatch(failureSound(sound.message));
+                        return Promise.reject(sound);
+                    }
+                    else {
+                        dispatch(receiveSound(sound));
+                    }
+                }
+            )
+            .catch(err => console.log("Error: ", err));
+
+    };
+
+//GET sample
+export const fetchSounds = (num, token) => dispatch => {
     dispatch(requestSounds());
 
-    //TODO: replace this with a FETCH request. it will then dispatch receiveSounds. on error, dispatch faiure sounds
     sounds.getSounds(sounds => {
         dispatch(receiveSounds(sounds));
     });
-    // return fetch('http request with ' + num + 'as parameter')
-    //     .then(response => response.json())
-    //     .then(json => dispatch(receiveSounds(json)));
+
+    return; //TODO: get rid of this line, and delete the above getSounds(). we will use the fetch method below
+
+    let config = {
+        headers: {
+            'Authorization': token
+        }
+    };
+
+    return fetch(SAMPLE_ENDPOINT, config)
+        .then(response => response.json().then(sounds => ({sounds, response})))
+        .then(({sounds, response}) => {
+                if (!response.ok) {
+                    //error in fetching sounds
+                    dispatch(failureSounds(sounds.message));
+                    return Promise.reject(sounds);
+                }
+                else {
+                    dispatch(receiveSounds(sounds))
+                }
+            }
+        )
+        .catch(err => console.log("Error: ", err))
+
 };
 
 
@@ -30,61 +81,82 @@ export const fetchSounds = () => dispatch => {
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-export const uploadSound = (file, tokenFromStorage) => dispatch => {
+//POST sample
+export const uploadSound = (file, token) => dispatch => {
     console.log(file);
+    dispatch(requestCreateSound());
 
-    if (!tokenFromStorage) {
+    if (!token) {
         console.log("won't work");
     }
 
-    //TODO: complete implementation of uploading sound.
     let config = { // eslint-disable-line no-unused-vars
         method: "POST",
         headers: {
-            Authorization: `Bearer ${tokenFromStorage}`,
-            "Content-Type": "Possibly define content type"
+            'Authorization': token,
+            'Content-Type': 'application/json'
         },
-        body: file
+        name: 'Name here',
+        uri: file //TODO: this will be a data url here
     };
 
-    return fetch(types.UPLOAD_ENDPOINT, config)
+    return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
             if (!response.ok) {
                 //error in uploading sound
-                dispatch(failureSounds(sound.message));
+                dispatch(failureCreateSound(sound.message));
                 return Promise.reject(sound);
             }
             else {
-                dispatch(createSoundSuccess());
+                dispatch(receiveCreateSound());
             }
         })
         .catch(err => console.log("Error: ", err));
 };
 
-export const requestSounds = num => ({
+//actions for request a single sound from the server
+export const requestSound = () => ({
     //request sounds from the server
     type: types.REQUEST_SOUND
 });
-
-export const receiveSounds = sounds => ({
+export const receiveSound = sound => ({
     //action for when we receive new sounds from the server.
     //'sounds' should be an array of sound objects from the server
     type: types.RECEIVE_SOUND,
-    sounds
+    payload: sound
 });
-
-export const failureSounds = message => ({
+export const failureSound = message => ({
     type: types.FAILURE_SOUND,
     message: message
 });
 
-export const createSound = () => ({
-    type: types.REQUEST_CREATE_SOUND
+//actions for requesting multiple sounds from the server
+export const requestSounds = () => ({
+    type: types.REQUEST_SOUNDS
+});
+
+export const receiveSounds = sounds => ({
+    type: types.RECEIVE_SOUNDS,
+    payload: sounds
+});
+
+export const failureSounds = message => ({
+    type: types.FAILURE_SOUNDS,
+    message: message
 })
 
-export const createSoundSuccess = () => ({
-    type: types.CREATE_SOUND_SUCCESS
+
+//actions for uploading a new sound to the server
+export const requestCreateSound = () => ({
+    type: types.REQUEST_CREATE_SOUND
+})
+export const receiveCreateSound = () => ({
+    type: types.RECEIVE_CREATE_SOUND
+})
+export const failureCreateSound = message => ({
+    type: types.FAILURE_CREATE_SOUND,
+    message: message
 })
 
 

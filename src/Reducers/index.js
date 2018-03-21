@@ -65,18 +65,18 @@ const sounds = (
   action
 ) => {
   switch (action.type) {
-    case soundTypes.RECEIVE_SOUND:
+    case soundTypes.RECEIVE_SOUNDS:
       return {
         ...state,
         isFetching: false,
-        loadedSounds: state.loadedSounds.concat(action.sounds)
+        loadedSounds: state.loadedSounds.concat(action.payload)
       };
-    case soundTypes.REQUEST_SOUND:
+    case soundTypes.REQUEST_SOUNDS:
       return {
         ...state,
         isFetching: true
       };
-      case soundTypes.FAILURE_SOUND:
+      case soundTypes.FAILURE_SOUNDS:
         return {
             ...state,
             isFetching: false,

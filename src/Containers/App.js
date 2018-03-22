@@ -12,7 +12,6 @@ import { uploadSound } from "../Actions/sounds";
 import { withRouter } from "react-router-dom";
 
 //TODO: load sounds from REST API along with other pertinent data
-//TODO: change isAuthenticated back to map the authentication to state
 
 /**
  * Containers/App.js

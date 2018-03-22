@@ -46,18 +46,11 @@ export const fetchSingleSound = (id, token) => dispatch => {
 export const fetchSounds = (num, token) => dispatch => {
     dispatch(requestSounds());
 
-    sounds.getSounds(sounds => {
-        dispatch(receiveSounds(sounds));
-    });
-
-    return; //TODO: get rid of this line, and delete the above getSounds(). we will use the fetch method below
-
     let config = {
         headers: {
             'Authorization': token
         }
     };
-
     return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sounds => ({sounds, response})))
         .then(({sounds, response}) => {
@@ -67,14 +60,21 @@ export const fetchSounds = (num, token) => dispatch => {
                     return Promise.reject(sounds);
                 }
                 else {
-                    dispatch(receiveSounds(sounds))
+                    dispatch(receiveSounds(sounds.data))
                 }
             }
         )
         .catch(err => console.log("Error: ", err))
-
 };
 
+
+export const tempSounds = (num, token) => dispatch => {
+    dispatch(requestSounds());
+
+    sounds.getSounds(sounds => {
+        dispatch(receiveSounds(sounds));
+    });
+}
 
 /**
  * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { adjustFocus, playPressed } from "../Actions/controls";
-import { fetchSounds } from "../Actions/sounds";
+import { fetchSounds, tempSounds } from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   activeID: state.controls.activeID,
   playing: state.controls.playing,
   activeInfo: state.sounds.loadedSounds.find(sound => {
-    return sound.id === state.controls.activeID;
+    return sound._id === state.controls.activeID;
   }),
   playerInFocus: state.controls.playerInFocus
 });
@@ -29,16 +29,17 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   playerToggle: entry => {
     dispatch(adjustFocus(true));
-    dispatch(playPressed(entry.id));
+    dispatch(playPressed(entry._id));
   },
   infoControlPlayToggle: entry => {
-    dispatch(playPressed(entry.id));
+    dispatch(playPressed(entry._id));
   },
   adjustFocus: isInFocus => {
     dispatch(adjustFocus(isInFocus));
   },
   loadSounds: () => {
-    dispatch(fetchSounds());
+   // dispatch(tempSounds());
+      dispatch(fetchSounds(1, localStorage['id_token']));
   }
 });
 

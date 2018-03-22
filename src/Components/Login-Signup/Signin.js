@@ -27,7 +27,7 @@ class Signin extends Component {
 
   handleSignup() {
     const email = this.refs.suEmail;
-    const username = this.refs.suUsername;
+   // const username = this.refs.suUsername;
     const password = this.refs.suPassword;
     const confirm = this.refs.suConfirm;
 

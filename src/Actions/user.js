@@ -17,6 +17,8 @@ const createUserEndpoint = 'https://syro.dannykivi.com/users';
 // POST /authenticate
 
 export const loginUser = creds => dispatch => {
+    console.log("Logging in user");
+    console.log(creds);
     let config = {
         method: "POST",
         headers: {
@@ -51,20 +53,23 @@ export const loginUser = creds => dispatch => {
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
+export const testing = creds => dispatch => {
+    console.log("testing log in creds");
+    console.log(creds);
+}
 
 
 export const signUpUser = creds => dispatch => {
-    //TODO: complete signup user action
 
     let config = {
         method: "post",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({
             'email': creds.email,
             'password': creds.password
-        }
+        })
     };
 
     dispatch(requestCreateUser(creds));
@@ -72,15 +77,14 @@ export const signUpUser = creds => dispatch => {
     return fetch(createUserEndpoint, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
-            console.log(user);
-            console.log(response);
+
             if (!response.ok) {
                 //there was a problem signing up
                 dispatch(failureCreateUser(user.message));
                 return Promise.reject(user);
             } else {
                 dispatch(receiveCreateUser(user));
-                //TODO: from here, log the user in automatically
+                dispatch(loginUser(creds));
             }
         })
         .catch(err => console.log("Error: ", err));

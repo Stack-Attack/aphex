@@ -47,11 +47,28 @@ const user = (state = {
                 isAuthenticated: false
             };
 
+        case userTypes.RECEIVE_CREATE_USER:
+            return {
+                ...state,
+                isFetching: false
+            };
+        case userTypes.FAILURE_CREATE_USER:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            }
+        case userTypes.REQUEST_LOGOUT:
+            return {
+                ...state,
+                isFetching: true
+            }
         case userTypes.RECEIVE_LOGOUT:
             return {
                 ...state,
                 isFetching: false,
-                isAuthenticated: false
+                isAuthenticated: false,
+                user: null
             };
         default:
             return state;

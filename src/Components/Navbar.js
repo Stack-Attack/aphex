@@ -76,10 +76,11 @@ class Navbar extends Component {
                 />
               </Link>
 
+
               <Dropdown.Item
                 text="Sign Out"
                 icon="sign out"
-                onClick={() => this.props.logoutClicked}
+                onClick={() => this.props.logoutClicked()}
               />
             </Dropdown.Menu>
           </Dropdown>

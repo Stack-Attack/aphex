@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import ReactHowler from "react-howler";
 import "./Player.css";
 // import MuteButton from "./Controls/MuteButton";
@@ -13,7 +13,8 @@ import faker from "faker";
  * Presentational component for the audio player for a single sound. This player holds all playback and UI info for the given sound. All interactions and properties of this player will be passed up to the parent component (the HomePage)
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-//TODO: css here is temporary for testing. Change it
+
+const host = 'https://syro.dannykivi.com';
 
 class Player extends Component {
   render() {

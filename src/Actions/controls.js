@@ -2,6 +2,8 @@
  * Actions for the controls reducer. A container will dispatch one of these actions upon the user interacting with the app. The controls reducer will receive one of these actions and adjust the Redux state accordingly.
  */
 
+import * as types from '../Constants/ControlsActionTypes';
+
 /**
  * Called when the user presses the play button. Toggles whether the sound is playing or not
  * @constructor
@@ -24,16 +26,16 @@ export const playPressed = id => (dispatch, getState) => {
 };
 
 export const playSound = id => ({
-  type: "PLAY_SOUND",
+  type: types.PLAY_SOUND,
   id
 });
 
 export const pauseSound = id => ({
-  type: "PAUSE_SOUND",
+  type: types.PAUSE_SOUND,
   id
 });
 
 export const adjustFocus = inFocus => ({
-  type: "ADJUST_FOCUS",
+  type: types.ADJUST_FOCUS,
   inFocus
 });

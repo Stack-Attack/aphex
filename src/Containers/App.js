@@ -12,7 +12,6 @@ import { uploadSound } from "../Actions/sounds";
 import { withRouter } from "react-router-dom";
 
 //TODO: load sounds from REST API along with other pertinent data
-//TODO: change isAuthenticated back to map the authentication to state
 
 /**
  * Containers/App.js
@@ -78,8 +77,8 @@ class App extends Component {
  */
 
 const mapStateToProps = state => ({
-  // isAuthenticated: state.user.isAuthenticated,
-  isAuthenticated: true, //comment this out to use correct authentication state mapping
+   isAuthenticated: state.user.isAuthenticated,
+  //isAuthenticated: true, //comment this out to use correct authentication state mapping
   errorMessage: state.user.errorMessage,
   userInfo: state.user.userInfo
 });

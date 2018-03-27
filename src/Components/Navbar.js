@@ -20,13 +20,13 @@ class Navbar extends Component {
   render() {
     let content = null;
 
-    if (this.props.isAuthenticated) {
-      content = (
-        <button onClick={() => this.props.logoutClicked}>Sign Out</button>
-      );
-    } else {
-      content = <Link to="/login">Sign In</Link>;
-    }
+    // if (this.props.isAuthenticated) {
+    //   content = (
+    //     <button onClick={() => this.props.logoutClicked}>Sign Out</button>
+    //   );
+    // } else {
+    //   content = <Link to="/login">Sign In</Link>;
+    // }
 
     const trigger = (
       <span>
@@ -34,7 +34,7 @@ class Navbar extends Component {
       </span>
     );
 
-    const logo = require("../assets/logoDece.svg");
+    const logo = require("../Assets/logoDece.svg");
 
     return (
       <Menu fixed="top" inverted size="huge" color="blue">
@@ -76,10 +76,11 @@ class Navbar extends Component {
                 />
               </Link>
 
+
               <Dropdown.Item
                 text="Sign Out"
                 icon="sign out"
-                onClick={() => this.props.logoutClicked}
+                onClick={() => this.props.logoutClicked()}
               />
             </Dropdown.Menu>
           </Dropdown>

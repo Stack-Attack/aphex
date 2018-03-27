@@ -18,7 +18,7 @@ class Home extends Component {
   }
 
   static propTypes = {
-    activeID: PropTypes.number,
+    activeID: PropTypes.string,
     activeInfo: PropTypes.object,
     loadedSounds: PropTypes.array.isRequired,
     playerToggle: PropTypes.func.isRequired,
@@ -66,11 +66,11 @@ class Home extends Component {
     if (this.props.loadedSounds) {
       content = this.props.loadedSounds.map(entry => {
         return (
-          <li key={entry.id} id={"entry_" + entry.id}>
+          <li key={entry._id} id={"entry_" + entry._id}>
             <Player
-              title={entry.title}
-              file={entry.file}
-              playing={this.props.playing && this.props.activeID === entry.id}
+              title={entry.name}
+              file={entry.file.path}
+              playing={this.props.playing && this.props.activeID == entry._id}
               loop={this.props.loop}
               onToggle={() => this.props.playerToggle(entry)}
               onPlay={() => this.onPlayerStart(entry)}

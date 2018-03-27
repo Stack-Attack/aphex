@@ -1,10 +1,7 @@
-import { combineReducers } from "redux";
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_SUCCESS
-} from "../Actions/user";
+import {combineReducers} from "redux";
+import * as userTypes from '../Constants/UserActionTypes';
+import * as soundTypes from '../Constants/SoundActionTypes';
+import * as controlTypes from '../Constants/ControlsActionTypes';
 
 /**
  * This file encapsulates a series of reducer contants which are then combined together to form a master reducer for the Redux store. Currently, there are three reducers that get connected. Each reducer handles a different part of the state: user, sounds, and controls.
@@ -15,44 +12,67 @@ import {
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const user = (
-  state = {
-    isFetching: false,
-    isAuthenticated: localStorage.getItem("id_token") ? true : false
-  },
-  action
-) => {
-  switch (action.type) {
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-        isAuthenticated: false,
-        user: action.creds
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        isAuthenticated: true,
-        errorMessage: ""
-      };
-    case LOGIN_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        isAuthenticated: false,
-        errorMessage: action.message
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isFetching: true,
-        isAuthenticated: false
-      };
-    default:
-      return state;
-  }
+const user = (state = {
+                  isFetching: false,
+                  isAuthenticated: localStorage.getItem("id_token") ? true : false,
+                  user: null
+              },
+              action) => {
+    switch (action.type) {
+        case userTypes.REQUEST_LOGIN:
+            return {
+                ...state,
+                isFetching: true,
+                isAuthenticated: false
+            };
+        case userTypes.RECEIVE_LOGIN:
+            return {
+                ...state,
+                isFetching: false,
+                isAuthenticated: true,
+                errorMessage: "",
+                user: action.user
+            };
+        case userTypes.FAILURE_LOGIN:
+            return {
+                ...state,
+                isFetching: false,
+                isAuthenticated: false,
+                errorMessage: action.message
+            };
+        case userTypes.REQUEST_CREATE_USER:
+            return {
+                ...state,
+                isFetching: true,
+                isAuthenticated: false
+            };
+
+        case userTypes.RECEIVE_CREATE_USER:
+            return {
+                ...state,
+                isFetching: false
+            };
+        case userTypes.FAILURE_CREATE_USER:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            }
+        case userTypes.REQUEST_LOGOUT:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case userTypes.RECEIVE_LOGOUT:
+            return {
+                ...state,
+                isFetching: false,
+                isAuthenticated: false,
+                user: null
+            };
+        default:
+            return state;
+    }
 };
 
 /**
@@ -60,29 +80,32 @@ const user = (
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const sounds = (
-  state = {
-    isFetching: false,
-    loadedSounds: []
-  },
-  action
-) => {
-  switch (action.type) {
-    case "RECEIVE_SOUNDS":
-      return {
-        ...state,
-        isFetching: false,
-        loadedSounds: state.loadedSounds.concat(action.sounds)
-      };
-    case "REQUEST_SOUNDS":
-      return {
-        ...state,
-        isFetching: true
-      };
-
-    default:
-      return state;
-  }
+const sounds = (state = {
+                    isFetching: false,
+                    loadedSounds: []
+                },
+                action) => {
+    switch (action.type) {
+        case soundTypes.RECEIVE_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                loadedSounds: state.loadedSounds.concat(action.payload)
+            };
+        case soundTypes.REQUEST_SOUNDS:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case soundTypes.FAILURE_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            }
+        default:
+            return state;
+    }
 };
 
 /**
@@ -90,43 +113,41 @@ const sounds = (
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const controls = (
-  state = {
-    activeID: null,
-    playing: false,
-    looping: true,
-    mute: false,
-    playerInFocus: true,
-    activeInfo: {}
-  },
-  action
-) => {
-  switch (action.type) {
-    case "PLAY_SOUND":
-      return {
-        ...state,
-        playing: true,
-        activeID: action.id
-      };
+const controls = (state = {
+                      activeID: null,
+                      playing: false,
+                      looping: true,
+                      mute: false,
+                      playerInFocus: true,
+                      activeInfo: {}
+                  },
+                  action) => {
+    switch (action.type) {
+        case controlTypes.PLAY_SOUND:
+            return {
+                ...state,
+                playing: true,
+                activeID: action.id
+            };
 
-    case "PAUSE_SOUND":
-      return {
-        ...state,
-        playing: false,
-        activeID: action.id
-      };
-    case "ADJUST_FOCUS":
-      return {
-        ...state,
-        playerInFocus: action.inFocus
-      };
+        case controlTypes.PAUSE_SOUND:
+            return {
+                ...state,
+                playing: false,
+                activeID: action.id
+            };
+        case controlTypes.ADJUST_FOCUS:
+            return {
+                ...state,
+                playerInFocus: action.inFocus
+            };
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
 
 //combine all of the reducers and export them for the store to use.
-const aphexApp = combineReducers({ controls, sounds, user });
+const aphexApp = combineReducers({controls, sounds, user});
 
 export default aphexApp;

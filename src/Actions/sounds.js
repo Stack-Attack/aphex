@@ -1,4 +1,5 @@
 import sounds from "../api/sounds";
+import * as types from '../Constants/SoundActionTypes';
 
 /*
     Actions for the sounds reducer. A container will dispatch one of these actions upon the user
@@ -11,49 +12,152 @@ import sounds from "../api/sounds";
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-export const fetchSounds = () => dispatch => {
-  dispatch(requestSounds());
+const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
 
-  //TODO: replace this with a FETCH request. it will then dispatch receiveSounds
-  sounds.getSounds(sounds => {
-    dispatch(receiveSounds(sounds));
-  });
-  // return fetch('http request with ' + num + 'as parameter')
-  //     .then(response => response.json())
-  //     .then(json => dispatch(receiveSounds(json)));
+
+//GET sample/{id}
+export const fetchSingleSound = (id, token) => dispatch => {
+        dispatch(requestSound());
+
+        let config = {
+            headers: {
+                'Authorization': token
+            }
+        };
+
+        return fetch(SAMPLE_ENDPOINT + '/${id}', config)
+            .then(response => response.json().then(sound => ({sound, response})))
+            .then(({sound, response}) => {
+                    if (!response.ok) {
+                        //error in fetching single sound
+                        dispatch(failureSound(sound.message));
+                        return Promise.reject(sound);
+                    }
+                    else {
+                        dispatch(receiveSound(sound));
+                    }
+                }
+            )
+            .catch(err => console.log("Error: ", err));
+
+    };
+
+//GET sample
+export const fetchSounds = (num, token) => dispatch => {
+    dispatch(requestSounds());
+
+    let config = {
+        headers: {
+            'Authorization': token
+        }
+    };
+    return fetch(SAMPLE_ENDPOINT, config)
+        .then(response => response.json().then(sounds => ({sounds, response})))
+        .then(({sounds, response}) => {
+                if (!response.ok) {
+                    //error in fetching sounds
+                    dispatch(failureSounds(sounds.message));
+                    return Promise.reject(sounds);
+                }
+                else {
+                    dispatch(receiveSounds(sounds.data))
+                }
+            }
+        )
+        .catch(err => console.log("Error: ", err))
 };
+
+
+export const tempSounds = (num, token) => dispatch => {
+    dispatch(requestSounds());
+
+    sounds.getSounds(sounds => {
+        dispatch(receiveSounds(sounds));
+    });
+}
 
 /**
  * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-export const uploadSound = (file, tokenFromStorage) => dispatch => {
-  console.log(file);
+//POST sample
+export const uploadSound = (file, token) => dispatch => {
+    console.log(file);
+    dispatch(requestCreateSound());
 
-  if (!tokenFromStorage) {
-    console.log("won't work");
-  }
+    if (!token) {
+        console.log("won't work");
+    }
 
-  //TODO: complete implementation of uploading sound.
-  let config = { // eslint-disable-line no-unused-vars  
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${tokenFromStorage}`,
-      "Content-Type": "Possibly define content type"
-    },
-    body: file
-  };
+    let config = { // eslint-disable-line no-unused-vars
+        method: "POST",
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        name: 'Name here',
+        uri: file //TODO: this will be a data url here
+    };
+
+    return fetch(SAMPLE_ENDPOINT, config)
+        .then(response => response.json().then(sound => ({sound, response})))
+        .then(({sound, response}) => {
+            if (!response.ok) {
+                //error in uploading sound
+                dispatch(failureCreateSound(sound.message));
+                return Promise.reject(sound);
+            }
+            else {
+                dispatch(receiveCreateSound());
+            }
+        })
+        .catch(err => console.log("Error: ", err));
 };
 
-export const receiveSounds = sounds => ({
-  //action for when we receive new sounds from the server.
-  //'sounds' should be an array of sound objects from the server
-  type: "RECEIVE_SOUNDS",
-  sounds
+//actions for request a single sound from the server
+export const requestSound = () => ({
+    //request sounds from the server
+    type: types.REQUEST_SOUND
+});
+export const receiveSound = sound => ({
+    //action for when we receive new sounds from the server.
+    //'sounds' should be an array of sound objects from the server
+    type: types.RECEIVE_SOUND,
+    payload: sound
+});
+export const failureSound = message => ({
+    type: types.FAILURE_SOUND,
+    message: message
 });
 
-export const requestSounds = num => ({
-  //request sounds from the server
-  type: "REQUEST_SOUNDS"
+//actions for requesting multiple sounds from the server
+export const requestSounds = () => ({
+    type: types.REQUEST_SOUNDS
 });
+
+export const receiveSounds = sounds => ({
+    type: types.RECEIVE_SOUNDS,
+    payload: sounds
+});
+
+export const failureSounds = message => ({
+    type: types.FAILURE_SOUNDS,
+    message: message
+})
+
+
+//actions for uploading a new sound to the server
+export const requestCreateSound = () => ({
+    type: types.REQUEST_CREATE_SOUND
+})
+export const receiveCreateSound = () => ({
+    type: types.RECEIVE_CREATE_SOUND
+})
+export const failureCreateSound = message => ({
+    type: types.FAILURE_CREATE_SOUND,
+    message: message
+})
+
+
+

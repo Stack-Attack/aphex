@@ -1,9 +1,9 @@
 .Player {
-  border: 1px solid #ccc;
-  height: 200px;
-  text-align: left;
-  margin: auto;
-  margin-bottom: 300px;
+  background: #0e4050;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 15px;
+  height: 150px;
+  margin-bottom: 15px !important;
 }
 
 .Waveform {
@@ -15,10 +15,35 @@
   margin-bottom: 10px;
 }
 
+.Title {
+  color: white;
+}
+
 .playing {
   background-color: aquamarine;
 }
 
 .paused {
   background-color: azure;
+}
+
+.songImage {
+  width: 5em;
+  height: 5em;
+  border-radius: 500rem;
+}
+
+.artistRow {
+  padding-bottom: 0 !important;
+  padding-top: 0.7rem !important;
+}
+
+.imageRow {
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.titleRow {
+  padding-top: 0 !important;
+  padding-bottom: 0.7rem !important;
 }

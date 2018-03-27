@@ -34,13 +34,13 @@ class Navbar extends Component {
       </span>
     );
 
-    const logo = require("../Assets/logoDece.svg");
+    const logo = require("../assets/syro_logo_white.png");
 
     return (
       <Menu fixed="top" inverted size="huge" color="blue">
         <Menu.Item>
           <Link to="/">
-            <Image src={logo} size="small" />
+            <Image src={logo} style={{ width: "75px" }} size="small" />
           </Link>
         </Menu.Item>
 
@@ -75,7 +75,6 @@ class Navbar extends Component {
                   icon="settings"
                 />
               </Link>
-
 
               <Dropdown.Item
                 text="Sign Out"

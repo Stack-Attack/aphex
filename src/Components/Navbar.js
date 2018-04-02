@@ -34,7 +34,7 @@ class Navbar extends Component {
       </span>
     );
 
-    const logo = require("../assets/syro_logo_white.svg");
+    const logo = require("../Assets/syro_logo_white.svg");
 
     return (
       <Menu fixed="top" inverted size="huge" color="blue">

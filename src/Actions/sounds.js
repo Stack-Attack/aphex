@@ -17,30 +17,30 @@ const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
 
 //GET sample/{id}
 export const fetchSingleSound = (id, token) => dispatch => {
-        dispatch(requestSound());
+    dispatch(requestSound());
 
-        let config = {
-            headers: {
-                'Authorization': token
-            }
-        };
-
-        return fetch(SAMPLE_ENDPOINT + '/${id}', config)
-            .then(response => response.json().then(sound => ({sound, response})))
-            .then(({sound, response}) => {
-                    if (!response.ok) {
-                        //error in fetching single sound
-                        dispatch(failureSound(sound.message));
-                        return Promise.reject(sound);
-                    }
-                    else {
-                        dispatch(receiveSound(sound));
-                    }
-                }
-            )
-            .catch(err => console.log("Error: ", err));
-
+    let config = {
+        headers: {
+            'Authorization': token
+        }
     };
+
+    return fetch(SAMPLE_ENDPOINT + '/${id}', config)
+        .then(response => response.json().then(sound => ({sound, response})))
+        .then(({sound, response}) => {
+                if (!response.ok) {
+                    //error in fetching single sound
+                    dispatch(failureSound(sound.message));
+                    return Promise.reject(sound);
+                }
+                else {
+                    dispatch(receiveSound(sound));
+                }
+            }
+        )
+        .catch(err => console.log("Error: ", err));
+
+};
 
 //GET sample
 export const fetchSounds = (num, token) => dispatch => {
@@ -64,11 +64,16 @@ export const fetchSounds = (num, token) => dispatch => {
                 }
             }
         )
-        .catch(err => console.log("Error: ", err))
+        .catch(err => {
+                console.log("Error: ", err);
+                dispatch(failureSounds("Error:" + err));
+            }
+        )
 };
 
 
 export const tempSounds = (num, token) => dispatch => {
+    //this doesn't get used
     dispatch(requestSounds());
 
     sounds.getSounds(sounds => {
@@ -83,11 +88,10 @@ export const tempSounds = (num, token) => dispatch => {
 
 //POST sample
 export const uploadSound = (file, token) => dispatch => {
-    console.log(file);
     dispatch(requestCreateSound());
 
     if (!token) {
-        console.log("won't work");
+        console.log("No token, will need to re-authenticate");
     }
 
     let config = { // eslint-disable-line no-unused-vars
@@ -96,13 +100,19 @@ export const uploadSound = (file, token) => dispatch => {
             'Authorization': token,
             'Content-Type': 'application/json'
         },
-        name: 'Name here',
-        uri: file //TODO: this will be a data url here
+        body:JSON.stringify({
+            'name': file.name,
+            'uri': file.url
+        })
     };
+
+    console.log(config);
 
     return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
+            console.log(response);
+            console.log(sound);
             if (!response.ok) {
                 //error in uploading sound
                 dispatch(failureCreateSound(sound.message));

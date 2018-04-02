@@ -43,9 +43,7 @@ class Player extends Component {
             }
           >
             <ReactHowler
-              //TODO: this src property currently just retrieves a sound file from public/audio
-              //The audio filenames correspond to the data retrieved in testData.json
-              src={"audio/" + this.props.file}
+              src={host + this.props.file}
               onLoad={this.props.onLoad}
               onPlay={this.props.onPlay}
               onEnd={this.props.onEnd}

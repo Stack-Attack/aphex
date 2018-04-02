@@ -34,16 +34,16 @@ li {
 }
 
 .left-pane {
-  min-height: 100px;
-  width: 50%;
+  /* min-height: 100px; */
+  width: 55%;
   float: left;
-  margin-bottom: 100px;
-  vertical-align: top;
-  border: 1px solid #ccc;
+  margin-top: -14px;
+  /* vertical-align: top; */
+  /* border: 1px solid #ccc; */
 }
 
 .right-pane {
-  margin-left: 50%;
+  margin-left: 55%;
 }
 
 .hidden {
@@ -56,6 +56,11 @@ li {
 
 .black:hover {
   color: black !important;
+}
+
+.ul-padding {
+  -webkit-padding-start: 10px;
+  -webkit-padding-end: 10px;
 }
 
 /* HACK for custom theme color  */

@@ -69,6 +69,7 @@ class Home extends Component {
           <li key={entry._id} id={"entry_" + entry._id}>
             <Player
               title={entry.name}
+              user={entry.user.email}
               file={entry.file.path}
               playing={this.props.playing && this.props.activeID == entry._id}
               loop={this.props.loop}
@@ -87,7 +88,7 @@ class Home extends Component {
     return (
       <div>
         <div className="left-pane">
-          <ul>{content}</ul>
+          <ul className="ul-padding">{content}</ul>
           <div>
             <Button primary onClick={() => this.props.loadSounds()}>
               Get more sounds

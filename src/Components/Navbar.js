@@ -37,10 +37,10 @@ class Navbar extends Component {
     const logo = require("../assets/syro_logo_white.png");
 
     return (
-      <Menu fixed="top" inverted size="huge" color="blue">
+      <Menu fixed="top" inverted size="small" color="blue">
         <Menu.Item>
           <Link to="/">
-            <Image src={logo} style={{ width: "75px" }} size="small" />
+            <Image src={logo} style={{ width: "50px" }} size="small" />
           </Link>
         </Menu.Item>
 
@@ -51,7 +51,7 @@ class Navbar extends Component {
         <Menu.Menu position="right">
           <Menu.Item>
             <Link to="/upload">
-              <Button inverted icon labelPosition="left">
+              <Button inverted icon labelPosition="left" size="mini">
                 <Icon name="upload" />
                 Upload
               </Button>

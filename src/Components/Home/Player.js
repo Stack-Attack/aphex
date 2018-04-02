@@ -25,7 +25,7 @@ class Player extends Component {
         <Grid.Column width={4}>
           <Grid centered>
             <Grid.Row className="artistRow">
-              <h4 className="Title">Artist: {this.props.title}</h4>
+              <p className="Title">{this.props.user}</p>
             </Grid.Row>
 
             <Grid.Row className="imageRow">
@@ -33,7 +33,7 @@ class Player extends Component {
             </Grid.Row>
 
             <Grid.Row className="titleRow">
-              <h4 className="Title">{this.props.title}</h4>
+              <p className="Title">{this.props.title}</p>
             </Grid.Row>
           </Grid>
         </Grid.Column>

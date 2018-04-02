@@ -1,5 +1,12 @@
 .item-info {
-  border: 1px solid #ccc;
-  margin-left: 40px;
-  margin-top: 100px;
+  /* border: 1px solid #ccc; */
+  margin-left: 20px;
+  margin-left: 20px;
+  margin-top: 65px;
+
+  background: #003042;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
 }

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import Sticky from "react-stickynode";
 import "./ItemInfo.css";
+import "./Player.css";
 import PlayButton from "./Controls/PlayButton";
+
+import { Grid, Image } from "semantic-ui-react";
+import faker from "faker";
+import wave_yellow from "../../assets/wave_small.png";
 
 /**
  * Presentational component for Item Info that is displayed when a sound is playing. This component is positioned adjacent to the list of loaded sounds, and will display info on the currently selected sound
@@ -22,13 +27,48 @@ class ItemInfo extends Component {
 
     return (
       <Sticky>
-        <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <div className={!this.props.displayControls ? "hidden" : ""}>
-            <PlayButton
-              onClick={() => this.props.onToggle(this.props.data)}
-              playing={this.props.playing}
+        <Grid
+          celled="interally"
+          className={"PlayerInfo" + (!this.props.data ? " hidden" : "")}
+        >
+          <Grid.Column width={4}>
+            <Grid centered>
+              <Grid.Row className="artistRow">
+                <p className="Title">{title}</p>
+              </Grid.Row>
+
+              <Grid.Row className="imageRow">
+                <Image className="songImage" src={faker.internet.avatar()} />
+              </Grid.Row>
+
+              <Grid.Row className="titleRow">
+                <p className="Title">{title}</p>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+
+          <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
+            <img
+              src={wave_yellow}
+              class="wavey"
+              alt="FYI, image alt text is required"
             />
-          </div>
+            <div
+              className={
+                "Waveform" + (this.props.playing ? " playing" : " paused")
+              }
+            />
+          </Grid.Column>
+          <Grid.Column width={2} className={"noBorder"}>
+            <div className={!this.props.displayControls ? "hidden" : ""}>
+              <PlayButton
+                onClick={() => this.props.onToggle(this.props.data)}
+                playing={this.props.playing}
+              />
+            </div>
+          </Grid.Column>
+        </Grid>
+        <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
           <h1>{title}</h1>
           <p>
             Created by {creator} at {createdAt}

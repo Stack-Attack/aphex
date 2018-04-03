@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import faker from "faker";
 
-import { Menu, Input, Dropdown, Icon, Image, Button } from "semantic-ui-react";
+import {Menu, Input, Dropdown, Icon, Image, Button} from "semantic-ui-react";
 
 /**
  * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.
@@ -12,81 +12,88 @@ import { Menu, Input, Dropdown, Icon, Image, Button } from "semantic-ui-react";
  */
 
 class Navbar extends Component {
-  static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    logoutClicked: PropTypes.func.isRequired
-  };
+    static propTypes = {
+        isAuthenticated: PropTypes.bool.isRequired,
+        logoutClicked: PropTypes.func.isRequired,
+        linkClicked: PropTypes.func.isRequired
+    };
 
-  render() {
-    let content = null;
+    render() {
+        let content = null;
 
-    // if (this.props.isAuthenticated) {
-    //   content = (
-    //     <button onClick={() => this.props.logoutClicked}>Sign Out</button>
-    //   );
-    // } else {
-    //   content = <Link to="/login">Sign In</Link>;
-    // }
+        // if (this.props.isAuthenticated) {
+        //   content = (
+        //     <button onClick={() => this.props.logoutClicked}>Sign Out</button>
+        //   );
+        // } else {
+        //   content = <Link to="/login">Sign In</Link>;
+        // }
 
-    const trigger = (
-      <span>
-        <Image avatar src={faker.internet.avatar()} /> {faker.name.findName()}
+        const trigger = (
+            <span>
+        <Image avatar src={faker.internet.avatar()}/> {faker.name.findName()}
       </span>
-    );
+        );
 
-    const logo = require("../Assets/syro_logo_white.svg");
+        const logo = require("../Assets/syro_logo_white.svg");
 
-    return (
-      <Menu fixed="top" inverted size="huge" color="blue">
-        <Menu.Item>
-          <Link to="/">
-            <Image src={logo} size="tiny" />
-          </Link>
-        </Menu.Item>
+        return (
+            <Menu fixed="top" inverted size="huge" color="blue">
+                <Menu.Item>
+                    <Link to="/">
+                        <Image src={logo} size="tiny"/>
+                    </Link>
+                </Menu.Item>
 
-        <Menu.Item>
-          <Input placeholder="Search..." />
-        </Menu.Item>
+                <Menu.Item>
+                    <Input placeholder="Search..."/>
+                </Menu.Item>
 
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Link to="/upload">
-              <Button inverted icon labelPosition="left">
-                <Icon name="upload" />
-                Upload
-              </Button>
-            </Link>
-          </Menu.Item>
+                <Menu.Menu position="right">
+                    <Menu.Item>
+                        <Link to="/upload">
+                            <Button inverted icon labelPosition="left" onClick={() => this.props.linkClicked()}>
+                                <Icon name="upload"/>
+                                Upload
+                            </Button>
+                        </Link>
+                    </Menu.Item>
 
-          <Dropdown item trigger={trigger} pointing="top left" icon={null}>
-            <Dropdown.Menu>
-              <Link to="/account">
-                <Dropdown.Item
-                  className="black hoverClick"
-                  text="&nbsp;&nbsp;Account"
-                  icon="user"
-                />
-              </Link>
+                    <Dropdown item trigger={trigger} pointing="top left" icon={null}>
+                        <Dropdown.Menu>
+                            <Link to="/account">
+                                <Dropdown.Item
+                                    className="black hoverClick"
+                                    text="&nbsp;&nbsp;Account"
+                                    icon="user"
+                                    onClick={() => this.props.linkClicked()}
+                                />
+                            </Link>
 
-              <Link to="/settings">
-                <Dropdown.Item
-                  className="black hoverClick"
-                  text="&nbsp;&nbsp;Settings"
-                  icon="settings"
-                />
-              </Link>
+                            <Link to="/settings">
+                                <Dropdown.Item
+                                    className="black hoverClick"
+                                    text="&nbsp;&nbsp;Settings"
+                                    icon="settings"
+                                    onClick={() => this.props.linkClicked()}
+                                />
+                            </Link>
 
 
-              <Dropdown.Item
-                text="Sign Out"
-                icon="sign out"
-                onClick={() => this.props.logoutClicked()}
-              />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Menu.Menu>
-      </Menu>
-    );
-  }
+                            <Dropdown.Item
+                                text="Sign Out"
+                                icon="sign out"
+                                onClick={() => {
+                                    this.props.linkClicked();
+                                    this.props.logoutClicked();
+                                }}
+                            />
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Menu>
+            </Menu>
+        );
+    }
 }
+
 export default Navbar;

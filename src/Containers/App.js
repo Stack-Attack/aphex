@@ -8,10 +8,9 @@ import Account from "../Components/Account/AccountPage.js";
 import HomeContainer from "../Containers/HomeContainer";
 import {connect} from "react-redux";
 import {loginUser, logoutUser, signUpUser} from "../Actions/user";
-import {uploadSound} from "../Actions/sounds";
+import {uploadSound, clearLoadedSounds} from "../Actions/sounds";
+import {resetControls} from "../Actions/controls";
 import {withRouter} from "react-router-dom";
-
-//TODO: load sounds from REST API along with other pertinent data
 
 /**
  * Containers/App.js
@@ -25,6 +24,7 @@ import {withRouter} from "react-router-dom";
 class App extends Component {
     //render the components that make up the application
     render() {
+
         if (this.props.isAuthenticated) {
             //if the user has signed in and authenticated, direct them to full app
             return (
@@ -36,6 +36,7 @@ class App extends Component {
                                 this.props.logoutClicked();
                                 this.props.history.push('/');
                             }}
+                            linkClicked={() => this.props.resetControls()}
                         />
                     </div>
                     <main className="App-main-section">
@@ -85,7 +86,6 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.user.isAuthenticated,
-    //isAuthenticated: true, //comment this out to use correct authentication state mapping
     errorMessage: state.user.errorMessage,
     userInfo: state.user.userInfo
 });
@@ -110,7 +110,12 @@ const mapDispatchToProps = dispatch => ({
 
     fileUpload: file => {
         dispatch(uploadSound(file, localStorage.getItem("id_token")));
+    },
+
+    resetControls: () => {
+        dispatch(resetControls())
     }
+
 });
 
 /**

@@ -71,7 +71,6 @@ export const fetchSounds = (num, token) => dispatch => {
         )
 };
 
-
 export const tempSounds = (num, token) => dispatch => {
     //this doesn't get used
     dispatch(requestSounds());
@@ -125,6 +124,10 @@ export const uploadSound = (file, token) => dispatch => {
         .catch(err => console.log("Error: ", err));
 };
 
+
+
+
+
 //actions for request a single sound from the server
 export const requestSound = () => ({
     //request sounds from the server
@@ -167,6 +170,13 @@ export const receiveCreateSound = () => ({
 export const failureCreateSound = message => ({
     type: types.FAILURE_CREATE_SOUND,
     message: message
+})
+
+
+//other sound actions
+
+export const clearLoadedSounds = () => ({
+    type: types.CLEAR_LOADED_SOUNDS
 })
 
 

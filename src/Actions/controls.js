@@ -39,3 +39,7 @@ export const adjustFocus = inFocus => ({
   type: types.ADJUST_FOCUS,
   inFocus
 });
+
+export const resetControls = () => ({
+    type: types.RESET_CONTROLS
+})

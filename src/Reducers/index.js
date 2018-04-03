@@ -87,10 +87,19 @@ const sounds = (state = {
                 action) => {
     switch (action.type) {
         case soundTypes.RECEIVE_SOUNDS:
+            //this algorithm removes duplicate loaded sounds based on their id
+            let newSounds = [...state.loadedSounds, ...action.payload];
+            for(let i = 0; i < newSounds.length; ++i){
+                for(let j = i + 1; j < newSounds.length; ++j){
+                    if(newSounds[i]._id == newSounds[j]._id){
+                        newSounds.splice(j--, 1);
+                    }
+                }
+            }
             return {
                 ...state,
                 isFetching: false,
-                loadedSounds: state.loadedSounds.concat(action.payload)
+                loadedSounds: newSounds
             };
         case soundTypes.REQUEST_SOUNDS:
             return {
@@ -102,6 +111,12 @@ const sounds = (state = {
                 ...state,
                 isFetching: false,
                 errorMessage: action.message
+            }
+        case soundTypes.CLEAR_LOADED_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                loadedSounds: []
             }
         default:
             return state;
@@ -141,7 +156,15 @@ const controls = (state = {
                 ...state,
                 playerInFocus: action.inFocus
             };
-
+        case controlTypes.RESET_CONTROLS:
+            return {
+                ...state,
+                activeID: null,
+                playing: false,
+                mute: false,
+                playerInFocus: true,
+                activeInfo: false
+            }
         default:
             return state;
     }

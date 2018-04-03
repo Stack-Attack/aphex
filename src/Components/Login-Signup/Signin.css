@@ -1,0 +1,114 @@
+.Grid {
+    height: 100vh;
+}
+
+.Logo {
+    padding-top: 15%;
+    padding-bottom: 5%;
+    padding-left: 3%;
+}
+
+.Shape {
+    padding-left: 5%;
+    padding-right: 4%;
+ }
+
+.LeftSide {
+    background-color: #003042;
+    height: 100%;
+    max-height: 750px;
+}
+
+.Button{
+    font-family: 'Poiret One', cursive !important;
+    font-size: 20px !important;
+    line-height: 0px !important;
+
+}
+
+.Button.Sample{
+    background-color: #FF1958;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.Button.Demo{
+    background-color: #00C1FF;
+    padding-left: 19px !important;
+    padding-right: 19px !important;
+}
+
+.Button.Preview{
+    background-color: #CCBF14;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.Button.Register{
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-top: -100%;
+    margin-bottom: -100%;
+    transform: translateX(+124.6%) !important;
+}
+
+.test {
+    height: 500px;
+    width: 500px;
+}
+
+.RightSide {
+    background-image: url("../../assets/syro_shape_blue_filled.svg") !important;
+    background-size: contain !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 100%;
+}
+
+.Form {
+    padding-left: 2%;
+}
+
+.PoiretHeader {
+    font-family: 'Poiret One', cursive !important;
+}
+
+.PoiretHeader.Login {
+    font-size: 210% !important;
+    line-height: 50% !important;
+    padding-right: 25% !important;
+}
+
+.PoiretHeader.Login.Bottom {
+    margin-bottom: -0.01%;
+}
+
+.PoiretHeader.Intro {
+    font-size: 160% !important;
+    color: #CCCCCC;
+    padding-right: 12%;
+    padding-left: 12%;
+    padding-bottom: 5%;
+}
+
+.Form {
+
+}
+
+.FormEntry{
+    padding-left: 15% ;
+    padding-right: 40%;
+}
+
+.FormEntry.Top{
+
+}
+
+.FormButton{
+    margin-left: 25% !important;
+    margin-right: 55% !important;
+}

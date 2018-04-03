@@ -44,7 +44,7 @@ class Signin extends Component {
 
       <Grid stackable className={"Grid"} verticalAlign={"middle"}>
         <Grid.Row columns={2} centered style={{paddingBottom:'0', paddingTop: '0'}}>
-          <Grid.Column className={"LeftSide"} verticalAlign={"middle"}>
+          <Grid.Column centered className={"LeftSide"} verticalAlign={"middle"}>
             <Grid.Row  verticalAlign={"middle"}>
               <Image className={"Logo"} size={"medium"} verticalAlign={"middle"} src={logo} />
             </Grid.Row>

@@ -34,7 +34,7 @@ class ItemInfo extends Component {
           <Grid.Column width={4}>
             <Grid centered>
               <Grid.Row className="artistRow">
-                <p className="Title">{title}</p>
+                <p className="Title">{creator}</p>
               </Grid.Row>
 
               <Grid.Row className="imageRow">
@@ -69,9 +69,9 @@ class ItemInfo extends Component {
           </Grid.Column>
         </Grid>
         <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <h1>{title}</h1>
-          <p>
-            Created by {creator} at {createdAt}
+          <h1 className="infoTitle">{title}</h1>
+          <p className="infoTitle">
+            {new Date(createdAt).toString().slice(4, 15)}
           </p>
         </div>
       </Sticky>

@@ -25,7 +25,9 @@ class Home extends Component {
         infoControlPlayToggle: PropTypes.func.isRequired,
         loadSounds: PropTypes.func.isRequired,
         playing: PropTypes.bool.isRequired,
-        loop: PropTypes.bool.isRequired
+        loop: PropTypes.bool.isRequired,
+        activeSeek: PropTypes.number,
+        setSeekPos: PropTypes.func
     };
 
     componentDidMount() {
@@ -69,13 +71,15 @@ class Home extends Component {
                     <li key={entry._id} id={"entry_" + entry._id}>
                         <Player
                             title={entry.name}
+                            user={entry.user.email}
                             file={entry.file.path}
                             playing={this.props.playing && this.props.activeID == entry._id}
                             loop={this.props.loop}
                             onToggle={() => this.props.playerToggle(entry)}
-                            onPlay={() => this.onPlayerStart(entry)}
-                            onEnd={() => this.onPlayerEnd(entry)}
-                            onLoad={() => this.playerLoaded(entry)}
+                            onPlay={pos => this.onPlayerStart(pos)}
+                            onEnd={() => this.onPlayerEnd()}
+                            onLoad={dur => this.playerLoaded(dur)}
+                            setSeekPos={pos => this.props.setSeekPos(pos)}
                         />
                     </li>
                 );
@@ -107,14 +111,16 @@ class Home extends Component {
     }
 
     //we may not even end up needed the below functions
-    onPlayerStart(entry) {
+    onPlayerStart(pos) {
     }
 
-    onPlayerEnd(entry) {
+    onPlayerEnd() {
     }
 
-    playerLoaded(entry) {
+    playerLoaded(dur) {
     }
+
+
 
     handleScroll() {
         const windowHeight =

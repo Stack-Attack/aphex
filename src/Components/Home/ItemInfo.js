@@ -9,6 +9,8 @@ import PlayButton from "./Controls/PlayButton";
  */
 
 class ItemInfo extends Component {
+
+
     render() {
         let title = "";
         let createdAt = "";
@@ -18,6 +20,7 @@ class ItemInfo extends Component {
             title = this.props.data.name;
             createdAt = this.props.data.createdAt;
             creator = this.props.data.user.email;
+
         }
 
         return (
@@ -30,7 +33,8 @@ class ItemInfo extends Component {
                         />
                     </div>
                     <h1>{title}</h1>
-                    <p>Created by {creator} at {createdAt}</p>
+                    <p>{createdAt}</p>
+
 
 
                 </div>

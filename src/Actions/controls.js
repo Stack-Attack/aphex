@@ -40,6 +40,11 @@ export const adjustFocus = inFocus => ({
   inFocus
 });
 
+export const setSeek = pos => ({
+   type: types.SET_SEEK,
+   pos
+});
+
 export const resetControls = () => ({
     type: types.RESET_CONTROLS
 })

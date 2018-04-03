@@ -90,9 +90,9 @@ const sounds = (state = {
         case soundTypes.RECEIVE_SOUNDS:
             //this algorithm removes duplicate loaded sounds based on their id
             let newSounds = [...state.loadedSounds, ...action.payload];
-            for(let i = 0; i < newSounds.length; ++i){
-                for(let j = i + 1; j < newSounds.length; ++j){
-                    if(newSounds[i]._id == newSounds[j]._id){
+            for (let i = 0; i < newSounds.length; ++i) {
+                for (let j = i + 1; j < newSounds.length; ++j) {
+                    if (newSounds[i]._id == newSounds[j]._id) {
                         newSounds.splice(j--, 1);
                     }
                 }
@@ -139,7 +139,8 @@ const controls = (state = {
                       looping: true,
                       mute: false,
                       playerInFocus: true,
-                      activeInfo: {}
+                      activeInfo: {},
+                      activeSeek: 0
                   },
                   action) => {
     switch (action.type) {
@@ -161,6 +162,12 @@ const controls = (state = {
                 ...state,
                 playerInFocus: action.inFocus
             };
+        case controlTypes.SET_SEEK:
+            return{
+                ...state,
+                activeSeek: action.pos
+            }
+
         case controlTypes.RESET_CONTROLS:
             return {
                 ...state,
@@ -169,7 +176,8 @@ const controls = (state = {
                 mute: false,
                 playerInFocus: true,
                 activeInfo: false
-            }
+            };
+
         default:
             return state;
     }

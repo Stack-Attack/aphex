@@ -80,12 +80,6 @@ class Signin extends Component {
           />
           <input
             className="form-item"
-            placeholder="Username"
-            type="text"
-            ref="suUsername"
-          />
-          <input
-            className="form-item"
             placeholder="Password"
             type="password"
             ref="suPassword"

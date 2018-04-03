@@ -1,6 +1,6 @@
 import sounds from "../api/sounds";
 import * as types from '../Constants/SoundActionTypes';
-
+import History from '../Utils/History';
 /*
     Actions for the sounds reducer. A container will dispatch one of these actions upon the user
     interacting with the app. The sounds reducer will receive one of these actions and adjust the
@@ -17,30 +17,30 @@ const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
 
 //GET sample/{id}
 export const fetchSingleSound = (id, token) => dispatch => {
-        dispatch(requestSound());
+    dispatch(requestSound());
 
-        let config = {
-            headers: {
-                'Authorization': token
-            }
-        };
-
-        return fetch(SAMPLE_ENDPOINT + '/${id}', config)
-            .then(response => response.json().then(sound => ({sound, response})))
-            .then(({sound, response}) => {
-                    if (!response.ok) {
-                        //error in fetching single sound
-                        dispatch(failureSound(sound.message));
-                        return Promise.reject(sound);
-                    }
-                    else {
-                        dispatch(receiveSound(sound));
-                    }
-                }
-            )
-            .catch(err => console.log("Error: ", err));
-
+    let config = {
+        headers: {
+            'Authorization': token
+        }
     };
+
+    return fetch(SAMPLE_ENDPOINT + '/${id}', config)
+        .then(response => response.json().then(sound => ({sound, response})))
+        .then(({sound, response}) => {
+                if (!response.ok) {
+                    //error in fetching single sound
+                    dispatch(failureSound(sound.message));
+                    return Promise.reject(sound);
+                }
+                else {
+                    dispatch(receiveSound(sound));
+                }
+            }
+        )
+        .catch(err => console.log("Error: ", err));
+
+};
 
 //GET sample
 export const fetchSounds = (num, token) => dispatch => {
@@ -64,11 +64,15 @@ export const fetchSounds = (num, token) => dispatch => {
                 }
             }
         )
-        .catch(err => console.log("Error: ", err))
+        .catch(err => {
+                console.log("Error: ", err);
+                dispatch(failureSounds("Error:" + err));
+            }
+        )
 };
 
-
 export const tempSounds = (num, token) => dispatch => {
+    //this doesn't get used
     dispatch(requestSounds());
 
     sounds.getSounds(sounds => {
@@ -83,11 +87,10 @@ export const tempSounds = (num, token) => dispatch => {
 
 //POST sample
 export const uploadSound = (file, token) => dispatch => {
-    console.log(file);
     dispatch(requestCreateSound());
 
     if (!token) {
-        console.log("won't work");
+        console.log("No token, will need to re-authenticate");
     }
 
     let config = { // eslint-disable-line no-unused-vars
@@ -96,24 +99,38 @@ export const uploadSound = (file, token) => dispatch => {
             'Authorization': token,
             'Content-Type': 'application/json'
         },
-        name: 'Name here',
-        uri: file //TODO: this will be a data url here
+        body:JSON.stringify({
+            'name': file.name,
+            'uri': file.url
+        })
     };
+
+    console.log(config);
 
     return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
+            console.log(response);
+            console.log(sound);
             if (!response.ok) {
                 //error in uploading sound
                 dispatch(failureCreateSound(sound.message));
                 return Promise.reject(sound);
             }
             else {
-                dispatch(receiveCreateSound());
+                dispatch(receiveCreateSound()).then(
+                    History.push('/')
+            );
             }
         })
         .catch(err => console.log("Error: ", err));
 };
+
+
+
+
+
+
 
 //actions for request a single sound from the server
 export const requestSound = () => ({
@@ -157,6 +174,13 @@ export const receiveCreateSound = () => ({
 export const failureCreateSound = message => ({
     type: types.FAILURE_CREATE_SOUND,
     message: message
+})
+
+
+//other sound actions
+
+export const clearLoadedSounds = () => ({
+    type: types.CLEAR_LOADED_SOUNDS
 })
 
 

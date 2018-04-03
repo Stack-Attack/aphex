@@ -82,26 +82,46 @@ const user = (state = {
 
 const sounds = (state = {
                     isFetching: false,
+                    uploadSuccessful: false,
                     loadedSounds: []
                 },
                 action) => {
     switch (action.type) {
         case soundTypes.RECEIVE_SOUNDS:
+            //this algorithm removes duplicate loaded sounds based on their id
+            let newSounds = [...state.loadedSounds, ...action.payload];
+            for (let i = 0; i < newSounds.length; ++i) {
+                for (let j = i + 1; j < newSounds.length; ++j) {
+                    if (newSounds[i]._id == newSounds[j]._id) {
+                        newSounds.splice(j--, 1);
+                    }
+                }
+            }
             return {
                 ...state,
                 isFetching: false,
-                loadedSounds: state.loadedSounds.concat(action.payload)
+                uploadSuccessful: true,
+                loadedSounds: newSounds
             };
         case soundTypes.REQUEST_SOUNDS:
             return {
                 ...state,
+                uploadSuccessful: false,
                 isFetching: true
             };
         case soundTypes.FAILURE_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
+                uploadSuccessful: false,
                 errorMessage: action.message
+            }
+        case soundTypes.CLEAR_LOADED_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                loadedSounds: []
             }
         default:
             return state;
@@ -119,7 +139,8 @@ const controls = (state = {
                       looping: true,
                       mute: false,
                       playerInFocus: true,
-                      activeInfo: {}
+                      activeInfo: {},
+                      activeSeek: 0
                   },
                   action) => {
     switch (action.type) {
@@ -140,6 +161,21 @@ const controls = (state = {
             return {
                 ...state,
                 playerInFocus: action.inFocus
+            };
+        case controlTypes.SET_SEEK:
+            return{
+                ...state,
+                activeSeek: action.pos
+            }
+
+        case controlTypes.RESET_CONTROLS:
+            return {
+                ...state,
+                activeID: null,
+                playing: false,
+                mute: false,
+                playerInFocus: true,
+                activeInfo: false
             };
 
         default:

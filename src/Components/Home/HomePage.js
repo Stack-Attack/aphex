@@ -25,13 +25,14 @@ class Home extends Component {
     infoControlPlayToggle: PropTypes.func.isRequired,
     loadSounds: PropTypes.func.isRequired,
     playing: PropTypes.bool.isRequired,
-    loop: PropTypes.bool.isRequired
+    loop: PropTypes.bool.isRequired,
+    activeSeek: PropTypes.number,
+    setSeekPos: PropTypes.func
   };
 
   componentDidMount() {
-    //TODO: eventually, we will want to load a series of sounds from the server upon the component loading
-    // this.props.loadSounds();
     window.addEventListener("scroll", this.detectViewPort);
+    this.props.loadSounds();
   }
 
   componentWillUnmount() {}
@@ -74,9 +75,10 @@ class Home extends Component {
               playing={this.props.playing && this.props.activeID == entry._id}
               loop={this.props.loop}
               onToggle={() => this.props.playerToggle(entry)}
-              onPlay={() => this.onPlayerStart(entry)}
-              onEnd={() => this.onPlayerEnd(entry)}
-              onLoad={() => this.playerLoaded(entry)}
+              onPlay={pos => this.onPlayerStart(pos)}
+              onEnd={() => this.onPlayerEnd()}
+              onLoad={dur => this.playerLoaded(dur)}
+              setSeekPos={pos => this.props.setSeekPos(pos)}
             />
           </li>
         );
@@ -84,7 +86,6 @@ class Home extends Component {
     } else {
       content = "Unable to load sounds";
     }
-
     return (
       <div>
         <div className="left-pane">
@@ -108,11 +109,11 @@ class Home extends Component {
   }
 
   //we may not even end up needed the below functions
-  onPlayerStart(entry) {}
+  onPlayerStart(pos) {}
 
-  onPlayerEnd(entry) {}
+  onPlayerEnd() {}
 
-  playerLoaded(entry) {}
+  playerLoaded(dur) {}
 
   handleScroll() {
     const windowHeight =

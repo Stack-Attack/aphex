@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import "./index.css";
 import App from "./Containers/App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./Reducers";
 import thunk from "redux-thunk";
+import History from "./Utils/History";
 
 /*
     This index.js is the first file loaded in the app. It loads dependencies for the application. These include
@@ -32,7 +33,7 @@ const unsubscribe = store.subscribe(() => console.log(store.getState())); // esl
 //finally, render the root component
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={History}>
       <App />
     </Router>
   </Provider>,

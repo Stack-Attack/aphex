@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "../App/App.css";
 import Navbar from "../Components/Navbar.js";
-import { Switch, Route } from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import Upload from "../Components/Upload/UploadPage.js";
 import Signin from "../Components/Login-Signup/Signin.js";
 import Account from "../Components/Account/AccountPage.js";
 import HomeContainer from "../Containers/HomeContainer";
-import { connect } from "react-redux";
-import { loginUser, logoutUser, signUpUser } from "../Actions/user";
-import { uploadSound } from "../Actions/sounds";
-import { withRouter } from "react-router-dom";
-
-//TODO: load sounds from REST API along with other pertinent data
+import {connect} from "react-redux";
+import {loginUser, logoutUser, signUpUser} from "../Actions/user";
+import {uploadSound, clearLoadedSounds, tempUpload} from "../Actions/sounds";
+import {resetControls} from "../Actions/controls";
+import {withRouter} from "react-router-dom";
+import History from "../Utils/History";
 
 /**
  * Containers/App.js
@@ -23,52 +23,61 @@ import { withRouter } from "react-router-dom";
  * Next, the component checks to see what route has been provided and renders the corresponding component accordingly. Each rendered component can be examined in the ./Components/* directory.
  */
 class App extends Component {
-  //render the components that make up the application
-  render() {
-    if (this.props.isAuthenticated) {
-      //if the user has signed in and authenticated, direct them to full app
-      return (
-        <div className="App">
-          <div>
-            <Navbar
-              isAuthenticated={this.props.isAuthenticated}
-              logoutClicked={() => this.props.logoutClicked()}
-            />
-          </div>
-          <main className="App-main-section">
-            <Switch>
-              <Route exact path="/" render={() => <HomeContainer />} />
-              <Route
-                exact
-                path="/upload"
-                render={() => (
-                  <Upload fileUpload={file => this.props.fileUpload(file)} />
-                )}
-              />
-              <Route
-                exact
-                path="/account"
-                render={() => <Account userInfo={this.props.userInfo} />}
-              />
-            </Switch>
-          </main>
-        </div>
-      );
-    } else {
-      //user is not signed in and authenticated; direct them to the signin page
-      return (
-        <div className="App">
-          <main className="App-main-section">
-            <Signin
-              loginClicked={creds => this.props.loginClicked(creds)}
-              signupClicked={creds => this.props.signupClicked(creds)}
-              errorMessage={this.props.errorMessage}
-            />
-          </main>
-        </div>
-      );
+    //render the components that make up the application
+    render() {
+
+        if (this.props.isAuthenticated) {
+            //if the user has signed in and authenticated, direct them to full app
+            return (
+                <div className="App">
+                    <div>
+                        <Navbar
+                            isAuthenticated={this.props.isAuthenticated}
+                            logoutClicked={() => {
+                                this.props.logoutClicked();
+                                History.push('/');
+                            }}
+                            linkClicked={() => this.props.resetControls()}
+                        />
+                    </div>
+                    <main className="App-main-section">
+                        <Switch>
+                            <Route exact path="/" render={() => <HomeContainer/>}/>
+                            <Route
+                                exact
+                                path="/upload"
+                                render={() => (
+                                    <Upload fileUpload={file => this.props.fileUpload(file)}/>
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/account"
+                                render={() => <Account userInfo={this.props.userInfo}/>}
+                            />
+                        </Switch>
+                    </main>
+                </div>
+            );
+        } else {
+            //user is not signed in and authenticated; direct them to the signin page
+            return (
+                <div className="App">
+                    <main className="App-main-section">
+                        <Signin
+                            loginClicked = {creds => {
+                                this.props.loginClicked(creds);
+                                History.push('/');
+                            }
+                            }
+                            signupClicked={creds => this.props.signupClicked(creds)}
+                            errorMessage={this.props.errorMessage}
+                        />
+                    </main>
+                </div>
+            );
+        }
     }
-  }
 }
 
 /**
@@ -77,10 +86,10 @@ class App extends Component {
  */
 
 const mapStateToProps = state => ({
-   isAuthenticated: state.user.isAuthenticated,
-  //isAuthenticated: true, //comment this out to use correct authentication state mapping
-  errorMessage: state.user.errorMessage,
-  userInfo: state.user.userInfo
+    isAuthenticated: state.user.isAuthenticated,
+    uploadSuccessful: state.sounds.uploadSuccessful,
+    errorMessage: state.user.errorMessage,
+    userInfo: state.user.userInfo
 });
 
 /**
@@ -88,22 +97,27 @@ const mapStateToProps = state => ({
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const mapDispatchToProps = dispatch => ({
-  signupClicked: creds => {
-    dispatch(signUpUser(creds));
-  },
+const mapDispatchToProps = (dispatch, state) => ({
+    signupClicked: creds => {
+        dispatch(signUpUser(creds));
+    },
 
-  loginClicked: creds => {
-    dispatch(loginUser(creds));
-  },
+    loginClicked: creds => {
+        dispatch(loginUser(creds));
+    },
 
-  logoutClicked: () => {
-    dispatch(logoutUser());
-  },
+    logoutClicked: () => {
+        dispatch(logoutUser());
+    },
 
-  fileUpload: file => {
-    dispatch(uploadSound(file, localStorage.getItem("id_token")));
-  }
+    fileUpload: file => {
+        dispatch(uploadSound(file, localStorage.getItem("id_token")));
+    },
+
+    resetControls: () => {
+        dispatch(resetControls())
+    }
+
 });
 
 /**

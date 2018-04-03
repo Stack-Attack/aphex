@@ -14,7 +14,8 @@ import { Menu, Input, Dropdown, Icon, Image, Button } from "semantic-ui-react";
 class Navbar extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    logoutClicked: PropTypes.func.isRequired
+    logoutClicked: PropTypes.func.isRequired,
+    linkClicked: PropTypes.func.isRequired
   };
 
   render() {
@@ -34,7 +35,7 @@ class Navbar extends Component {
       </span>
     );
 
-    const logo = require("../assets/syro_logo_white.png");
+    const logo = require("../Assets/syro_logo_white.svg");
 
     return (
       <Menu fixed="top" inverted size="small" color="blue">
@@ -51,7 +52,13 @@ class Navbar extends Component {
         <Menu.Menu position="right">
           <Menu.Item>
             <Link to="/upload">
-              <Button inverted icon labelPosition="left" size="mini">
+              <Button
+                inverted
+                icon
+                labelPosition="left"
+                size="mini"
+                onClick={() => this.props.linkClicked()}
+              >
                 <Icon name="upload" />
                 Upload
               </Button>
@@ -65,6 +72,7 @@ class Navbar extends Component {
                   className="black hoverClick"
                   text="&nbsp;&nbsp;Account"
                   icon="user"
+                  onClick={() => this.props.linkClicked()}
                 />
               </Link>
 
@@ -73,13 +81,17 @@ class Navbar extends Component {
                   className="black hoverClick"
                   text="&nbsp;&nbsp;Settings"
                   icon="settings"
+                  onClick={() => this.props.linkClicked()}
                 />
               </Link>
 
               <Dropdown.Item
                 text="Sign Out"
                 icon="sign out"
-                onClick={() => this.props.logoutClicked()}
+                onClick={() => {
+                  this.props.linkClicked();
+                  this.props.logoutClicked();
+                }}
               />
             </Dropdown.Menu>
           </Dropdown>
@@ -88,4 +100,5 @@ class Navbar extends Component {
     );
   }
 }
+
 export default Navbar;

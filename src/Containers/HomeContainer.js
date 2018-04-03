@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
-import { adjustFocus, playPressed } from "../Actions/controls";
-import { fetchSounds, tempSounds } from "../Actions/sounds";
+import {connect} from "react-redux";
+import {adjustFocus, playPressed, setSeek} from "../Actions/controls";
+import {fetchSounds, tempSounds} from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -12,14 +12,15 @@ import HomePage from "../Components/Home/HomePage";
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapStateToProps = state => ({
-  loadedSounds: state.sounds.loadedSounds,
-  loop: state.controls.looping,
-  activeID: state.controls.activeID,
-  playing: state.controls.playing,
-  activeInfo: state.sounds.loadedSounds.find(sound => {
-    return sound._id === state.controls.activeID;
-  }),
-  playerInFocus: state.controls.playerInFocus
+    loadedSounds: state.sounds.loadedSounds,
+    loop: state.controls.looping,
+    activeID: state.controls.activeID,
+    playing: state.controls.playing,
+    activeInfo: state.sounds.loadedSounds.find(sound => {
+        return sound._id === state.controls.activeID;
+    }),
+    playerInFocus: state.controls.playerInFocus,
+    activeSeek: state.controls.activeSeek
 });
 
 /**
@@ -27,20 +28,23 @@ const mapStateToProps = state => ({
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapDispatchToProps = dispatch => ({
-  playerToggle: entry => {
-    dispatch(adjustFocus(true));
-    dispatch(playPressed(entry._id));
-  },
-  infoControlPlayToggle: entry => {
-    dispatch(playPressed(entry._id));
-  },
-  adjustFocus: isInFocus => {
-    dispatch(adjustFocus(isInFocus));
-  },
-  loadSounds: () => {
-   // dispatch(tempSounds());
-      dispatch(fetchSounds(1, localStorage['id_token']));
-  }
+    playerToggle: entry => {
+        dispatch(adjustFocus(true));
+        dispatch(playPressed(entry._id));
+    },
+    infoControlPlayToggle: entry => {
+        dispatch(playPressed(entry._id));
+    },
+    adjustFocus: isInFocus => {
+        dispatch(adjustFocus(isInFocus));
+    },
+    loadSounds: () => {
+        // dispatch(tempSounds());
+        dispatch(fetchSounds(1, localStorage['id_token']));
+    },
+    setSeekPos: pos => {
+        dispatch(setSeek(pos));
+    }
 });
 
 const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomePage);

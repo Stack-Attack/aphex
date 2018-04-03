@@ -53,12 +53,6 @@ export const loginUser = creds => dispatch => {
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-export const testing = creds => dispatch => {
-    console.log("testing log in creds");
-    console.log(creds);
-}
-
-
 export const signUpUser = creds => dispatch => {
 
     let config = {

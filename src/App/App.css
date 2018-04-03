@@ -48,7 +48,11 @@ li {
 }
 
 .hidden {
-  visibility: hidden;
+  visibility: hidden !important;
+}
+
+.none {
+  display: none !important;
 }
 
 .black {

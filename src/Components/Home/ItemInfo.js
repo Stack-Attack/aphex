@@ -69,10 +69,16 @@ class ItemInfo extends Component {
           </Grid.Column>
         </Grid>
         <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <h1 className="infoTitle">{title}</h1>
+          <p className="infoTitle">
+            Lorem ipsum description in this area loreum ipsum yea yeah cool song
+            its fun to listen to, give it a go
+          </p>
           <p className="infoTitle">
             {new Date(createdAt).toString().slice(4, 15)}
           </p>
+          <form>
+            <input type="text" name="search" placeholder="Write a comment.." />
+          </form>
         </div>
       </Sticky>
     );

@@ -1,6 +1,6 @@
 import sounds from "../api/sounds";
 import * as types from '../Constants/SoundActionTypes';
-
+import History from '../Utils/History';
 /*
     Actions for the sounds reducer. A container will dispatch one of these actions upon the user
     interacting with the app. The sounds reducer will receive one of these actions and adjust the
@@ -118,11 +118,15 @@ export const uploadSound = (file, token) => dispatch => {
                 return Promise.reject(sound);
             }
             else {
-                dispatch(receiveCreateSound());
+                dispatch(receiveCreateSound()).then(
+                    History.push('/')
+            );
             }
         })
         .catch(err => console.log("Error: ", err));
 };
+
+
 
 
 

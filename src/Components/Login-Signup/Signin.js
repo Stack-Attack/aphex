@@ -37,7 +37,7 @@ class Signin extends Component {
   render() {
     const {email, password} = this.state
 
-    const logo = require("../../assets/syro_logo_white.svg");
+    const logo = require("../../Assets/syro_logo_white.svg");
 
 
       return (

@@ -60,7 +60,7 @@
 }
 
 .RightSide {
-    background-image: url("../../assets/syro_shape_blue_filled.svg") !important;
+    background-image: url("../../Assets/syro_shape_blue_filled.svg") !important;
     background-size: contain !important;
     background-position: center;
     background-repeat: no-repeat;

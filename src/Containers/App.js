@@ -8,9 +8,10 @@ import Account from "../Components/Account/AccountPage.js";
 import HomeContainer from "../Containers/HomeContainer";
 import {connect} from "react-redux";
 import {loginUser, logoutUser, signUpUser} from "../Actions/user";
-import {uploadSound, clearLoadedSounds} from "../Actions/sounds";
+import {uploadSound, clearLoadedSounds, tempUpload} from "../Actions/sounds";
 import {resetControls} from "../Actions/controls";
 import {withRouter} from "react-router-dom";
+import History from "../Utils/History";
 
 /**
  * Containers/App.js
@@ -34,7 +35,7 @@ class App extends Component {
                             isAuthenticated={this.props.isAuthenticated}
                             logoutClicked={() => {
                                 this.props.logoutClicked();
-                                this.props.history.push('/');
+                                History.push('/');
                             }}
                             linkClicked={() => this.props.resetControls()}
                         />
@@ -66,7 +67,7 @@ class App extends Component {
                         <Signin
                             loginClicked = {creds => {
                                 this.props.loginClicked(creds);
-                                this.props.history.push('/');
+                                History.push('/');
                             }
                             }
                             signupClicked={creds => this.props.signupClicked(creds)}
@@ -86,6 +87,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.user.isAuthenticated,
+    uploadSuccessful: state.sounds.uploadSuccessful,
     errorMessage: state.user.errorMessage,
     userInfo: state.user.userInfo
 });
@@ -95,7 +97,7 @@ const mapStateToProps = state => ({
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, state) => ({
     signupClicked: creds => {
         dispatch(signUpUser(creds));
     },

@@ -82,6 +82,7 @@ const user = (state = {
 
 const sounds = (state = {
                     isFetching: false,
+                    uploadSuccessful: false,
                     loadedSounds: []
                 },
                 action) => {
@@ -99,23 +100,27 @@ const sounds = (state = {
             return {
                 ...state,
                 isFetching: false,
+                uploadSuccessful: true,
                 loadedSounds: newSounds
             };
         case soundTypes.REQUEST_SOUNDS:
             return {
                 ...state,
+                uploadSuccessful: false,
                 isFetching: true
             };
         case soundTypes.FAILURE_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
+                uploadSuccessful: false,
                 errorMessage: action.message
             }
         case soundTypes.CLEAR_LOADED_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
+                uploadSuccessful: false,
                 loadedSounds: []
             }
         default:

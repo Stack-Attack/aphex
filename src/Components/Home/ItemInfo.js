@@ -6,7 +6,7 @@ import PlayButton from "./Controls/PlayButton";
 
 import { Grid, Image } from "semantic-ui-react";
 import faker from "faker";
-import wave_yellow from "../../assets/wave_small.png";
+import wave_yellow from "../../Assets/wave_small.png";
 
 /**
  * Presentational component for Item Info that is displayed when a sound is playing. This component is positioned adjacent to the list of loaded sounds, and will display info on the currently selected sound

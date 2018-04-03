@@ -9,7 +9,7 @@ import raf from "raf";
 import { Grid, Image } from "semantic-ui-react";
 import faker from "faker";
 
-import wave_yellow from "../../assets/wave_small.png";
+import wave_yellow from "../../Assets/wave_small.png";
 
 /**
  *

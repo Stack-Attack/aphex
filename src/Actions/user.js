@@ -1,4 +1,5 @@
 import * as types from '../Constants/UserActionTypes';
+import {clearLoadedSounds} from "./sounds";
 
 /*
     Actions for the user reducer. A container will dispatch one of these actions upon the user
@@ -17,7 +18,7 @@ const createUserEndpoint = 'https://syro.dannykivi.com/users';
 // POST /authenticate
 
 export const loginUser = creds => dispatch => {
-    console.log("Logging in user");
+    console.log("Logging in...");
     let config = {
         method: "POST",
         headers: {
@@ -54,7 +55,6 @@ export const loginUser = creds => dispatch => {
 
 export const signUpUser = creds => dispatch => {
 
-    console.log(creds);
 
     let config = {
         method: "post",
@@ -63,12 +63,12 @@ export const signUpUser = creds => dispatch => {
         },
         body: JSON.stringify({
             'email': creds.email,
-            'password': creds.password
+            'password': creds.password,
+            'picture': creds.url
         })
     };
 
-    dispatch(requestCreateUser(creds));
-
+    dispatch(requestCreateUser());
     return fetch(createUserEndpoint, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
@@ -78,7 +78,9 @@ export const signUpUser = creds => dispatch => {
                 dispatch(failureCreateUser(user.message));
                 return Promise.reject(user);
             } else {
-                dispatch(receiveCreateUser(user));
+                console.log("Successfully signed up");
+                dispatch(receiveCreateUser());
+                delete creds.url;
                 dispatch(loginUser(creds));
             }
         })
@@ -114,7 +116,7 @@ export const failureLogin = message => ({
 export const requestCreateUser = () => ({
     type: types.REQUEST_CREATE_USER
 });
-export const receiveCreateUser = user => ({
+export const receiveCreateUser = () => ({
     type: types.RECEIVE_CREATE_USER
 });
 export const failureCreateUser = message => ({

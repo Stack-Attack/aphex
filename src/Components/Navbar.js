@@ -21,19 +21,10 @@ class Navbar extends Component {
 
     render() {
 
-        let imgPath;
-        let name;
 
-        console.log(this.props.userInfo);
+        let imgPath = 'https://syro.dannykivi.com' + this.props.userInfo.user.picture.path;
+        let name = this.props.userInfo.user.email;
 
-        if(this.props.userInfo != null){
-            imgPath = 'https://syro.dannykivi.com' + this.props.userInfo.user.picture.path;
-            name = this.props.userInfo.user.email;
-        }
-        else{
-            imgPath = faker.internet.avatar();
-            name = faker.name.findName();
-        }
 
         const trigger = (
             <span>

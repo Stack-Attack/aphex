@@ -118,9 +118,8 @@ export const uploadSound = (file, token) => dispatch => {
                 return Promise.reject(sound);
             }
             else {
-                dispatch(receiveCreateSound()).then(
-                    History.push('/')
-            );
+                dispatch(receiveCreateSound());
+                History.push('/')
             }
         })
         .catch(err => console.log("Error: ", err));

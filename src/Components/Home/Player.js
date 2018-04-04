@@ -61,7 +61,9 @@ class Player extends Component {
         <Grid.Column width={4}>
           <Grid centered>
             <Grid.Row className="artistRow">
-              <p className="Title">{this.props.user}</p>
+              <p className="Title">
+                {this.props.user.substring(0, this.props.user.indexOf("@"))}
+              </p>
             </Grid.Row>
 
             <Grid.Row className="imageRow">
@@ -75,11 +77,7 @@ class Player extends Component {
         </Grid.Column>
 
         <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
-          <img
-            src={wave_yellow}
-            class="wavey"
-            alt="FYI, image alt text is required"
-          />
+          <img src={wave_yellow} className={"wavey"} />
           <div
             className={
               "Waveform" + (this.props.playing ? " playing" : " paused")

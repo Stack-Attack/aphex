@@ -29,12 +29,14 @@ class ItemInfo extends Component {
       <Sticky>
         <Grid
           celled="interally"
-          className={"PlayerInfo" + (!this.props.data ? " hidden" : "")}
+          className={"PlayerInfo" + (!this.props.data ? " none" : "")}
         >
           <Grid.Column width={4}>
             <Grid centered>
               <Grid.Row className="artistRow">
-                <p className="Title">{creator}</p>
+                <p className="Title">
+                  {creator.substring(0, creator.indexOf("@"))}
+                </p>
               </Grid.Row>
 
               <Grid.Row className="imageRow">
@@ -48,11 +50,7 @@ class ItemInfo extends Component {
           </Grid.Column>
 
           <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
-            <img
-              src={wave_yellow}
-              class="wavey"
-              alt="FYI, image alt text is required"
-            />
+            <img src={wave_yellow} className={"wavey"} />
             <div
               className={
                 "Waveform" + (this.props.playing ? " playing" : " paused")
@@ -69,16 +67,48 @@ class ItemInfo extends Component {
           </Grid.Column>
         </Grid>
         <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <p className="infoTitle">
+          <p className="infoTitle description noMargin">
             Lorem ipsum description in this area loreum ipsum yea yeah cool song
             its fun to listen to, give it a go
           </p>
-          <p className="infoTitle">
-            {new Date(createdAt).toString().slice(4, 15)}
-          </p>
-          <form>
-            <input type="text" name="search" placeholder="Write a comment.." />
+          <p className="date">{new Date(createdAt).toString().slice(4, 15)}</p>
+          <form className={"commentBox"}>
+            <input
+              type="text"
+              name="search"
+              placeholder="Write a comment ..."
+            />
           </form>
+
+          <Grid className={"removeTopMargin"}>
+            <Grid.Column width={2}>
+              <Image className="profileImage" src={faker.internet.avatar()} />
+            </Grid.Column>
+
+            <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
+              <p className={"userName"}> Username </p>
+              <p className={"comment"}>
+                {" "}
+                Test CommentTest CommentTest CommentTest CommentTest CommentTest
+                CommentTest CommentTest Comment{" "}
+              </p>
+            </Grid.Column>
+          </Grid>
+
+          <Grid className={"removeTopMargin"}>
+            <Grid.Column width={2}>
+              <Image className="profileImage" src={faker.internet.avatar()} />
+            </Grid.Column>
+
+            <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
+              <p className={"userName"}> Username 2 </p>
+              <p className={"comment"}>
+                {" "}
+                Test CommentTest CommentT2 2 est CommentTest CommentTest
+                CommentTest CommentTest Comm2 entTest Co 2 mment{" "}
+              </p>
+            </Grid.Column>
+          </Grid>
         </div>
       </Sticky>
     );

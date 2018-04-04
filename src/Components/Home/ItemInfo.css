@@ -9,7 +9,7 @@
   box-sizing: border-box;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  padding: 10px 10px 10px 10px;
+  padding: 20px 20px 20px 20px;
 }
 
 .PlayerInfo {
@@ -21,7 +21,7 @@
 }
 
 .infoTitle {
-  color: white;
+  color: #f2f2f2;
 }
 
 input[type="text"] {
@@ -34,12 +34,71 @@ input[type="text"] {
   width: 150px;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
+  font-family: "Poiret One", cursive !important;
 }
 
 input[type="text"]:focus {
   width: 100%;
+  outline: none;
 }
 
 input[type="text"]::-webkit-input-placeholder {
+  color: #cccccc;
+  font-family: "Poiret One", cursive !important;
+}
+
+input[type="text"]::selection {
+  background: lightblue;
+}
+
+.description {
+  font-family: "Poiret One", cursive !important;
+  font-size: 20px !important;
+  line-height: 25px !important;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-family: "Poiret One", cursive !important;
+  font-size: 12px !important;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.profileImage {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 500rem;
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto !important;
+}
+
+.userName {
+  color: #cccccc;
+  margin: 0 0 0 0;
+  font-family: "Poiret One", cursive !important;
+  font-size: 10px !important;
+}
+
+.comment {
   color: white;
+  margin: 0 0 0 0;
+  font-family: "Poiret One", cursive !important;
+  font-size: 14px !important;
+}
+
+.noMargin {
+  margin: 0 0 0 0 !important;
+}
+
+.commentBox {
+  margin: 10px 0px 10px 0px;
+}
+
+.removeTopMargin {
+  margin-top: 0 !important;
 }

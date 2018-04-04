@@ -33,11 +33,13 @@ class App extends Component {
                     <div>
                         <Navbar
                             isAuthenticated={this.props.isAuthenticated}
+                            userInfo={this.props.userInfo}
                             logoutClicked={() => {
                                 this.props.logoutClicked();
                                 History.push('/');
                             }}
                             linkClicked={() => this.props.resetControls()}
+
                         />
                     </div>
                     <main className="App-main-section">

@@ -15,7 +15,7 @@ import * as controlTypes from '../Constants/ControlsActionTypes';
 const user = (state = {
                   isFetching: false,
                   isAuthenticated: localStorage.getItem("id_token") ? true : false,
-                  user: null
+                  userInfo: null
               },
               action) => {
     switch (action.type) {
@@ -31,7 +31,7 @@ const user = (state = {
                 isFetching: false,
                 isAuthenticated: true,
                 errorMessage: "",
-                user: action.user
+                userInfo: action.user
             };
         case userTypes.FAILURE_LOGIN:
             return {
@@ -68,7 +68,7 @@ const user = (state = {
                 ...state,
                 isFetching: false,
                 isAuthenticated: false,
-                user: null
+                userInfo: null
             };
         default:
             return state;

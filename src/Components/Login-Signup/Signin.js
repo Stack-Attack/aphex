@@ -70,7 +70,7 @@ class Signin extends Component {
           <Grid.Column verticalAlign={"middle"}>
             <Grid.Row columns={2} className={"RightSide"}>
               <Grid.Column>
-                <Form className={"Form"} onSubmit={this.handleLogin}>
+                <Form className={"Form"}>
                   <Header className={"PoiretHeader Login"} textAlign={"center"}>start sharing.</Header>
                   <Header className={"PoiretHeader Login Bottom"} textAlign={"center"}>start discovering.</Header>
                   <div className={"Test"}>
@@ -82,7 +82,7 @@ class Signin extends Component {
                     <Form.Field fluid className={"FormEntry"}>
                       <Form.Input type={"password"} name='password' value={password} placeholder={"password"} onChange={this.handleChange}/>
                     </Form.Field>
-                    <Form.Button className={"FormButton"}>Login</Form.Button>
+                    <Form.Button className={"FormButton"} onClick={this.handleLogin}>Login</Form.Button>
                 </Form>
               </Grid.Column>
             </Grid.Row>

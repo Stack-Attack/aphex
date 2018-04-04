@@ -11,14 +11,13 @@ import * as types from '../Constants/UserActionTypes';
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
-const authEndpoint = 'https://syro.dannykivi.com:443/authentication';
+const authEndpoint = 'https://syro.dannykivi.com/authentication';
 const createUserEndpoint = 'https://syro.dannykivi.com/users';
 
 // POST /authenticate
 
 export const loginUser = creds => dispatch => {
     console.log("Logging in user");
-    console.log(creds);
     let config = {
         method: "POST",
         headers: {
@@ -54,6 +53,8 @@ export const loginUser = creds => dispatch => {
  */
 
 export const signUpUser = creds => dispatch => {
+
+    console.log(creds);
 
     let config = {
         method: "post",
@@ -93,7 +94,6 @@ export const logoutUser = () => dispatch => {
     localStorage.removeItem("id_token");
     dispatch(receiveLogout());
 };
-
 
 
 //actions for logging user in

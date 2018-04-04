@@ -16,6 +16,7 @@ class Upload extends Component {
         const file = this.fileUpload.files[0];
         let url = '';
         let fileName = this.refs.fileName.value.trim();
+        let description = this.refs.description.value.trim();
 
 
         let reader = new FileReader();
@@ -23,7 +24,8 @@ class Upload extends Component {
             url = reader.result;
             let newSample = {
                 url: url,
-                name: fileName
+                name: fileName,
+                description: description
             }
             this.props.fileUpload(newSample);
             //todo: after a successful upload, show some feedback. these should probably change
@@ -48,6 +50,8 @@ class Upload extends Component {
                 <input id="aphexSampleUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
                 <h3>Name of sample</h3>
                 <input type="text" ref="fileName"/>
+                <h3>Description</h3>
+                <input type="text" ref="description"/>
                 <br/>
                 <button onClick={() => this.handleUpload()}>Upload</button>
             </div>

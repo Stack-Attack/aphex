@@ -105,11 +105,11 @@ export const uploadSound = (file, token) => dispatch => {
         },
         body:JSON.stringify({
             'name': file.name,
+            'description': file.description,
             'uri': file.url
         })
     };
 
-    console.log(config);
 
     return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sound => ({sound, response})))

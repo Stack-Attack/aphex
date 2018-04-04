@@ -27,8 +27,9 @@ class Home extends Component {
         loadAdditionalSounds: PropTypes.func.isRequired,
         playing: PropTypes.bool.isRequired,
         loop: PropTypes.bool.isRequired,
-        activeSeek: PropTypes.number,
-        resetControls: PropTypes.func
+        activeSeek: PropTypes.number.isRequired,
+        resetControls: PropTypes.func.isRequired,
+        addComment: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -106,6 +107,7 @@ class Home extends Component {
                         playing={this.props.playing}
                         data={this.props.activeInfo}
                         displayControls={!this.props.playerInFocus}
+                        submitComment={data => this.props.addComment(data)}
                     />
                 </div>
             </div>

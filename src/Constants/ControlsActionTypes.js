@@ -5,3 +5,5 @@ export const ADJUST_FOCUS = "ADJUST_FOCUS";
 export const RESET_CONTROLS = "RESET_CONTROLS";
 
 export const SET_SEEK = "SET_SEEK";
+
+export const ADD_COMMENT = "ADD_COMMENT";

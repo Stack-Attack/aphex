@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {adjustFocus, playPressed, setSeek} from "../Actions/controls";
+import {addComment, adjustFocus, playPressed, setSeek} from "../Actions/controls";
 import {fetchSounds, tempSounds} from "../Actions/sounds";
 import {resetControls} from "../Actions/controls";
 import HomePage from "../Components/Home/HomePage";
@@ -50,6 +50,9 @@ const mapDispatchToProps = dispatch => ({
     },
     resetControls: () => {
         dispatch(resetControls());
+    },
+    addComment: payload => {
+        dispatch(addComment(payload));
     }
 
 

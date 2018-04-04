@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
 import {adjustFocus, playPressed, setSeek} from "../Actions/controls";
 import {fetchSounds, tempSounds} from "../Actions/sounds";
+import {resetControls} from "../Actions/controls";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -39,12 +40,19 @@ const mapDispatchToProps = dispatch => ({
         dispatch(adjustFocus(isInFocus));
     },
     loadSounds: () => {
-        // dispatch(tempSounds());
-        dispatch(fetchSounds(1, localStorage['id_token']));
+        dispatch(fetchSounds(2, 0, localStorage['id_token']));
+    },
+    loadAdditionalSounds: skip => {
+        dispatch(fetchSounds(1, skip,  localStorage['id_token']));
     },
     setSeekPos: pos => {
         dispatch(setSeek(pos));
+    },
+    resetControls: () => {
+        dispatch(resetControls());
     }
+
+
 });
 
 const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomePage);

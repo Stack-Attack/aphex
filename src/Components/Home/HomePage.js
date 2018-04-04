@@ -24,14 +24,16 @@ class Home extends Component {
         playerToggle: PropTypes.func.isRequired,
         infoControlPlayToggle: PropTypes.func.isRequired,
         loadSounds: PropTypes.func.isRequired,
+        loadAdditionalSounds: PropTypes.func.isRequired,
         playing: PropTypes.bool.isRequired,
         loop: PropTypes.bool.isRequired,
         activeSeek: PropTypes.number,
-        setSeekPos: PropTypes.func
+        resetControls: PropTypes.func
     };
 
     componentDidMount() {
         window.addEventListener("scroll", this.detectViewPort);
+        this.props.resetControls();
         this.props.loadSounds();
     }
 
@@ -65,7 +67,7 @@ class Home extends Component {
     render() {
         let content;
         //display loaded sounds from the server if there are any
-        if (this.props.loadedSounds) {
+        if (this.props.loadedSounds.length > 0) {
             content = this.props.loadedSounds.map(entry => {
                 return (
                     <li key={entry._id} id={"entry_" + entry._id}>
@@ -86,15 +88,15 @@ class Home extends Component {
                 );
             });
         } else {
-            content = "Unable to load sounds";
+            content = "There doesn't seem to be anything here...";
         }
         return (
             <div>
                 <div className="left-pane">
                     <ul className="ul-padding">{content}</ul>
                     <div>
-                        <Button primary onClick={() => this.props.loadSounds()}>
-                            Get more sounds
+                        <Button primary onClick={() => this.props.loadAdditionalSounds(this.props.loadedSounds.length)}>
+                            Load more sounds
                         </Button>
                     </div>
                 </div>

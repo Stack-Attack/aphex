@@ -110,6 +110,7 @@ const mapDispatchToProps = (dispatch, state) => ({
 
     logoutClicked: () => {
         dispatch(logoutUser());
+        dispatch(clearLoadedSounds());
     },
 
     fileUpload: file => {

@@ -115,13 +115,33 @@ const sounds = (state = {
                 isFetching: false,
                 uploadSuccessful: false,
                 errorMessage: action.message
-            }
+            };
         case soundTypes.CLEAR_LOADED_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: false,
                 loadedSounds: []
+            };
+        case soundTypes.REQUEST_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: true,
+                uploadSuccessful: false
+            };
+        case soundTypes.RECEIVE_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: true
+            };
+
+        case soundTypes.FAILURE_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                errorMessage: action.message
             }
         default:
             return state;

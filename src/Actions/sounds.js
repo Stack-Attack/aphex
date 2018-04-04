@@ -25,6 +25,7 @@ export const fetchSingleSound = (id, token) => dispatch => {
         }
     };
 
+
     return fetch(SAMPLE_ENDPOINT + '/${id}', config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
@@ -43,7 +44,7 @@ export const fetchSingleSound = (id, token) => dispatch => {
 };
 
 //GET sample
-export const fetchSounds = (num, token) => dispatch => {
+export const fetchSounds = (limit, skip, token) => dispatch => {
     dispatch(requestSounds());
 
     let config = {
@@ -51,7 +52,10 @@ export const fetchSounds = (num, token) => dispatch => {
             'Authorization': token
         }
     };
-    return fetch(SAMPLE_ENDPOINT, config)
+    let queryString = '?$limit=' +limit + '&$skip=' + skip;
+
+
+    return fetch(SAMPLE_ENDPOINT + queryString, config)
         .then(response => response.json().then(sounds => ({sounds, response})))
         .then(({sounds, response}) => {
                 if (!response.ok) {

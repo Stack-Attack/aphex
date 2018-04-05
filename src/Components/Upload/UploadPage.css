@@ -10,7 +10,7 @@
 }
 
 .PoiretHeader.Intro.Upload {
-    padding-top: 5%;
+    padding-top: 2%;
     font-size: 40px !important;
     margin-bottom: 0px;
 }
@@ -39,4 +39,8 @@
 .HalfWidth {
     max-width: 50%;
     text-align: center;
+}
+
+.SearchContainer {
+    min-width: 210px;
 }

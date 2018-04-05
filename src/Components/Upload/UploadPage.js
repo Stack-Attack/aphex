@@ -73,11 +73,11 @@ class Upload extends Component {
                     <Grid.Row>
                         <Header className={"PoiretHeader Intro Upload"}> Upload </Header>
                         <input id="aphexSampleUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
-                        <Header className={"PoiretHeader Intro Subtitle"}> Name </Header>
+                        <Header className={"PoiretHeader Intro Subtitle"}> Name: </Header>
                         <input type="text" ref="fileName" className={"HalfWidth"} />
-                        <Header className={"PoiretHeader Intro Subtitle"}> Description </Header>
+                        <Header className={"PoiretHeader Intro Subtitle"}> Description: </Header>
                         <input type="text" ref="description"/>
-                        <Header className={"PoiretHeader Intro Subtitle"}>Type</Header>
+                        <Header className={"PoiretHeader Intro Subtitle"}>Type:</Header>
                         <Form>
                             <Button onClick={() => this.typeClick('sample')} className={"Button Sample"} toggle circular>sample</Button>
                             <Button onClick={() => this.typeClick('demo')} className={"Button Demo"} toggle circular>demo</Button>

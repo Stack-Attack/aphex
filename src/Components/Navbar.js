@@ -42,15 +42,15 @@ class Navbar extends Component {
                     </Link>
                 </Menu.Item>
 
-                <Menu.Item>
-                    <Input placeholder="Search..."/>
+                <Menu.Item className={"SearchContainer"}>
+                    <input  type={"text"} placeholder="Search..."/>
                 </Menu.Item>
 
                 <Menu.Menu position="right">
                     <Menu.Item>
                         <Link to="/upload">
                             <Button
-                                className = {"UploadButton"}
+                                className = {"UploadButton hoverClickBackground"}
                                 inverted
                                 icon
                                 labelPosition="left"

@@ -31,7 +31,7 @@ class ItemInfo extends Component {
           celled="interally"
           className={"PlayerInfo" + (!this.props.data ? " none" : "")}
         >
-          <Grid.Column width={4}>
+          <Grid.Column width={4} verticalAlign={"middle"}>
             <Grid centered>
               <Grid.Row className="artistRow">
                 <p className="Author">

@@ -58,7 +58,7 @@ class Player extends Component {
   render() {
     return (
       <Grid celled="interally" className="Player">
-        <Grid.Column width={4}>
+        <Grid.Column width={4} verticalAlign={"middle"}>
           <Grid centered>
             <Grid.Row className="artistRow">
               <p className="Author">
@@ -96,7 +96,7 @@ class Player extends Component {
             />
           </div>
         </Grid.Column>
-        <Grid.Column width={2} className={"noBorder"}>
+        <Grid.Column width={2} className={"noBorder"} verticalAlign={"middle"}>
           <div className="Controls">
             <PlayButton
               onClick={() => this.props.onToggle()}

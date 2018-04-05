@@ -74,14 +74,6 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
         )
 };
 
-export const tempSounds = (num, token) => dispatch => {
-    //this doesn't get used
-    dispatch(requestSounds());
-
-    sounds.getSounds(sounds => {
-        dispatch(receiveSounds(sounds));
-    });
-}
 
 /**
  * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
@@ -120,12 +112,114 @@ export const uploadSound = (file, token) => dispatch => {
             }
             else {
                 dispatch(receiveCreateSound());
-                History.push('/')
+                console.log('received');
+                History.push('/');
             }
         })
         .catch(err => console.log("Error: ", err));
 };
 
+export const addComment = (payload, token) => dispatch => {
+
+    dispatch(requestAddComment());
+
+    if (!token) {
+        console.log("No token, needs to be reauthenticated");
+    }
+    const endpoint = SAMPLE_ENDPOINT + '/' + payload.id + '/comment'
+    let config = {
+        method: "POST",
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'comment': payload.comment
+        })
+    }
+
+    return fetch(endpoint, config)
+        .then(response => response.json().then(sound => ({sound, response})))
+        .then(({sound, response}) => {
+            if (!response.ok) {
+                //error in posting comment
+                dispatch(failureAddComment(sound.message));
+                return Promise.reject(sound);
+            }
+            else {
+                dispatch(receiveAddComment(sound));
+                dispatch(fetchComments(payload, token));
+            }
+        })
+        .catch(err => console.log("Error: ", err));
+
+
+};
+
+
+export const fetchComments = (payload, token) => dispatch => {
+    dispatch(requestGetComments());
+    if(!token){
+        console.log("No token, cannot authenticate");
+    }
+
+    const endpoint = SAMPLE_ENDPOINT + '/' + payload.id + '/comment';
+    let config = {
+        headers: {
+            'Authorization': token
+        }
+    }
+
+    return fetch(endpoint, config)
+        .then(response => response.json().then(comments => ({comments, response})))
+        .then(({comments, response}) => {
+            if(!response.ok){
+                dispatch(failureGetComments(comments.message));
+                return Promise.reject(comments);
+            }
+            else{
+                dispatch(receiveGetComments(comments));
+            }
+        })
+        .catch(err => console.log("Error: ", err));
+}
+
+
+
+export const refreshTimeline =  token => dispatch => {
+
+    dispatch(clearLoadedSounds());
+
+}
+
+
+export const requestAddComment = () => ({
+    type: types.REQUEST_ADD_COMMENT
+});
+
+export const receiveAddComment = sound => ({
+    type: types.RECEIVE_ADD_COMMENT,
+    sound
+})
+
+export const failureAddComment = message => ({
+    type: types.FAILURE_ADD_COMMENT,
+    message
+})
+
+export const requestGetComments = () => ({
+    type: types.REQUEST_GET_COMMENTS
+})
+
+export const receiveGetComments = comments => ({
+    type: types.RECEIVE_GET_COMMENTS,
+    comments
+})
+
+export const failureGetComments = message => ({
+    type: types.FAILURE_GET_COMMENTS,
+    message
+})
 
 
 

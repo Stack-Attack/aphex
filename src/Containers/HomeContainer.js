@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
-import {addComment, adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
-import {fetchSounds} from "../Actions/sounds";
+import {adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
+import {addComment} from "../Actions/sounds";
+import {fetchSounds, clearLoadedSounds} from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -38,7 +39,10 @@ const mapDispatchToProps = dispatch => ({
     adjustFocus: isInFocus => {
         dispatch(adjustFocus(isInFocus));
     },
-    loadSounds: () => {
+    refreshTimeline: () => {
+        //wipes loaded sounds from redux state and reloads it from server
+        console.log("refreshing timeline");
+        dispatch(clearLoadedSounds());
         dispatch(fetchSounds(2, 0, localStorage['id_token']));
     },
     loadAdditionalSounds: skip => {

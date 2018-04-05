@@ -77,7 +77,6 @@ const user = (state = {
                 isFetching: true
             };
         case userTypes.RECEIVE_UPLOAD_PICTURE:
-            console.log(action.user);
             return {
                 ...state,
                 isFetching: false,
@@ -87,7 +86,8 @@ const user = (state = {
                         ...state.userInfo.user,
                         picture: action.user.picture
                     }
-                }
+                },
+                errorMessage: ""
             };
         case userTypes.FAILURE_UPLOAD_PICTURE:
             return {
@@ -114,8 +114,8 @@ const sounds = (state = {
                 action) => {
     switch (action.type) {
         case soundTypes.RECEIVE_SOUNDS:
-            //this algorithm removes duplicate loaded sounds based on their id
-            let newSounds = [...state.loadedSounds, ...action.payload];
+             let newSounds = [...state.loadedSounds, ...action.payload];
+             //algorithm to ensure we don't add any duplicates
             for (let i = 0; i < newSounds.length; ++i) {
                 for (let j = i + 1; j < newSounds.length; ++j) {
                     if (newSounds[i]._id == newSounds[j]._id) {
@@ -147,6 +147,7 @@ const sounds = (state = {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: false,
+                errorMessage: "",
                 loadedSounds: []
             };
         case soundTypes.REQUEST_CREATE_SOUND:
@@ -169,6 +170,53 @@ const sounds = (state = {
                 isFetching: false,
                 uploadSuccessful: false,
                 errorMessage: action.message
+            }
+        case soundTypes.REQUEST_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: true
+            };
+
+        case soundTypes.RECEIVE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: ""
+            };
+        case soundTypes.FAILURE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            };
+
+        case soundTypes.REQUEST_GET_COMMENTS:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case soundTypes.RECEIVE_GET_COMMENTS:
+
+            let sampleId = action.comments[0].sampleId;
+
+
+            return {
+                ...state,
+                isFetching: false,
+                loadedSounds: state.loadedSounds.map(
+                    sound => {
+                        if(sound._id === sampleId){
+                            return {
+                                ...sound,
+                                comments: action.comments
+                            }
+                        }
+                        else{
+                            return sound
+                        }
+                    }
+                ),
+                errorMessage: ""
             }
         default:
             return state;
@@ -224,24 +272,6 @@ const controls = (state = {
                 mute: false,
                 playerInFocus: true,
                 activeInfo: false
-            };
-        case controlTypes.REQUEST_ADD_COMMENT:
-            return {
-                ...state,
-                isFetching: true
-            };
-
-        case controlTypes.RECEIVE_ADD_COMMENT:
-            console.log(action.sound);
-            return{
-                ...state,
-                isFetching: false
-            };
-        case controlTypes.FAILURE_ADD_COMMENT:
-            return {
-                ...state,
-                isFetching: false,
-                errorMessage: action.message
             };
         default:
             return state;

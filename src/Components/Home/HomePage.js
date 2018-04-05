@@ -23,7 +23,7 @@ class Home extends Component {
         loadedSounds: PropTypes.array.isRequired,
         playerToggle: PropTypes.func.isRequired,
         infoControlPlayToggle: PropTypes.func.isRequired,
-        loadSounds: PropTypes.func.isRequired,
+        refreshTimeline: PropTypes.func.isRequired,
         loadAdditionalSounds: PropTypes.func.isRequired,
         playing: PropTypes.bool.isRequired,
         loop: PropTypes.bool.isRequired,
@@ -35,10 +35,11 @@ class Home extends Component {
     componentDidMount() {
         window.addEventListener("scroll", this.detectViewPort);
         this.props.resetControls();
-        this.props.loadSounds();
+        this.props.refreshTimeline();
     }
 
     componentWillUnmount() {
+        window.removeEventListener("scroll", this.detectViewPort);
     }
 
     detectViewPort() {
@@ -89,7 +90,7 @@ class Home extends Component {
                 );
             });
         } else {
-            content = "There doesn't seem to be anything here...";
+            content = "Loading sounds...";
         }
         return (
             <div>

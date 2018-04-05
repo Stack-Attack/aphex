@@ -54,14 +54,13 @@ export const addComment = (payload, token) => dispatch => {
     return fetch(endpoint, config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
-            console.log(sound);
             if (!response.ok) {
                 //error in posting comment
                 dispatch(failureAddComment(sound.message));
                 return Promise.reject(sound);
             }
             else {
-                dispatch(receiveAddComment());
+                dispatch(receiveAddComment(sound));
             }
         })
         .catch(err => console.log("Error: ", err));
@@ -73,8 +72,9 @@ export const requestAddComment = () => ({
     type: types.REQUEST_ADD_COMMENT
 });
 
-export const receiveAddComment = () => ({
-    type: types.RECEIVE_ADD_COMMENT
+export const receiveAddComment = sound => ({
+    type: types.RECEIVE_ADD_COMMENT,
+    sound
 })
 
 export const failureAddComment = message => ({

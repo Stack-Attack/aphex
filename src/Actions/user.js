@@ -122,7 +122,8 @@ export const uploadUserPicture = (payload, token) => dispatch => {
                 return Promise.reject(user);
             }
             else {
-                dispatch(receiveUploadPicture());
+
+                dispatch(receiveUploadPicture(user));
                 //TODO: implement a refresh
             }
         })
@@ -170,8 +171,9 @@ export const receiveLogout = () => ({
 export const requestUploadPicture = () => ({
     type: types.REQUEST_UPLOAD_PICTURE
 });
-export const receiveUploadPicture = () => ({
-    type: types.RECEIVE_UPLOAD_PICTURE
+export const receiveUploadPicture = user => ({
+    type: types.RECEIVE_UPLOAD_PICTURE,
+    user
 });
 export const failureUploadPicture = message => ({
     type: types.FAILURE_UPLOAD_PICTURE,

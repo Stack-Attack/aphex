@@ -68,7 +68,8 @@ const user = (state = {
                 ...state,
                 isFetching: false,
                 isAuthenticated: false,
-                userInfo: null
+                userInfo: null,
+                errorMessage: ""
             };
         case userTypes.REQUEST_UPLOAD_PICTURE:
             return {
@@ -76,9 +77,17 @@ const user = (state = {
                 isFetching: true
             };
         case userTypes.RECEIVE_UPLOAD_PICTURE:
+            console.log(action.user);
             return {
                 ...state,
-                isFetching: false
+                isFetching: false,
+                userInfo: {
+                    ...state.userInfo,
+                    user: {
+                        ...state.userInfo.user,
+                        picture: action.user.picture
+                    }
+                }
             };
         case userTypes.FAILURE_UPLOAD_PICTURE:
             return {
@@ -150,7 +159,8 @@ const sounds = (state = {
             return {
                 ...state,
                 isFetching: false,
-                uploadSuccessful: true
+                uploadSuccessful: true,
+                errorMessage: ""
             };
 
         case soundTypes.FAILURE_CREATE_SOUND:
@@ -222,6 +232,7 @@ const controls = (state = {
             };
 
         case controlTypes.RECEIVE_ADD_COMMENT:
+            console.log(action.sound);
             return{
                 ...state,
                 isFetching: false

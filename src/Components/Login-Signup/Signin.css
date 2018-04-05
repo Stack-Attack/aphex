@@ -1,4 +1,4 @@
-.Grid {
+.HomeGrid {
     height: 100vh;
 }
 
@@ -89,7 +89,10 @@
 
 .PoiretHeader.Intro {
     font-size: 160% !important;
-    color: #CCCCCC;
+    color: #EEEEEE;
+}
+
+PoiretHeader.Intro.Login {
     padding-right: 12%;
     padding-left: 12%;
     padding-bottom: 5%;

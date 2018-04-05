@@ -1,0 +1,29 @@
+.Grid.Margin {
+    margin-top: 53.77px !important;
+}
+
+.MainColumn {
+    background-color: #003042;
+    margin-top: 5px;
+    border-radius: 15px;
+    height: 550px;
+}
+
+.PoiretHeader.Intro.Upload {
+    padding-top: 5%;
+    font-size: 40px !important;
+    margin-bottom: 0px;
+}
+
+.PoiretHeader.Intro.Subtitle {
+    font-size: 20px;
+}
+
+.UploadButton {
+    margin-top: 40px !important;
+}
+
+.HalfWidth {
+    max-width: 50%;
+    text-align: center;
+}

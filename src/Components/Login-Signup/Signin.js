@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import "./Signin.css";
+import {Grid, Image, Button, Form, Header} from "semantic-ui-react";
+
 
 /**
  * Presentational component for the Signin/Login page. Will send signin credentials up to the parent component.
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
-import {Grid, Image, Button, Form, Header} from "semantic-ui-react";
 
 
 class Signin extends Component {
@@ -50,14 +50,14 @@ class Signin extends Component {
 
         return (
 
-            <Grid stackable className={"Grid"} verticalAlign={"middle"}>
+            <Grid stackable className={"HomeGrid"} verticalAlign={"middle"}>
                 <Grid.Row columns={2} centered style={{paddingBottom: '0', paddingTop: '0'}}>
                     <Grid.Column centered className={"LeftSide"} verticalAlign={"middle"}>
                         <Grid.Row verticalAlign={"middle"}>
                             <Image className={"Logo"} size={"medium"} verticalAlign={"middle"} src={logo}/>
                         </Grid.Row>
                         <Grid.Row textAlign={"center"}>
-                            <Header className={"PoiretHeader Intro"}>
+                            <Header className={"PoiretHeader Intro Login"}>
                                 A space for artists to share their unfiltered sounds under 60 seconds.
                             </Header>
                         </Grid.Row>

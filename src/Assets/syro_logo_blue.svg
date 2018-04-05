@@ -40,7 +40,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="189.44953"
+     inkscape:cx="126.59239"
      inkscape:cy="104.60294"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -61,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,26 +70,23 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-239.746)">
-    <text
-       xml:space="preserve"
+    <g
+       aria-label="syr"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'poiret one';-inkscape-font-specification:'poiret one';letter-spacing:0px;word-spacing:0px;fill:#003042;fill-opacity:1;stroke:none;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
-       x="5.9618559"
-       y="272.07114"
-       id="text817"
-       inkscape:export-xdpi="221.81888"
-       inkscape:export-ydpi="221.81888"
-       inkscape:export-filename="C:\Users\kyle7\Google Drive\School\Aphex\syro_final_dot.png"><tspan
-         sodipodi:role="line"
-         id="tspan815"
-         x="5.9618559"
-         y="272.07114"
+       id="text817">
+      <path
+         d="m 13.988256,250.02394 q -1.3208,0 -2.3368,0.8636 -1.016,0.8636 -1.016,2.1336 0,1.27 1.1176,2.3368 1.1684,1.0668 2.7432,1.9812 1.6256,0.8636 3.2512,1.8796 1.6256,1.016 2.7432,2.5908 1.1684,1.5748 1.1684,3.6068 0,2.9972 -2.286,5.1308 -2.2352,2.0828 -5.4356,2.0828 -2.032,0 -3.81,-0.8636 -1.7272001,-0.9144 -2.5400001,-2.3876 v -2.4384 q 1.9303999,4.2672 6.1976001,4.2672 2.6416,0 4.4196,-1.6256 1.8288,-1.6256 1.8288,-3.6068 0,-2.032 -1.1684,-3.4036 -1.1176,-1.3716 -2.7432,-2.3368 -1.6256,-0.9652 -3.2512,-1.8796 -1.5748,-0.9652 -2.7432,-2.286 -1.1176002,-1.3716 -1.1176002,-3.1496 0,-1.8288 1.4224002,-3.048 1.4732,-1.27 3.7592,-1.27 2.286,0 3.9116,1.778 v 2.0828 q -1.6256,-2.4384 -4.1148,-2.4384 z"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'poiret one';-inkscape-font-specification:'poiret one';fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
-         rotate="0 0 0 0"
-         dy="0 0 0"
-         dx="0 0 0">sy<tspan
-   style="letter-spacing:-10.58333302px;fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
-   id="tspan821"
-   dy="0">r</tspan></tspan></text>
+         id="path824" />
+      <path
+         d="m 44.861955,249.21114 h 1.6256 v 22.1488 q 0,4.5212 -3.1496,7.6708 -3.1496,3.1496 -7.7216,3.1496 -5.4864,0 -8.6868,-4.2164 l 0.1016,-2.54 q 1.4224,2.4384 3.7084,3.8608 2.3368,1.4732 4.8768,1.4732 3.7592,0 6.5024,-2.7432 2.7432,-2.6924 2.7432,-6.5024 v -3.8608 q -2.4892,4.9784 -8.6868,4.9784 -4.2164,0 -7.2136,-2.9464 -2.9972,-2.9972 -2.9972,-7.1628 v -13.3096 h 1.6256 v 13.3096 q 0,3.5052 2.54,6.096 2.5908,2.5908 6.096,2.5908 3.5052,0 6.0452,-2.5908 2.5908,-2.5908 2.5908,-6.096 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'poiret one';-inkscape-font-specification:'poiret one';fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path826" />
+      <path
+         d="m 65.431192,252.30994 q -2.2352,-2.2352 -4.9276,-2.2352 -2.6924,0 -4.7752,2.032 -2.032,2.032 -2.032,4.7244 v 15.24 h -1.6256 v -22.86 h 1.6256 v 3.4036 q 0.9144,-1.7272 2.8448,-2.8448 1.9304,-1.1176 4.318,-1.1176 2.3876,0 4.572,1.6256 z"
+         style="letter-spacing:-10.58333302px;fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path828" />
+    </g>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'Decima Mono';-inkscape-font-specification:'Decima Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -110,25 +107,14 @@
        inkscape:export-xdpi="221.81888"
        inkscape:export-ydpi="221.81888"
        inkscape:export-filename="C:\Users\kyle7\Google Drive\School\Aphex\syro_final_dot.png" />
-    <text
-       id="text839"
-       y="272.18756"
-       x="56.528625"
+    <g
+       aria-label="9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'poiret one';-inkscape-font-specification:'poiret one';letter-spacing:0px;word-spacing:0px;fill:#003042;fill-opacity:1;stroke:none;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
-       xml:space="preserve"
-       inkscape:export-xdpi="221.81888"
-       inkscape:export-ydpi="221.81888"
-       inkscape:export-filename="C:\Users\kyle7\Google Drive\School\Aphex\syro_final_dot.png"><tspan
-         rotate="16.5 0"
-         dy="8.5"
-         dx="0"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'poiret one';-inkscape-font-specification:'poiret one';fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
-         y="272.18756"
-         x="56.528625"
-         id="tspan837"
-         sodipodi:role="line"><tspan
-           dy="7.5500002"
-           id="tspan835"
-           style="letter-spacing:-10.58333302px;fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none">9</tspan></tspan></text>
+       id="text839">
+      <path
+         d="m 74.198034,274.64003 q -5.406592,-1.60151 -8.23741,-6.89051 -2.816389,-5.3377 -1.142743,-10.98784 1.688074,-5.69884 6.962643,-8.48095 5.288998,-2.83081 10.987839,-1.14274 5.747549,1.7025 8.544086,6.92836 2.859673,5.19159 1.200456,10.79301 -1.659218,5.60143 -8.252376,9.79433 l -14.288484,9.06599 -1.850906,-0.54826 12.919344,-8.19999 q -1.0156,0.38793 -3.059494,0.31232 -2.029465,-0.12432 -3.782955,-0.64372 z m 16.776065,-10.13052 q 1.514938,-5.11434 -1.021786,-9.78641 -2.522297,-4.72077 -7.587933,-6.22128 -5.016929,-1.48609 -9.654714,1.11377 -4.623358,2.55116 -6.138296,7.6655 -1.514937,5.11435 0.944223,9.8694 2.507869,4.76948 7.476089,6.24114 4.96822,1.47165 9.71785,-1.14806 4.764057,-2.66842 6.264567,-7.73406 z"
+         style="letter-spacing:-10.58333302px;fill:#003042;fill-opacity:1;stroke-width:1.42900002;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path831" />
+    </g>
   </g>
 </svg>

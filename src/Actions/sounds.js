@@ -51,7 +51,7 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
             'Authorization': token
         }
     };
-    let queryString = '?$limit=' +limit + '&$skip=' + skip;
+    let queryString = '?$sort[createdAt]=-1&$limit=' +limit + '&$skip=' + skip;
 
 
     return fetch(SAMPLE_ENDPOINT + queryString, config)
@@ -112,7 +112,6 @@ export const uploadSound = (file, token) => dispatch => {
             }
             else {
                 dispatch(receiveCreateSound());
-                console.log('received');
                 History.push('/');
             }
         })

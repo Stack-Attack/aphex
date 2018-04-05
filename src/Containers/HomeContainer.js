@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
         //wipes loaded sounds from redux state and reloads it from server
         console.log("refreshing timeline");
         dispatch(clearLoadedSounds());
-        dispatch(fetchSounds(2, 0, localStorage['id_token']));
+        dispatch(fetchSounds(5, 0, localStorage['id_token']));
     },
     loadAdditionalSounds: skip => {
         dispatch(fetchSounds(1, skip,  localStorage['id_token']));

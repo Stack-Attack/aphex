@@ -28,9 +28,10 @@ class Upload extends Component {
                 description: description
             }
             this.props.fileUpload(newSample);
-            //todo: after a successful upload, show some feedback. these should probably change
+            //todo: after a successful upload, show some  PROCESSING feedback. these should probably change
             document.getElementById("aphexSampleUpload").value = "";
             this.refs.fileName.value = "";
+            this.refs.description.value = "";
         }
 
         if (file) {

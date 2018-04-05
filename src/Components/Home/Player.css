@@ -11,8 +11,14 @@
   height: 120px;
 }
 
+.Author {
+  color: #e0e0e0;
+  font-family: "Poiret One", cursive !important;
+}
+
 .Title {
-  color: white;
+  color: #f2f2f2;
+  font-family: "Poiret One", cursive !important;
 }
 
 .playing {

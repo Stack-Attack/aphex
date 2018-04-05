@@ -34,7 +34,7 @@ class ItemInfo extends Component {
           <Grid.Column width={4}>
             <Grid centered>
               <Grid.Row className="artistRow">
-                <p className="Title">
+                <p className="Author">
                   {creator.substring(0, creator.indexOf("@"))}
                 </p>
               </Grid.Row>

@@ -61,7 +61,7 @@ class Player extends Component {
         <Grid.Column width={4}>
           <Grid centered>
             <Grid.Row className="artistRow">
-              <p className="Title">
+              <p className="Author">
                 {this.props.user.substring(0, this.props.user.indexOf("@"))}
               </p>
             </Grid.Row>

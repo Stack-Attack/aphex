@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {PropTypes} from "prop-types";
+import "./UploadPage.css";
+import {Grid, Image, Button, Form, Header, Icon, Dropdown} from "semantic-ui-react";
+
 
 /**
  * Presentational component for audio upload component. Upon uploading a file, its data will be sent up to the parent component where it will be handled accordingly.
@@ -41,20 +44,30 @@ class Upload extends Component {
 
     render() {
         return (
-            <div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <h1>Upload</h1>
-                <input id="aphexSampleUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
-                <h3>Name of sample</h3>
-                <input type="text" ref="fileName"/>
-                <h3>Description</h3>
-                <input type="text" ref="description"/>
-                <br/>
-                <button onClick={() => this.handleUpload()}>Upload</button>
-            </div>
+            <Grid className={"Grid Margin"} centered>
+                <Grid.Column textAlign={"center"} className={"MainColumn"} width={"10"} >
+                    <Grid.Row>
+                        <Header className={"PoiretHeader Intro Upload"}> Upload </Header>
+                        <input id="aphexSampleUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
+                        <Header className={"PoiretHeader Intro Subtitle"}> Name </Header>
+                        <input type="text" ref="fileName" className={"HalfWidth"} />
+                        <Header className={"PoiretHeader Intro Subtitle"}> Description </Header>
+                        <input type="text" ref="description"/>
+                        <Header className={"PoiretHeader Intro Subtitle"}>Type</Header>
+                        <Form>
+                            <Button className={"Button Sample"} toggle circular>sample</Button>
+                            <Button className={"Button Demo"} toggle circular>demo</Button>
+                            <Button className={"Button Preview"} toggle circular>preview</Button>
+                        </Form>
+                        <Grid.Row>
+                            <Button className={"UploadButton"} padded inverted icon labelPosition="left" onClick={() => this.handleUpload()}>
+                                <Icon name="upload"/>
+                                Upload
+                            </Button>
+                        </Grid.Row>
+                    </Grid.Row>
+                </Grid.Column>
+            </Grid>
         );
     }
 }

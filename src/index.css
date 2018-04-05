@@ -1,9 +1,11 @@
 /*
     global styles for our application
 */
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+

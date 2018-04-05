@@ -1,7 +1,6 @@
 import {connect} from "react-redux";
-import {addComment, adjustFocus, playPressed, setSeek} from "../Actions/controls";
-import {fetchSounds, tempSounds} from "../Actions/sounds";
-import {resetControls} from "../Actions/controls";
+import {addComment, adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
+import {fetchSounds} from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -52,7 +51,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(resetControls());
     },
     addComment: payload => {
-        dispatch(addComment(payload));
+        dispatch(addComment(payload, localStorage['id_token']));
     }
 
 

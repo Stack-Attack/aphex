@@ -25,7 +25,6 @@ export const fetchSingleSound = (id, token) => dispatch => {
         }
     };
 
-
     return fetch(SAMPLE_ENDPOINT + '/${id}', config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
@@ -114,8 +113,6 @@ export const uploadSound = (file, token) => dispatch => {
     return fetch(SAMPLE_ENDPOINT, config)
         .then(response => response.json().then(sound => ({sound, response})))
         .then(({sound, response}) => {
-            console.log(response);
-            console.log(sound);
             if (!response.ok) {
                 //error in uploading sound
                 dispatch(failureCreateSound(sound.message));

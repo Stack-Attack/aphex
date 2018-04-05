@@ -27,7 +27,7 @@ class ItemInfo extends Component {
           id: this.props.data._id
         };
 
-        console.log(data);
+        this.props.submitComment(data);
     }
 
 

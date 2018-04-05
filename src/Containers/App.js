@@ -4,11 +4,12 @@ import Navbar from "../Components/Navbar.js";
 import {Switch, Route} from "react-router-dom";
 import Upload from "../Components/Upload/UploadPage.js";
 import Signin from "../Components/Login-Signup/Signin.js";
+import Settings from "../Components/Settings/SettingsPage.js";
 import Account from "../Components/Account/AccountPage.js";
 import HomeContainer from "../Containers/HomeContainer";
 import {connect} from "react-redux";
-import {loginUser, logoutUser, signUpUser} from "../Actions/user";
-import {uploadSound, clearLoadedSounds, tempUpload} from "../Actions/sounds";
+import {loginUser, logoutUser, signUpUser, uploadUserPicture} from "../Actions/user";
+import {uploadSound, clearLoadedSounds} from "../Actions/sounds";
 import {resetControls} from "../Actions/controls";
 import {withRouter} from "react-router-dom";
 import History from "../Utils/History";
@@ -56,6 +57,11 @@ class App extends Component {
                                 exact
                                 path="/account"
                                 render={() => <Account userInfo={this.props.userInfo}/>}
+                            />
+                            <Route
+                                exact
+                                path="/settings"
+                                render={() => <Settings pictureUpload={payload => this.props.pictureUpload(payload)}/>}
                             />
                         </Switch>
                     </main>
@@ -119,7 +125,11 @@ const mapDispatchToProps = (dispatch, state) => ({
 
     resetControls: () => {
         dispatch(resetControls())
+    },
+    pictureUpload: payload => {
+        dispatch(uploadUserPicture(payload, localStorage.getItem("id_token")));
     }
+
 
 });
 

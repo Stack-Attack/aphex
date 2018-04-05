@@ -13,7 +13,7 @@ import {clearLoadedSounds} from "./sounds";
  */
 
 const authEndpoint = 'https://syro.dannykivi.com/authentication';
-const createUserEndpoint = 'https://syro.dannykivi.com/users';
+const userEndpoint = 'https://syro.dannykivi.com/users';
 
 // POST /authenticate
 
@@ -57,7 +57,7 @@ export const signUpUser = creds => dispatch => {
 
 
     let config = {
-        method: "post",
+        method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
@@ -69,7 +69,7 @@ export const signUpUser = creds => dispatch => {
     };
 
     dispatch(requestCreateUser());
-    return fetch(createUserEndpoint, config)
+    return fetch(userEndpoint, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
 
@@ -95,6 +95,38 @@ export const logoutUser = () => dispatch => {
     dispatch(requestLogout());
     localStorage.removeItem("id_token");
     dispatch(receiveLogout());
+};
+
+export const uploadUserPicture = (payload, token) => dispatch => {
+
+    dispatch(requestUploadPicture());
+
+    let config = {
+        method: 'PATCH',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'picture': payload.url
+        })
+    };
+
+    return fetch(userEndpoint, config)
+        .then(response => response.json().then(user => ({user, response})))
+        .then(({user, response}) => {
+            console.log(user);
+            if (!response.ok) {
+                //error in uploading sound
+                dispatch(failureUploadPicture(user.message));
+                return Promise.reject(user);
+            }
+            else {
+                dispatch(receiveUploadPicture());
+                //TODO: implement a refresh
+            }
+        })
+        .catch(err => console.log("Error: ", err));
 };
 
 
@@ -132,4 +164,26 @@ export const requestLogout = () => ({
 export const receiveLogout = () => ({
     type: types.RECEIVE_LOGOUT
 });
+
+//actions for uploading profile picture
+
+export const requestUploadPicture = () => ({
+    type: types.REQUEST_UPLOAD_PICTURE
+});
+export const receiveUploadPicture = () => ({
+    type: types.RECEIVE_UPLOAD_PICTURE
+});
+export const failureUploadPicture = message => ({
+    type: types.FAILURE_UPLOAD_PICTURE,
+    message
+})
+
+
+
+
+
+
+
+
+
 

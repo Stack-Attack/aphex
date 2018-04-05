@@ -34,34 +34,12 @@ class Signin extends Component {
 
         let creds = {};
 
-        if(this.fileUpload.files.length == 0){
-            //no profile picture selected
-            creds = {
-                email: this.state.email,
-                password: this.state.password
-            };
-            this.props.signupClicked(creds);
-        }
-        else{
-            const file = this.fileUpload.files[0];
-            let url = '';
-
-            let reader =new FileReader();
-
-            reader.onload = e => {
-                url = reader.result;
-                creds = {
-                    email: this.state.email,
-                    password: this.state.password,
-                    url: url
-                };
-                this.props.signupClicked(creds);
-            }
-
-            if(file){
-                reader.readAsDataURL(file);
-            }
-        }
+        //no profile picture selected
+        creds = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        this.props.signupClicked(creds);
     }
 
     render() {
@@ -123,9 +101,6 @@ class Signin extends Component {
                         </Grid.Row>
                     </Grid.Column>
                 </Grid.Row>
-                <h2>Profile picture</h2>
-                <input id="aphexPictureUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
-
 
             </Grid>
 

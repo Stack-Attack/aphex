@@ -70,6 +70,23 @@ const user = (state = {
                 isAuthenticated: false,
                 userInfo: null
             };
+        case userTypes.REQUEST_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case userTypes.RECEIVE_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: false
+            };
+        case userTypes.FAILURE_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            }
+
         default:
             return state;
     }
@@ -160,7 +177,8 @@ const controls = (state = {
                       mute: false,
                       playerInFocus: true,
                       activeInfo: {},
-                      activeSeek: 0
+                      activeSeek: 0,
+                      isFetching: false
                   },
                   action) => {
     switch (action.type) {
@@ -183,7 +201,7 @@ const controls = (state = {
                 playerInFocus: action.inFocus
             };
         case controlTypes.SET_SEEK:
-            return{
+            return {
                 ...state,
                 activeSeek: action.pos
             }
@@ -197,7 +215,23 @@ const controls = (state = {
                 playerInFocus: true,
                 activeInfo: false
             };
+        case controlTypes.REQUEST_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: true
+            };
 
+        case controlTypes.RECEIVE_ADD_COMMENT:
+            return{
+                ...state,
+                isFetching: false
+            };
+        case controlTypes.FAILURE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            };
         default:
             return state;
     }

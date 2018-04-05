@@ -25,6 +25,64 @@ export const playPressed = id => (dispatch, getState) => {
     }
 };
 
+const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
+
+export const addComment = (payload, token) => dispatch => {
+
+    dispatch(requestAddComment());
+
+    if (!token) {
+        console.log("No token, needs to be reauthenticated");
+    }
+
+    const endpoint = SAMPLE_ENDPOINT + '/' + payload.id + '/comment'
+
+    let config = {
+        method: "POST",
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'comment': payload.comment
+        })
+    }
+
+    console.log(config);
+    console.log(endpoint);
+
+    return fetch(endpoint, config)
+        .then(response => response.json().then(sound => ({sound, response})))
+        .then(({sound, response}) => {
+            console.log(sound);
+            if (!response.ok) {
+                //error in posting comment
+                dispatch(failureAddComment(sound.message));
+                return Promise.reject(sound);
+            }
+            else {
+                dispatch(receiveAddComment());
+            }
+        })
+        .catch(err => console.log("Error: ", err));
+
+
+};
+
+export const requestAddComment = () => ({
+    type: types.REQUEST_ADD_COMMENT
+});
+
+export const receiveAddComment = () => ({
+    type: types.RECEIVE_ADD_COMMENT
+})
+
+export const failureAddComment = message => ({
+    type: types.FAILURE_ADD_COMMENT,
+    message
+})
+
+
 export const playSound = id => ({
     type: types.PLAY_SOUND,
     id
@@ -48,8 +106,3 @@ export const setSeek = pos => ({
 export const resetControls = () => ({
     type: types.RESET_CONTROLS
 });
-
-export const addComment = payload => ({
-    type: types.ADD_COMMENT,
-    payload
-})

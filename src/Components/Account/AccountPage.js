@@ -13,6 +13,7 @@ class Account extends Component {
         userInfo: PropTypes.object.isRequired
     };
 
+
     render() {
         //currently just displays some user info passed to this component via props
         console.log(this.props.userInfo);
@@ -42,7 +43,8 @@ class Account extends Component {
                 <h2>My user account</h2>
                 {content}
             </div>
-        );
+
+    );
     }
 }
 

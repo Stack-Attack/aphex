@@ -3,7 +3,6 @@
 }
 
 .Logo {
-    padding-top: 15%;
     padding-bottom: 5%;
     padding-left: 3%;
 }
@@ -17,6 +16,7 @@
     background-color: #003042;
     height: 100%;
     max-height: 750px;
+    display: flex;
 }
 
 .Button{
@@ -30,18 +30,21 @@
     background-color: #FF1958;
     padding-left: 15px !important;
     padding-right: 15px !important;
+    margin: 1%;
 }
 
 .Button.Demo{
     background-color: #00C1FF;
     padding-left: 19px !important;
     padding-right: 19px !important;
+    margin: 1%;
 }
 
 .Button.Preview{
     background-color: #CCBF14;
     padding-left: 10px !important;
     padding-right: 10px !important;
+    margin: 1%;
 }
 
 .Button.Register{
@@ -92,10 +95,10 @@
     color: #EEEEEE;
 }
 
-PoiretHeader.Intro.Login {
+.PoiretHeader.Intro.Padded {
     padding-right: 12%;
     padding-left: 12%;
-    padding-bottom: 5%;
+    padding-bottom: 10%;
 }
 
 .Form {
@@ -114,4 +117,10 @@ PoiretHeader.Intro.Login {
 .FormButton{
     margin-left: 25% !important;
     margin-right: 55% !important;
+}
+
+.CenterRow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }

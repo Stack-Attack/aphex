@@ -53,14 +53,15 @@ class Signin extends Component {
             <Grid stackable className={"HomeGrid"} verticalAlign={"middle"}>
                 <Grid.Row columns={2} centered style={{paddingBottom: '0', paddingTop: '0'}}>
                     <Grid.Column centered className={"LeftSide"} verticalAlign={"middle"}>
-                        <Grid.Row verticalAlign={"middle"}>
-                            <Image className={"Logo"} size={"medium"} verticalAlign={"middle"} src={logo}/>
-                        </Grid.Row>
-                        <Grid.Row textAlign={"center"}>
-                            <Header className={"PoiretHeader Intro Login"}>
-                                A space for artists to share their unfiltered sounds under 60 seconds.
-                            </Header>
-                        </Grid.Row>
+                        <Grid.Row className={"CenterRow"}>
+                            <Grid.Row verticalAlign={"middle"}>
+                                <Image className={"Logo"} size={"medium"} verticalAlign={"middle"} src={logo}/>
+                            </Grid.Row>
+                            <Grid.Row textAlign={"center"}>
+                                <Header className={"PoiretHeader Intro Padded"}>
+                                    A space for artists to share their unfiltered sounds under 60 seconds.
+                                </Header>
+                            </Grid.Row>
                         <Grid.Row>
                             <Form>
                                 <Form.Field>
@@ -73,6 +74,7 @@ class Signin extends Component {
                                     <Button className={"Button Preview"} toggle circular>previews</Button>
                                 </Form.Field>
                             </Form>
+                        </Grid.Row>
                         </Grid.Row>
                     </Grid.Column>
                     <Grid.Column verticalAlign={"middle"}>

@@ -61,7 +61,7 @@ class Upload extends Component {
                             <Button className={"Button Preview"} toggle circular>preview</Button>
                         </Form>
                         <Grid.Row>
-                            <Button className={"UploadButton"} padded inverted icon labelPosition="left" onClick={() => this.handleUpload()}>
+                            <Button className={"UploadButton Margin"} inverted icon labelPosition="left" onClick={() => this.handleUpload()}>
                                 <Icon name="upload"/>
                                 Upload
                             </Button>

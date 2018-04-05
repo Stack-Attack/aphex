@@ -50,6 +50,7 @@ class Navbar extends Component {
                     <Menu.Item>
                         <Link to="/upload">
                             <Button
+                                className = {"UploadButton"}
                                 inverted
                                 icon
                                 labelPosition="left"

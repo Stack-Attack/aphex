@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => ({
   },
   refreshTimeline: () => {
     //wipes loaded sounds from redux state and reloads it from server
-    console.log("refreshing timeline");
+      
     dispatch(clearLoadedSounds());
     dispatch(fetchSounds(7, 0, localStorage["id_token"]));
   },

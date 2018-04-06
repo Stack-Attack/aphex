@@ -36,7 +36,6 @@ class ItemInfo extends Component {
     let type = "";
 
     if (this.props.data) {
-      console.log(this.props.data);
       title = this.props.data.name;
       createdAt = this.props.data.createdAt;
       creator = this.props.data.user.email;

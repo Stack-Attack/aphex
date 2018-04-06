@@ -87,6 +87,7 @@ class Home extends Component {
               onEnd={() => this.onPlayerEnd()}
               onLoad={dur => this.playerLoaded(dur)}
               setSeekPos={pos => this.props.setSeekPos(pos)}
+              type={entry.type}
             />
           </li>
         );

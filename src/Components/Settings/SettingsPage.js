@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-import {Menu, Input, Dropdown, Icon, Image, Button} from "semantic-ui-react";
+import {Grid, Image, Button, Form, Header, Icon, Dropdown} from "semantic-ui-react";
 
 
 /**
@@ -11,7 +11,8 @@ import {Menu, Input, Dropdown, Icon, Image, Button} from "semantic-ui-react";
 class Account extends Component {
 
     static propTypes = {
-        pictureUpload: PropTypes.func.isRequired
+        pictureUpload: PropTypes.func.isRequired,
+        userInfo: PropTypes.object.isRequired
     }
 
 
@@ -35,17 +36,28 @@ class Account extends Component {
     }
 
     render() {
+        let imgPath = 'https://syro.dannykivi.com' + this.props.userInfo.user.picture.path;
+        let name = this.props.userInfo.user.email;
 
         return (
-            <div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <h2>Profile picture</h2>
-                <input id="aphexPictureUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
-                <button onClick={() => this.handleUpload()}>Upload</button>
-            </div>
+            <Grid className={"Grid Margin"} centered>
+                <Grid.Column textAlign={"center"} verticalAlign={"middle"} className={"SettingsColumn"} width={"10"} >
+                    <Header className={"PoiretHeader Intro Upload"}> Settings </Header>
+                    <Image className={"ProfileImage"} src={imgPath} circular centered/>
+                    <Header className={"PoiretHeader Subheading"}>{name}</Header>
+                    <input id="aphexPictureUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
+                    <Header className={"PoiretHeader Intro Subtitle"}>Name:</Header>
+                    <Header className={"PoiretHeader Subheading"}>{name}</Header>
+                    <Header className={"PoiretHeader Intro Subtitle"}>Secret Access Key:</Header>
+                    <Header className={"PoiretHeader Subheading lol"}>{this.props.userInfo.accessToken}</Header>
+                    <Grid.Row>
+                        <Button className={"UploadButton Margin"} inverted icon labelPosition="left" onClick={() => this.handleUpload()}>
+                            <Icon name="upload"/>
+                            Upload
+                        </Button>
+                    </Grid.Row>
+                </Grid.Column>
+            </Grid>
     );
     }
 }

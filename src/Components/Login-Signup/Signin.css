@@ -124,3 +124,18 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.ProfileImage {
+    width: 200px;
+    height: 200px;
+}
+
+.PoiretHeader.Subheading {
+    font-size: 30px;
+    color: #EEEEEE;
+    margin-top: -2px;
+}
+
+.PoiretHeader.Subheading.lol {
+    font-size: 3px;
+}

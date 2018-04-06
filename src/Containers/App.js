@@ -61,7 +61,7 @@ class App extends Component {
                             <Route
                                 exact
                                 path="/settings"
-                                render={() => <Settings pictureUpload={payload => this.props.pictureUpload(payload)}/>}
+                                render={() => <Settings pictureUpload={payload => this.props.pictureUpload(payload)} userInfo={this.props.userInfo}/>}
                             />
                         </Switch>
                     </main>

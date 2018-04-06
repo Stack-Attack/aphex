@@ -2,10 +2,9 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-
 import faker from "faker";
 
-import {Menu, Input, Dropdown, Icon, Image, Button, Form} from "semantic-ui-react";
+import {Menu, Input, Dropdown, Icon, Image, Button} from "semantic-ui-react";
 
 /**
  * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.
@@ -19,13 +18,6 @@ class Navbar extends Component {
         logoutClicked: PropTypes.func.isRequired,
         linkClicked: PropTypes.func.isRequired,
     };
-
-
-    handleSearch() {
-        let query = this.refs.search.value.trim();
-        this.refs.search.value = "";
-        alert(query);
-    }
 
     render() {
 
@@ -51,20 +43,14 @@ class Navbar extends Component {
                 </Menu.Item>
 
                 <Menu.Item className={"SearchContainer"}>
-                    <form onSubmit={e => {
-                        e.preventDefault();
-                        this.handleSearch();
-                    }}>
-                        <input type={"text"} placeholder="Search..." ref="search"
-                        />
-                    </form>
+                    <input  type={"text"} placeholder="Search..."/>
                 </Menu.Item>
 
                 <Menu.Menu position="right">
                     <Menu.Item>
                         <Link to="/upload">
                             <Button
-                                className={"UploadButton hoverClickBackground"}
+                                className = {"UploadButton hoverClickBackground"}
                                 inverted
                                 icon
                                 labelPosition="left"

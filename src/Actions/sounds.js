@@ -75,36 +75,6 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
 };
 
 
-export const searchSounds = (query, token) => dispatch => {
-    dispatch(clearLoadedSounds());
-    dispatch(requestSounds());
-
-    let config = {
-        headers: 'Authorization'
-    }
-    let queryString = '?$sort[createdAt]=-1&name=' + query;
-
-    return fetch(SAMPLE_ENDPOINT + queryString, config)
-        .then(response => response.json().then(sounds => ({sounds, response})))
-        .then(({sounds, response}) => {
-                if (!response.ok) {
-                    //error in fetching sounds
-                    dispatch(failureSounds(sounds.message));
-                    return Promise.reject(sounds);
-                }
-                else {
-                    dispatch(receiveSounds(sounds.data))
-                }
-            }
-        )
-        .catch(err => {
-                console.log("Error: ", err);
-                dispatch(failureSounds("Error:" + err));
-            }
-        )
-}
-
-
 /**
  * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
  * @author Peter Luft <pwluft@lakeheadu.ca>

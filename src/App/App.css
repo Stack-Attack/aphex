@@ -45,7 +45,6 @@ li {
 .right-pane {
   margin-left: 55%;
   margin-top: 60px;
-  margin-right: 10px;
 }
 
 .hidden {
@@ -77,8 +76,4 @@ li {
 .hoverClick:hover {
   background: rgba(0, 0, 0, 0.05) !important;
   color: rgba(0, 0, 0, 0.95) !important;
-}
-
-body {
-  background-color: #e0e0e0;
 }

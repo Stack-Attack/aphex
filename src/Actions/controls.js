@@ -11,40 +11,40 @@ import * as types from '../Constants/ControlsActionTypes';
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 export const playPressed = id => (dispatch, getState) => {
-  let isPlaying = getState().controls.playing;
-  let activeID = getState().controls.activeID;
+    let isPlaying = getState().controls.playing;
+    let activeID = getState().controls.activeID;
 
-  if (activeID !== id) {
-    dispatch(playSound(id));
-  } else {
-    if (!isPlaying) {
-      dispatch(playSound(id));
+    if (activeID !== id) {
+        dispatch(playSound(id));
     } else {
-      dispatch(pauseSound(id));
+        if (!isPlaying) {
+            dispatch(playSound(id));
+        } else {
+            dispatch(pauseSound(id));
+        }
     }
-  }
 };
 
 export const playSound = id => ({
-  type: types.PLAY_SOUND,
-  id
+    type: types.PLAY_SOUND,
+    id
 });
 
 export const pauseSound = id => ({
-  type: types.PAUSE_SOUND,
-  id
+    type: types.PAUSE_SOUND,
+    id
 });
 
 export const adjustFocus = inFocus => ({
-  type: types.ADJUST_FOCUS,
-  inFocus
+    type: types.ADJUST_FOCUS,
+    inFocus
 });
 
 export const setSeek = pos => ({
-   type: types.SET_SEEK,
-   pos
+    type: types.SET_SEEK,
+    pos
 });
 
 export const resetControls = () => ({
     type: types.RESET_CONTROLS
-})
+});

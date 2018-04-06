@@ -13,16 +13,33 @@ import wave_yellow from "../../Assets/wave_small.png";
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 
+const host = "https://syro.dannykivi.com";
+
 class ItemInfo extends Component {
+  handleComment() {
+    let comment = this.refs.comment.value.trim();
+    this.refs.comment.value = "";
+
+    let data = {
+      comment: comment,
+      id: this.props.data._id
+    };
+
+    this.props.submitComment(data);
+  }
   render() {
     let title = "";
     let createdAt = "";
     let creator = "";
+    let description = "";
+    let imgPath = "";
 
     if (this.props.data) {
       title = this.props.data.name;
       createdAt = this.props.data.createdAt;
       creator = this.props.data.user.email;
+      description = this.props.data.description;
+      imgPath = host + this.props.data.user.picture.path;
     }
 
     return (
@@ -40,7 +57,7 @@ class ItemInfo extends Component {
               </Grid.Row>
 
               <Grid.Row className="imageRow">
-                <Image className="songImage" src={faker.internet.avatar()} />
+                <Image className="songImage" src={imgPath} />
               </Grid.Row>
 
               <Grid.Row className="titleRow">
@@ -67,18 +84,17 @@ class ItemInfo extends Component {
           </Grid.Column>
         </Grid>
         <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <p className="infoTitle description noMargin">
-            Lorem ipsum description in this area loreum ipsum yea yeah cool song
-            its fun to listen to, give it a go
-          </p>
+          <p className="infoTitle description noMargin">{description}</p>
           <p className="date">{new Date(createdAt).toString().slice(4, 15)}</p>
           <form className={"commentBox"}>
             <input
               type="text"
               name="search"
               placeholder="Write a comment ..."
+              ref="comment"
             />
           </form>
+          <button onClick={() => this.handleComment()}>Add comment</button>
 
           <Grid className={"removeTopMargin"}>
             <Grid.Column width={2}>

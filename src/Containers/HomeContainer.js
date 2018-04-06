@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
-import {adjustFocus, playPressed, setSeek} from "../Actions/controls";
-import {fetchSounds, tempSounds} from "../Actions/sounds";
+import {adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
+import {addComment} from "../Actions/sounds";
+import {fetchSounds, clearLoadedSounds} from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -38,13 +39,26 @@ const mapDispatchToProps = dispatch => ({
     adjustFocus: isInFocus => {
         dispatch(adjustFocus(isInFocus));
     },
-    loadSounds: () => {
-        // dispatch(tempSounds());
-        dispatch(fetchSounds(1, localStorage['id_token']));
+    refreshTimeline: () => {
+        //wipes loaded sounds from redux state and reloads it from server
+        console.log("refreshing timeline");
+        dispatch(clearLoadedSounds());
+        dispatch(fetchSounds(5, 0, localStorage['id_token']));
+    },
+    loadAdditionalSounds: skip => {
+        dispatch(fetchSounds(1, skip,  localStorage['id_token']));
     },
     setSeekPos: pos => {
         dispatch(setSeek(pos));
+    },
+    resetControls: () => {
+        dispatch(resetControls());
+    },
+    addComment: payload => {
+        dispatch(addComment(payload, localStorage['id_token']));
     }
+
+
 });
 
 const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomePage);

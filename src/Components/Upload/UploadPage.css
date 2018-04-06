@@ -1,0 +1,46 @@
+.Grid.Margin {
+    margin-top: 53.77px !important;
+}
+
+.MainColumn {
+    background-color: #003042;
+    margin-top: 5px;
+    border-radius: 15px;
+    height: 550px;
+}
+
+.PoiretHeader.Intro.Upload {
+    padding-top: 2%;
+    font-size: 40px !important;
+    margin-bottom: 0px;
+}
+
+.PoiretHeader.Intro.Subtitle {
+    font-size: 20px;
+}
+
+.UploadButton {
+    border: 1px solid transparent !important;
+    -moz-border-image: -moz-linear-gradient(top, #00C1FF 0%, #CCBF14 78.45%, #FF1958 0%, #00C1FF 0%, #CCBF14 0%, #FF1958 100%) !important;
+    -webkit-border-image: -webkit-linear-gradient(top, #00C1FF 0%, #CCBF14 78.45%, #FF1958 0%, #00C1FF 0%, #CCBF14 0%, #FF1958 100%) !important;
+    border-image: linear-gradient(to bottom, #00C1FF 0%, #CCBF14 78.45%, #FF1958 0%, #00C1FF 0%, #CCBF14 0%, #FF1958 100%) !important;
+    border-image-slice: 1 !important;
+    box-shadow: none !important;
+}
+
+.ui.inverted.button.UploadButton {
+    box-shadow: none !important;
+}
+
+.UploadButton.Margin {
+    margin: 40px !important;
+}
+
+.HalfWidth {
+    max-width: 50%;
+    text-align: center;
+}
+
+.SearchContainer {
+    min-width: 210px;
+}

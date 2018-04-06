@@ -15,7 +15,7 @@ import * as controlTypes from '../Constants/ControlsActionTypes';
 const user = (state = {
                   isFetching: false,
                   isAuthenticated: localStorage.getItem("id_token") ? true : false,
-                  user: null
+                  userInfo: null
               },
               action) => {
     switch (action.type) {
@@ -31,7 +31,7 @@ const user = (state = {
                 isFetching: false,
                 isAuthenticated: true,
                 errorMessage: "",
-                user: action.user
+                userInfo: action.user
             };
         case userTypes.FAILURE_LOGIN:
             return {
@@ -68,8 +68,34 @@ const user = (state = {
                 ...state,
                 isFetching: false,
                 isAuthenticated: false,
-                user: null
+                userInfo: null,
+                errorMessage: ""
             };
+        case userTypes.REQUEST_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case userTypes.RECEIVE_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: false,
+                userInfo: {
+                    ...state.userInfo,
+                    user: {
+                        ...state.userInfo.user,
+                        picture: action.user.picture
+                    }
+                },
+                errorMessage: ""
+            };
+        case userTypes.FAILURE_UPLOAD_PICTURE:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            }
+
         default:
             return state;
     }
@@ -88,8 +114,8 @@ const sounds = (state = {
                 action) => {
     switch (action.type) {
         case soundTypes.RECEIVE_SOUNDS:
-            //this algorithm removes duplicate loaded sounds based on their id
-            let newSounds = [...state.loadedSounds, ...action.payload];
+             let newSounds = [...state.loadedSounds, ...action.payload];
+             //algorithm to ensure we don't add any duplicates
             for (let i = 0; i < newSounds.length; ++i) {
                 for (let j = i + 1; j < newSounds.length; ++j) {
                     if (newSounds[i]._id == newSounds[j]._id) {
@@ -115,13 +141,82 @@ const sounds = (state = {
                 isFetching: false,
                 uploadSuccessful: false,
                 errorMessage: action.message
-            }
+            };
         case soundTypes.CLEAR_LOADED_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: false,
+                errorMessage: "",
                 loadedSounds: []
+            };
+        case soundTypes.REQUEST_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: true,
+                uploadSuccessful: false
+            };
+        case soundTypes.RECEIVE_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: true,
+                errorMessage: ""
+            };
+
+        case soundTypes.FAILURE_CREATE_SOUND:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                errorMessage: action.message
+            }
+        case soundTypes.REQUEST_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: true
+            };
+
+        case soundTypes.RECEIVE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: ""
+            };
+        case soundTypes.FAILURE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            };
+
+        case soundTypes.REQUEST_GET_COMMENTS:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case soundTypes.RECEIVE_GET_COMMENTS:
+
+            let sampleId = action.comments[0].sampleId;
+
+
+            return {
+                ...state,
+                isFetching: false,
+                loadedSounds: state.loadedSounds.map(
+                    sound => {
+                        if(sound._id === sampleId){
+                            return {
+                                ...sound,
+                                comments: action.comments
+                            }
+                        }
+                        else{
+                            return sound
+                        }
+                    }
+                ),
+                errorMessage: ""
             }
         default:
             return state;
@@ -140,7 +235,8 @@ const controls = (state = {
                       mute: false,
                       playerInFocus: true,
                       activeInfo: {},
-                      activeSeek: 0
+                      activeSeek: 0,
+                      isFetching: false
                   },
                   action) => {
     switch (action.type) {
@@ -163,7 +259,7 @@ const controls = (state = {
                 playerInFocus: action.inFocus
             };
         case controlTypes.SET_SEEK:
-            return{
+            return {
                 ...state,
                 activeSeek: action.pos
             }
@@ -177,7 +273,6 @@ const controls = (state = {
                 playerInFocus: true,
                 activeInfo: false
             };
-
         default:
             return state;
     }

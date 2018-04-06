@@ -61,13 +61,13 @@ class Player extends Component {
         <Grid.Column width={4} verticalAlign={"middle"}>
           <Grid centered>
             <Grid.Row className="artistRow">
-              <p className="Author">
+              <p className="Title">
                 {this.props.user.substring(0, this.props.user.indexOf("@"))}
               </p>
             </Grid.Row>
 
             <Grid.Row className="imageRow">
-              <Image className="songImage" src={faker.internet.avatar()} />
+              <Image className="songImage" src={host + this.props.image} />
             </Grid.Row>
 
             <Grid.Row className="titleRow">

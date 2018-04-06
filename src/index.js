@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import { Router } from "react-router-dom";
+import {Provider} from "react-redux";
+import {createStore, applyMiddleware} from "redux";
+import {Router} from "react-router-dom";
 import "./index.css";
 import App from "./Containers/App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./Reducers";
 import thunk from "redux-thunk";
+import {persistStore, persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import {PersistGate} from 'redux-persist/integration/react';
 import History from "./Utils/History";
 
 /*
@@ -18,11 +21,20 @@ import History from "./Utils/History";
     and the React Router component. Everything else will be taken care of in App.js and its child components.
  */
 
-//create the thunker middleware
+//create the middleware
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 const middleware = [thunk];
 
 //create the store with our reducers and the thunker middleware
-let store = createStore(reducer, applyMiddleware(...middleware));
+let store = createStore(persistedReducer, applyMiddleware(...middleware));
+let persistor = persistStore(store);
 
 //log the initial state
 console.log(store.getState());
@@ -32,11 +44,13 @@ const unsubscribe = store.subscribe(() => console.log(store.getState())); // esl
 
 //finally, render the root component
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={History}>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <Router history={History}>
+                <App/>
+            </Router>
+        </PersistGate>
+    </Provider>,
+    document.getElementById("root")
 );
 registerServiceWorker();

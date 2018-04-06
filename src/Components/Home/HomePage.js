@@ -1,9 +1,10 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Player from "./Player.js";
 import ItemInfo from "./ItemInfo.js";
 import PropTypes from "prop-types";
 
-import {Button} from "semantic-ui-react";
+import "./Player.css";
+import { Button, Grid, Image } from "semantic-ui-react";
 
 /*
     Presentational component for the 'Home' Page. Handles all of the audio selection and playback of sounds.
@@ -12,161 +13,211 @@ import {Button} from "semantic-ui-react";
  */
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.detectViewPort = this.detectViewPort.bind(this);
+  constructor(props) {
+    super(props);
+    this.detectViewPort = this.detectViewPort.bind(this);
+  }
+
+  static propTypes = {
+    activeID: PropTypes.string,
+    activeInfo: PropTypes.object,
+    loadedSounds: PropTypes.array.isRequired,
+    playerToggle: PropTypes.func.isRequired,
+    infoControlPlayToggle: PropTypes.func.isRequired,
+    refreshTimeline: PropTypes.func.isRequired,
+    loadAdditionalSounds: PropTypes.func.isRequired,
+    playing: PropTypes.bool.isRequired,
+    loop: PropTypes.bool.isRequired,
+    activeSeek: PropTypes.number.isRequired,
+    resetControls: PropTypes.func.isRequired,
+    addComment: PropTypes.func.isRequired,
+    searchMode: PropTypes.bool.isRequired
+  };
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.detectViewPort);
+    this.props.resetControls();
+    this.props.refreshTimeline();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.detectViewPort);
+  }
+
+  detectViewPort() {
+    //checks if the current playing element is out of the viewport. Send a focus event accordingly.
+    if (this.props.activeID != null) {
+      let currentElement = document.getElementById(
+        "entry_" + this.props.activeID
+      );
+      let rect = currentElement.getBoundingClientRect();
+      if (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight ||
+            document.documentElement.clientHeight) /*or $(window).height() */ &&
+        rect.right <=
+          (window.innerWidth ||
+            document.documentElement.clientWidth) /*or $(window).width() */
+      ) {
+        this.props.adjustFocus(true);
+      } else {
+        this.props.adjustFocus(false);
+      }
     }
+  }
 
-    static propTypes = {
-        activeID: PropTypes.string,
-        activeInfo: PropTypes.object,
-        loadedSounds: PropTypes.array.isRequired,
-        playerToggle: PropTypes.func.isRequired,
-        infoControlPlayToggle: PropTypes.func.isRequired,
-        refreshTimeline: PropTypes.func.isRequired,
-        loadAdditionalSounds: PropTypes.func.isRequired,
-        playing: PropTypes.bool.isRequired,
-        loop: PropTypes.bool.isRequired,
-        activeSeek: PropTypes.number.isRequired,
-        resetControls: PropTypes.func.isRequired,
-        addComment: PropTypes.func.isRequired,
-        searchMode: PropTypes.bool.isRequired
-    };
-
-    componentDidMount() {
-        window.addEventListener("scroll", this.detectViewPort);
-        this.props.resetControls();
-        this.props.refreshTimeline();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this.detectViewPort);
-    }
-
-    detectViewPort() {
-        //checks if the current playing element is out of the viewport. Send a focus event accordingly.
-        if (this.props.activeID != null) {
-            let currentElement = document.getElementById(
-                "entry_" + this.props.activeID
-            );
-            let rect = currentElement.getBoundingClientRect();
-            if (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <=
-                (window.innerHeight ||
-                    document.documentElement.clientHeight) /*or $(window).height() */ &&
-                rect.right <=
-                (window.innerWidth ||
-                    document.documentElement.clientWidth) /*or $(window).width() */
-            ) {
-                this.props.adjustFocus(true);
-            } else {
-                this.props.adjustFocus(false);
-            }
-        }
-    }
-
-    render() {
-        let content, bottomButton;
-        //display loaded sounds from the server if there are any
-        if (this.props.loadedSounds.length > 0) {
-            content = this.props.loadedSounds.map(entry => {
-                return (
-                    <li key={entry._id} id={"entry_" + entry._id}>
-                        <Player
-                            title={entry.name}
-                            user={entry.user.email}
-                            image={entry.user.picture.path}
-                            file={entry.file.path}
-                            playing={this.props.playing && this.props.activeID == entry._id}
-                            loop={this.props.loop}
-                            onToggle={() => this.props.playerToggle(entry)}
-                            onPlay={pos => this.onPlayerStart(pos)}
-                            onEnd={() => this.onPlayerEnd()}
-                            onLoad={dur => this.playerLoaded(dur)}
-                            setSeekPos={pos => this.props.setSeekPos(pos)}
-                        />
-                    </li>
-                );
-            });
-        } else {
-            content = "Loading sounds...";
-        }
-
-        if(!this.props.searchMode){
-            //not displaying search results
-            bottomButton =(
-                <Button primary onClick={() => this.props.loadAdditionalSounds(this.props.loadedSounds.length)}>
-                    Load more sounds
-                </Button>
-            )
-        }
-        else{
-            bottomButton =(
-                <Button onClick={() => this.props.refreshTimeline()}>
-                    Return to home
-                </Button>
-            )
-        }
-
+  render() {
+    let content, bottomButton;
+    //display loaded sounds from the server if there are any
+    if (this.props.loadedSounds.length > 0) {
+      content = this.props.loadedSounds.map(entry => {
         return (
-            <div>
-                <div className="left-pane">
-                    <ul className="ul-padding">{content}</ul>
-                    <div>
-                        {bottomButton}
-                    </div>
-                </div>
-                <div className="right-pane">
-                    <ItemInfo
-                        onToggle={entry => this.props.infoControlPlayToggle(entry)}
-                        playing={this.props.playing}
-                        data={this.props.activeInfo}
-                        displayControls={!this.props.playerInFocus}
-                        submitComment={data => this.props.addComment(data)}
-                    />
-                </div>
-            </div>
+          <li key={entry._id} id={"entry_" + entry._id}>
+            <Player
+              title={entry.name}
+              user={entry.user.email}
+              image={entry.user.picture.path}
+              file={entry.file.path}
+              playing={this.props.playing && this.props.activeID == entry._id}
+              loop={this.props.loop}
+              onToggle={() => this.props.playerToggle(entry)}
+              onPlay={pos => this.onPlayerStart(pos)}
+              onEnd={() => this.onPlayerEnd()}
+              onLoad={dur => this.playerLoaded(dur)}
+              setSeekPos={pos => this.props.setSeekPos(pos)}
+            />
+          </li>
         );
+      });
+    } else {
+      content = "Loading sounds...";
     }
 
-    //we may not even end up needed the below functions
-    onPlayerStart(pos) {
+    if (!this.props.searchMode) {
+      //not displaying search results
+      bottomButton = (
+        <Button
+          primary
+          onClick={() =>
+            this.props.loadAdditionalSounds(this.props.loadedSounds.length)
+          }
+        >
+          Load more sounds
+        </Button>
+      );
+    } else {
+      bottomButton = (
+        <Button onClick={() => this.props.refreshTimeline()}>
+          Return to home
+        </Button>
+      );
     }
 
-    onPlayerEnd() {
-    }
+    return (
+      <div>
+        <div className="left-pane">
+          <ul className="ul-padding">
+            <li>
+              <Grid celled="interally" className="Player">
+                <Grid.Column width={4} verticalAlign={"middle"}>
+                  <Grid centered>
+                    <Grid.Row className="artistRow">
+                      <p className="Author">
+                        {" "}
+                        {this.props.userInfo.user.email.substring(
+                          0,
+                          this.props.userInfo.user.email.indexOf("@")
+                        )}{" "}
+                      </p>
+                    </Grid.Row>
 
-    playerLoaded(dur) {
-    }
+                    <Grid.Row className="imageRow">
+                      <Image
+                        className="songImage"
+                        src={
+                          "https://syro.dannykivi.com" +
+                          this.props.userInfo.user.picture.path
+                        }
+                      />
+                    </Grid.Row>
 
-    handleScroll() {
-        const windowHeight =
-            "innerHeight" in window
-                ? window.innerHeight
-                : document.documentElement.offsetHeight;
-        const body = document.body;
-        const html = document.documentElement;
-        const docHeight = Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-        );
-        const windowBottom = windowHeight + window.pageYOffset;
+                    <Grid.Row className="titleRow">
+                      <p className="placeholder">track name</p>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
 
-        if (windowBottom >= docHeight) {
-            this.setState({
-                message: "bottom reached"
-            });
-        } else {
-            this.setState({
-                message: "not at bottom"
-            });
-        }
+                <Grid.Column
+                  width={10}
+                  className={"noLeftRightPadding noBorder"}
+                >
+                  <img
+                    src={require("../../Assets/share_waveform.svg")}
+                    className={"wavey"}
+                  />
+                  <div className={"Waveform"} />
+                </Grid.Column>
+                <Grid.Column
+                  width={2}
+                  className={"noBorder"}
+                  verticalAlign={"middle"}
+                >
+                  <div className="Controls" />
+                </Grid.Column>
+              </Grid>
+            </li>
+            {content}
+          </ul>
+          <div>{bottomButton}</div>
+        </div>
+        <div className="right-pane">
+          <ItemInfo
+            onToggle={entry => this.props.infoControlPlayToggle(entry)}
+            playing={this.props.playing}
+            data={this.props.activeInfo}
+            displayControls={!this.props.playerInFocus}
+            submitComment={data => this.props.addComment(data)}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  //we may not even end up needed the below functions
+  onPlayerStart(pos) {}
+
+  onPlayerEnd() {}
+
+  playerLoaded(dur) {}
+
+  handleScroll() {
+    const windowHeight =
+      "innerHeight" in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+
+    if (windowBottom >= docHeight) {
+      this.setState({
+        message: "bottom reached"
+      });
+    } else {
+      this.setState({
+        message: "not at bottom"
+      });
     }
+  }
 }
 
 export default Home;

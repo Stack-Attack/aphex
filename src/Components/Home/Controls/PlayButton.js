@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { Button } from "semantic-ui-react";
 
+import "./controls.css";
+
 /**
  * Play button component
  * @author Peter Luft <pwluft@lakeheadu.ca>
@@ -15,7 +17,7 @@ class PlayButton extends Component {
           circular
           icon={this.props.playing ? "pause" : "play"}
           onClick={this.props.onClick}
-          color={"blue"}
+          color={this.props.type}
         />
       </div>
     );

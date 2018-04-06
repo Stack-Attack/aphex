@@ -15,7 +15,7 @@ class PlayButton extends Component {
           circular
           icon={this.props.playing ? "pause" : "play"}
           onClick={this.props.onClick}
-          color={"blue"}
+          color={"yellow"}
         />
       </div>
     );

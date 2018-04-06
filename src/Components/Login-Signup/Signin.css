@@ -8,9 +8,9 @@
 }
 
 .Shape {
-    padding-left: 5%;
-    padding-right: 4%;
- }
+  padding-left: 5%;
+  padding-right: 4%;
+}
 
 .LeftSide {
     background-color: #003042;
@@ -19,11 +19,10 @@
     display: flex;
 }
 
-.Button{
-    font-family: 'Poiret One', cursive !important;
-    font-size: 20px !important;
-    line-height: 0px !important;
-
+.Button {
+  font-family: "Poiret One", cursive !important;
+  font-size: 20px !important;
+  line-height: 0px !important;
 }
 
 .Button.Sample{

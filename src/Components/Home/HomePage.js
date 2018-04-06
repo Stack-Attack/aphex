@@ -69,7 +69,7 @@ class Home extends Component {
   }
 
   render() {
-    let content, bottomButton;
+    let content, bottomButton, waitMessage;
     //display loaded sounds from the server if there are any
     if (this.props.loadedSounds.length > 0) {
       content = this.props.loadedSounds.map(entry => {
@@ -93,7 +93,12 @@ class Home extends Component {
         );
       });
     } else {
-      content = "Loading sounds...";
+        if(this.props.searchMode && this.props.loadedSounds.length == 0){
+            content = "No results";
+        }
+        else{
+            content = "Loading...";
+        }
     }
 
     if (!this.props.searchMode) {
@@ -108,6 +113,7 @@ class Home extends Component {
           Load more sounds
         </Button>
       );
+
     } else {
       bottomButton = (
         <Button onClick={() => this.props.refreshTimeline()}>

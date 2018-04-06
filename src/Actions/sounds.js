@@ -89,6 +89,7 @@ export const searchSounds = (query, token) => dispatch => {
     return fetch(SAMPLE_ENDPOINT + queryString, config)
         .then(response => response.json().then(sounds => ({sounds, response})))
         .then(({sounds, response}) => {
+            console.log(sounds);
                 if (!response.ok) {
                     //error in fetching sounds
                     dispatch(failureSounds(sounds.message));

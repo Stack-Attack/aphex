@@ -86,7 +86,12 @@ class ItemInfo extends Component {
         <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
           <p className="infoTitle description noMargin">{description}</p>
           <p className="date">{new Date(createdAt).toString().slice(4, 15)}</p>
-          <form className={"commentBox"}>
+          <form className={"commentBox"}
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.handleComment();
+
+          }}>
             <input
               type="text"
               name="search"
@@ -94,7 +99,6 @@ class ItemInfo extends Component {
               ref="comment"
             />
           </form>
-          <button onClick={() => this.handleComment()}>Add comment</button>
 
           <Grid className={"removeTopMargin"}>
             <Grid.Column width={2}>

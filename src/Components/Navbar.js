@@ -21,8 +21,7 @@ class Navbar extends Component {
     };
 
 
-
-    handleSearch(){
+    handleSearch() {
         let query = this.refs.search.value.trim();
         this.refs.search.value = "";
         alert(query);

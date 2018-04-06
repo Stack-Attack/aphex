@@ -127,21 +127,48 @@ const sounds = (state = {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: true,
-                loadedSounds: newSounds
+                loadedSounds: newSounds,
+                searchMode: false
             };
         case soundTypes.REQUEST_SOUNDS:
             return {
                 ...state,
                 uploadSuccessful: false,
-                isFetching: true
+                isFetching: true,
+                searchMode: false
             };
         case soundTypes.FAILURE_SOUNDS:
             return {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: false,
-                errorMessage: action.message
+                errorMessage: action.message,
+                searchMode: false
             };
+        case soundTypes.REQUEST_SEARCH_SOUNDS:
+            return {
+                ...state,
+                isFetching: true,
+                uploadSuccessful: false,
+                searchMode: true
+            };
+        case soundTypes.RECEIVE_SEARCH_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                searchMode: true,
+                loadedSounds: action.payload
+            };
+        case soundTypes.FAILURE_SEARCH_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                searchMode: false,
+                errorMessage: action.message
+            }
+
         case soundTypes.CLEAR_LOADED_SOUNDS:
             return {
                 ...state,
@@ -198,8 +225,6 @@ const sounds = (state = {
         case soundTypes.RECEIVE_GET_COMMENTS:
 
             let sampleId = action.comments[0].sampleId;
-
-
             return {
                 ...state,
                 isFetching: false,

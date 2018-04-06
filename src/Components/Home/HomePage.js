@@ -29,7 +29,8 @@ class Home extends Component {
         loop: PropTypes.bool.isRequired,
         activeSeek: PropTypes.number.isRequired,
         resetControls: PropTypes.func.isRequired,
-        addComment: PropTypes.func.isRequired
+        addComment: PropTypes.func.isRequired,
+        searchMode: PropTypes.bool.isRequired
     };
 
     componentDidMount() {
@@ -67,7 +68,7 @@ class Home extends Component {
     }
 
     render() {
-        let content;
+        let content, bottomButton;
         //display loaded sounds from the server if there are any
         if (this.props.loadedSounds.length > 0) {
             content = this.props.loadedSounds.map(entry => {
@@ -92,14 +93,29 @@ class Home extends Component {
         } else {
             content = "Loading sounds...";
         }
+
+        if(!this.props.searchMode){
+            //not displaying search results
+            bottomButton =(
+                <Button primary onClick={() => this.props.loadAdditionalSounds(this.props.loadedSounds.length)}>
+                    Load more sounds
+                </Button>
+            )
+        }
+        else{
+            bottomButton =(
+                <Button onClick={() => this.props.refreshTimeline()}>
+                    Return to home
+                </Button>
+            )
+        }
+
         return (
             <div>
                 <div className="left-pane">
                     <ul className="ul-padding">{content}</ul>
                     <div>
-                        <Button primary onClick={() => this.props.loadAdditionalSounds(this.props.loadedSounds.length)}>
-                            Load more sounds
-                        </Button>
+                        {bottomButton}
                     </div>
                 </div>
                 <div className="right-pane">

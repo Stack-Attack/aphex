@@ -69,7 +69,7 @@ class Upload extends Component {
     render() {
         return (
             <Grid className={"Grid Margin"} centered>
-                <Grid.Column textAlign={"center"} className={"MainColumn"} width={"10"} >
+                <Grid.Column textAlign={"center"} className={"UploadColumn"} width={"10"} >
                     <Grid.Row>
                         <Header className={"PoiretHeader Intro Upload"}> Upload </Header>
                         <input id="aphexSampleUpload" type="file" ref={ref => (this.fileUpload = ref)}/>

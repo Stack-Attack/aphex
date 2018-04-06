@@ -11,16 +11,8 @@
   height: 120px;
 }
 
-.Author {
-  color: #e0e0e0;
-  font-family: "Poiret One", cursive !important;
-  font-size: 12px;
-}
-
 .Title {
-  color: #f2f2f2;
-  font-family: "Poiret One", cursive !important;
-  font-size: 15px;
+  color: white;
 }
 
 .playing {
@@ -32,7 +24,7 @@
 }
 
 .Controls {
-  text-align: center;
+  margin-top: 58px;
 }
 
 img.wavey {
@@ -60,10 +52,7 @@ img.wavey {
 
 .titleRow {
   padding-top: 0 !important;
-}
-
-.ui.grid > .row {
-  padding-bottom: 0 !important;
+  /* padding-bottom: 0.7rem !important; */
 }
 
 .noLeftRightPadding {

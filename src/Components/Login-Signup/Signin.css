@@ -8,9 +8,9 @@
 }
 
 .Shape {
-  padding-left: 5%;
-  padding-right: 4%;
-}
+    padding-left: 5%;
+    padding-right: 4%;
+ }
 
 .LeftSide {
     background-color: #003042;
@@ -19,10 +19,11 @@
     display: flex;
 }
 
-.Button {
-  font-family: "Poiret One", cursive !important;
-  font-size: 20px !important;
-  line-height: 0px !important;
+.Button{
+    font-family: 'Poiret One', cursive !important;
+    font-size: 20px !important;
+    line-height: 0px !important;
+
 }
 
 .Button.Sample{
@@ -46,47 +47,47 @@
     margin: 1%;
 }
 
-.Button.Register {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 10%;
-  padding-bottom: 10%;
-  margin-top: -100%;
-  margin-bottom: -100%;
-  transform: translateX(+124.6%) !important;
+.Button.Register{
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-top: -100%;
+    margin-bottom: -100%;
+    transform: translateX(+124.6%) !important;
 }
 
 .test {
-  height: 500px;
-  width: 500px;
+    height: 500px;
+    width: 500px;
 }
 
 .RightSide {
-  background-image: url("../../Assets/syro_shape_blue_filled.svg") !important;
-  background-size: contain !important;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding-top: 10%;
-  padding-bottom: 10%;
-  height: 100%;
+    background-image: url("../../Assets/syro_shape_blue_filled.svg") !important;
+    background-size: contain !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 100%;
 }
 
 .Form {
-  padding-left: 2%;
+    padding-left: 2%;
 }
 
 .PoiretHeader {
-  font-family: "Poiret One", cursive !important;
+    font-family: 'Poiret One', cursive !important;
 }
 
 .PoiretHeader.Login {
-  font-size: 210% !important;
-  line-height: 50% !important;
-  padding-right: 25% !important;
+    font-size: 210% !important;
+    line-height: 50% !important;
+    padding-right: 25% !important;
 }
 
 .PoiretHeader.Login.Bottom {
-  margin-bottom: -0.01%;
+    margin-bottom: -0.01%;
 }
 
 .PoiretHeader.Intro {
@@ -101,14 +102,16 @@
 }
 
 .Form {
+
 }
 
-.FormEntry {
-  padding-left: 15%;
-  padding-right: 40%;
+.FormEntry{
+    padding-left: 15% ;
+    padding-right: 40%;
 }
 
-.FormEntry.Top {
+.FormEntry.Top{
+
 }
 
 .FormButton{
@@ -120,4 +123,19 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.ProfileImage {
+    width: 200px;
+    height: 200px;
+}
+
+.PoiretHeader.Subheading {
+    font-size: 30px;
+    color: #EEEEEE;
+    margin-top: -2px;
+}
+
+.PoiretHeader.Subheading.lol {
+    font-size: 3px;
 }

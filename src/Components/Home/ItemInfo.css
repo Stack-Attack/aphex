@@ -101,3 +101,8 @@ input[type="text"]::selection {
 .removeTopMargin {
   margin-top: 0 !important;
 }
+
+.MainConstraints {
+  width: 1000px;
+  margin: 0 auto;
+}

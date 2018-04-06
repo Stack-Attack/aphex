@@ -117,38 +117,38 @@ class Home extends Component {
     }
 
     return (
-      <div>
+      <div className={"MainConstraints"}>
         <div className="left-pane">
           <ul className="ul-padding">
             <li>
               <Grid celled="interally" className="Player">
-                <Grid.Column width={4} verticalAlign={"middle"}>
-                  <Grid centered>
-                    <Grid.Row className="artistRow">
-                      <p className="Author">
-                        {" "}
-                        {this.props.userInfo.user.email.substring(
-                          0,
-                          this.props.userInfo.user.email.indexOf("@")
-                        )}{" "}
-                      </p>
-                    </Grid.Row>
+                  <Grid.Column width={4} verticalAlign={"middle"}>
+                    <Grid centered>
+                      <Grid.Row className="artistRow">
+                        <p className="Author">
+                          {" "}
+                          {this.props.userInfo.user.email.substring(
+                            0,
+                            this.props.userInfo.user.email.indexOf("@")
+                          )}{" "}
+                        </p>
+                      </Grid.Row>
 
-                    <Grid.Row className="imageRow">
-                      <Image
-                        className="songImage"
-                        src={
-                          "https://syro.dannykivi.com" +
-                          this.props.userInfo.user.picture.path
-                        }
-                      />
-                    </Grid.Row>
+                      <Grid.Row className="imageRow">
+                        <Image
+                          className="songImage"
+                          src={
+                            "https://syro.dannykivi.com" +
+                            this.props.userInfo.user.picture.path
+                          }
+                        />
+                      </Grid.Row>
 
-                    <Grid.Row className="titleRow">
-                      <p className="placeholder">track name</p>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
+                      <Grid.Row className="titleRow">
+                        <p className="placeholder">track name</p>
+                      </Grid.Row>
+                    </Grid>
+                  </Grid.Column>
 
                 <Grid.Column
                   width={10}

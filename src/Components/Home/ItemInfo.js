@@ -58,7 +58,13 @@ class ItemInfo extends Component {
               </Grid.Column>
 
               <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
-                <p className={"userName"}> {comment.user.email} </p>
+                <p className={"userName"}>
+                  {" "}
+                  {comment.user.email.substring(
+                    0,
+                    comment.user.email.indexOf("@")
+                  )}{" "}
+                </p>
                 <p className={"comment"}>{comment.comment}</p>
               </Grid.Column>
             </Grid>
@@ -72,7 +78,11 @@ class ItemInfo extends Component {
         <Sticky>
           <Grid
             celled="interally"
-            className={"PlayerInfo" + (!this.props.data ? " none" : "")}
+            className={
+              "PlayerInfo " +
+              (!this.props.data ? " none" : "") +
+              (!this.props.displayControls ? "" : type)
+            }
           >
             <Grid.Column width={4} verticalAlign={"middle"}>
               <Grid centered>

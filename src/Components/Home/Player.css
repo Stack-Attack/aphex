@@ -81,3 +81,15 @@ img.wavey {
   font-family: "Poiret One", cursive !important;
   font-size: 20px;
 }
+
+.demo {
+  box-shadow: 0 0 0 2pt #00b7f5 !important;
+}
+
+.sample {
+  box-shadow: 0 0 0 2pt #ff174e !important;
+}
+
+.preview {
+  box-shadow: 0 0 0 2pt #c5b716 !important;
+}

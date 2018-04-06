@@ -7,9 +7,6 @@ import PlayButton from "./Controls/PlayButton";
 import raf from "raf";
 
 import { Grid, Image } from "semantic-ui-react";
-import faker from "faker";
-
-import wave_yellow from "../../Assets/wave_small.png";
 
 /**
  *
@@ -77,7 +74,10 @@ class Player extends Component {
         </Grid.Column>
 
         <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
-          <img src={wave_yellow} className={"wavey"} />
+          <img
+            src={require("../../Assets/waveform_" + this.props.type + ".svg")}
+            className={"wavey"}
+          />
           <div
             className={
               "Waveform" + (this.props.playing ? " playing" : " paused")
@@ -101,6 +101,7 @@ class Player extends Component {
             <PlayButton
               onClick={() => this.props.onToggle()}
               playing={this.props.playing}
+              type={this.props.type}
             />
           </div>
         </Grid.Column>

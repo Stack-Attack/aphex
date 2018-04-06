@@ -1,0 +1,20 @@
+.ui.preview.button {
+  background-color: #c5b716;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+}
+
+.ui.demo.button {
+  background-color: #00b7f5;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+}
+
+.ui.sample.button {
+  background-color: #ff174e;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+}

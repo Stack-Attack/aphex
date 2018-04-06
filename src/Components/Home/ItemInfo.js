@@ -6,7 +6,6 @@ import PlayButton from "./Controls/PlayButton";
 
 import { Grid, Image } from "semantic-ui-react";
 import faker from "faker";
-import wave_yellow from "../../Assets/wave_small.png";
 
 /**
  * Presentational component for Item Info that is displayed when a sound is playing. This component is positioned adjacent to the list of loaded sounds, and will display info on the currently selected sound
@@ -33,6 +32,7 @@ class ItemInfo extends Component {
     let creator = "";
     let description = "";
     let imgPath = "";
+    let type = "";
 
     if (this.props.data) {
       title = this.props.data.name;
@@ -40,6 +40,7 @@ class ItemInfo extends Component {
       creator = this.props.data.user.email;
       description = this.props.data.description;
       imgPath = host + this.props.data.user.picture.path;
+      type = this.props.data.type;
     }
 
     return (
@@ -67,7 +68,10 @@ class ItemInfo extends Component {
           </Grid.Column>
 
           <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
-            <img src={wave_yellow} className={"wavey"} />
+            <img
+              src={require("../../Assets/waveform_" + type + ".svg")}
+              className={"wavey"}
+            />
             <div
               className={
                 "Waveform" + (this.props.playing ? " playing" : " paused")
@@ -83,6 +87,7 @@ class ItemInfo extends Component {
               <PlayButton
                 onClick={() => this.props.onToggle(this.props.data)}
                 playing={this.props.playing}
+                type={type}
               />
             </div>
           </Grid.Column>

@@ -1,7 +1,12 @@
-import {connect} from "react-redux";
-import {adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
-import {addComment} from "../Actions/sounds";
-import {fetchSounds, clearLoadedSounds} from "../Actions/sounds";
+import { connect } from "react-redux";
+import {
+  adjustFocus,
+  playPressed,
+  setSeek,
+  resetControls
+} from "../Actions/controls";
+import { addComment } from "../Actions/sounds";
+import { fetchSounds, clearLoadedSounds } from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
 /**
@@ -13,15 +18,16 @@ import HomePage from "../Components/Home/HomePage";
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapStateToProps = state => ({
-    loadedSounds: state.sounds.loadedSounds,
-    loop: state.controls.looping,
-    activeID: state.controls.activeID,
-    playing: state.controls.playing,
-    activeInfo: state.sounds.loadedSounds.find(sound => {
-        return sound._id === state.controls.activeID;
-    }),
-    playerInFocus: state.controls.playerInFocus,
-    activeSeek: state.controls.activeSeek
+  loadedSounds: state.sounds.loadedSounds,
+  loop: state.controls.looping,
+  activeID: state.controls.activeID,
+  playing: state.controls.playing,
+  activeInfo: state.sounds.loadedSounds.find(sound => {
+    return sound._id === state.controls.activeID;
+  }),
+  playerInFocus: state.controls.playerInFocus,
+  activeSeek: state.controls.activeSeek,
+  userInfo: state.user.userInfo
 });
 
 /**
@@ -29,36 +35,34 @@ const mapStateToProps = state => ({
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapDispatchToProps = dispatch => ({
-    playerToggle: entry => {
-        dispatch(adjustFocus(true));
-        dispatch(playPressed(entry._id));
-    },
-    infoControlPlayToggle: entry => {
-        dispatch(playPressed(entry._id));
-    },
-    adjustFocus: isInFocus => {
-        dispatch(adjustFocus(isInFocus));
-    },
-    refreshTimeline: () => {
-        //wipes loaded sounds from redux state and reloads it from server
-        console.log("refreshing timeline");
-        dispatch(clearLoadedSounds());
-        dispatch(fetchSounds(5, 0, localStorage['id_token']));
-    },
-    loadAdditionalSounds: skip => {
-        dispatch(fetchSounds(1, skip,  localStorage['id_token']));
-    },
-    setSeekPos: pos => {
-        dispatch(setSeek(pos));
-    },
-    resetControls: () => {
-        dispatch(resetControls());
-    },
-    addComment: payload => {
-        dispatch(addComment(payload, localStorage['id_token']));
-    }
-
-
+  playerToggle: entry => {
+    dispatch(adjustFocus(true));
+    dispatch(playPressed(entry._id));
+  },
+  infoControlPlayToggle: entry => {
+    dispatch(playPressed(entry._id));
+  },
+  adjustFocus: isInFocus => {
+    dispatch(adjustFocus(isInFocus));
+  },
+  refreshTimeline: () => {
+    //wipes loaded sounds from redux state and reloads it from server
+    console.log("refreshing timeline");
+    dispatch(clearLoadedSounds());
+    dispatch(fetchSounds(5, 0, localStorage["id_token"]));
+  },
+  loadAdditionalSounds: skip => {
+    dispatch(fetchSounds(1, skip, localStorage["id_token"]));
+  },
+  setSeekPos: pos => {
+    dispatch(setSeek(pos));
+  },
+  resetControls: () => {
+    dispatch(resetControls());
+  },
+  addComment: payload => {
+    dispatch(addComment(payload, localStorage["id_token"]));
+  }
 });
 
 const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomePage);

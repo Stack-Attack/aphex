@@ -74,3 +74,9 @@ img.wavey {
 .noBorder {
   box-shadow: 0px 0 0 0 #d4d4d5 !important;
 }
+
+.placeholder {
+  color: #828282;
+  font-family: "Poiret One", cursive !important;
+  font-size: 20px;
+}

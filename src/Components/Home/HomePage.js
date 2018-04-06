@@ -3,8 +3,9 @@ import Player from "./Player.js";
 import ItemInfo from "./ItemInfo.js";
 import PropTypes from "prop-types";
 
-import { Button } from "semantic-ui-react";
+import "./Player.css";
 
+import { Button, Grid, Image } from "semantic-ui-react";
 /*
     Presentational component for the 'Home' Page. Handles all of the audio selection and playback of sounds.
     Works in conjunction with the ../Containers/HomeContainer.js to get the state via props, and to send
@@ -36,6 +37,8 @@ class Home extends Component {
     window.addEventListener("scroll", this.detectViewPort);
     this.props.resetControls();
     this.props.refreshTimeline();
+    console.log("USERINFO");
+    console.log(this.props.userInfo);
   }
 
   componentWillUnmount() {
@@ -96,7 +99,58 @@ class Home extends Component {
     return (
       <div>
         <div className="left-pane">
-          <ul className="ul-padding">{content}</ul>
+          <ul className="ul-padding">
+            <li>
+              <Grid celled="interally" className="Player">
+                <Grid.Column width={4} verticalAlign={"middle"}>
+                  <Grid centered>
+                    <Grid.Row className="artistRow">
+                      <p className="Author">
+                        {" "}
+                        {this.props.userInfo.user.email.substring(
+                          0,
+                          this.props.userInfo.user.email.indexOf("@")
+                        )}{" "}
+                      </p>
+                    </Grid.Row>
+
+                    <Grid.Row className="imageRow">
+                      <Image
+                        className="songImage"
+                        src={
+                          "https://syro.dannykivi.com" +
+                          this.props.userInfo.user.picture.path
+                        }
+                      />
+                    </Grid.Row>
+
+                    <Grid.Row className="titleRow">
+                      <p className="placeholder">track name</p>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
+
+                <Grid.Column
+                  width={10}
+                  className={"noLeftRightPadding noBorder"}
+                >
+                  <img
+                    src={require("../../Assets/share_waveform.svg")}
+                    className={"wavey"}
+                  />
+                  <div className={"Waveform"} />
+                </Grid.Column>
+                <Grid.Column
+                  width={2}
+                  className={"noBorder"}
+                  verticalAlign={"middle"}
+                >
+                  <div className="Controls" />
+                </Grid.Column>
+              </Grid>
+            </li>
+            {content}
+          </ul>
           <div>
             <Button
               primary

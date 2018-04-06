@@ -79,14 +79,14 @@ class Navbar extends Component {
 
                     <Dropdown item trigger={trigger} pointing="top left" icon={null}>
                         <Dropdown.Menu>
-                            <Link to="/account">
-                                <Dropdown.Item
-                                    className="black hoverClick"
-                                    text="&nbsp;&nbsp;Account"
-                                    icon="user"
-                                    onClick={() => this.props.linkClicked()}
-                                />
-                            </Link>
+                            {/*<Link to="/account">*/}
+                                {/*<Dropdown.Item*/}
+                                    {/*className="black hoverClick"*/}
+                                    {/*text="&nbsp;&nbsp;Account"*/}
+                                    {/*icon="user"*/}
+                                    {/*onClick={() => this.props.linkClicked()}*/}
+                                {/*/>*/}
+                            {/*</Link>*/}
 
                             <Link to="/settings">
                                 <Dropdown.Item

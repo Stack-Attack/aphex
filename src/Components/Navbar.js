@@ -22,8 +22,10 @@ class Navbar extends Component {
 
 
 
-    handleSearch(e){
-        console.log(e);
+    handleSearch(){
+        let query = this.refs.search.value.trim();
+        this.refs.search.value = "";
+        alert(query);
     }
 
     render() {
@@ -52,9 +54,10 @@ class Navbar extends Component {
                 <Menu.Item className={"SearchContainer"}>
                     <form onSubmit={e => {
                         e.preventDefault();
-                        this.handleSearch(e);
+                        this.handleSearch();
                     }}>
-                        <input type={"text"} placeholder="Search..."/>
+                        <input type={"text"} placeholder="Search..." ref="search"
+                        />
                     </form>
                 </Menu.Item>
 

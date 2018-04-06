@@ -5,7 +5,7 @@ import {
   setSeek,
   resetControls
 } from "../Actions/controls";
-import { addComment } from "../Actions/sounds";
+import { addComment, searchSounds } from "../Actions/sounds";
 import { fetchSounds, clearLoadedSounds } from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
@@ -27,6 +27,7 @@ const mapStateToProps = state => ({
   }),
   playerInFocus: state.controls.playerInFocus,
   activeSeek: state.controls.activeSeek,
+  searchMode: state.sounds.searchMode,
   userInfo: state.user.userInfo
 });
 

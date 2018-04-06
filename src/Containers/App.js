@@ -9,7 +9,7 @@ import Account from "../Components/Account/AccountPage.js";
 import HomeContainer from "../Containers/HomeContainer";
 import {connect} from "react-redux";
 import {loginUser, logoutUser, signUpUser, uploadUserPicture} from "../Actions/user";
-import {uploadSound, clearLoadedSounds} from "../Actions/sounds";
+import {uploadSound, clearLoadedSounds, searchSounds} from "../Actions/sounds";
 import {resetControls} from "../Actions/controls";
 import {withRouter} from "react-router-dom";
 import History from "../Utils/History";
@@ -40,6 +40,7 @@ class App extends Component {
                                 History.push('/');
                             }}
                             linkClicked={() => this.props.resetControls()}
+                            searchQuery={query => this.props.searchQuery(query)}
 
                         />
                     </div>
@@ -88,6 +89,9 @@ class App extends Component {
     }
 }
 
+
+
+
 /**
  * mapStateToProps takes the global redux state, and maps the necessary pieces of state to the props of this component. That way, the global state can be passed down to each child component.
  * @author Peter Luft <pwluft@lakeheadu.ca>
@@ -128,10 +132,15 @@ const mapDispatchToProps = (dispatch, state) => ({
     },
     pictureUpload: payload => {
         dispatch(uploadUserPicture(payload, localStorage.getItem("id_token")));
+    },
+    searchQuery: query => {
+        dispatch(searchSounds(query, localStorage.getItem("id_token")));
     }
 
-
 });
+
+
+
 
 /**
  * Last part is to connect the above Redux boilerplate to this component, and gets React to render it. Now we have a React component that connects to the Redux state, with a series of child components that will interact with the state via their parent.

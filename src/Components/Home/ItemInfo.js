@@ -26,6 +26,7 @@ class ItemInfo extends Component {
 
     this.props.submitComment(data);
   }
+
   render() {
     let title = "";
     let createdAt = "";
@@ -35,108 +36,109 @@ class ItemInfo extends Component {
     let type = "";
 
     if (this.props.data) {
+      console.log(this.props.data);
       title = this.props.data.name;
       createdAt = this.props.data.createdAt;
       creator = this.props.data.user.email;
       description = this.props.data.description;
       imgPath = host + this.props.data.user.picture.path;
       type = this.props.data.type;
-    }
 
-    return (
-      <Sticky>
-        <Grid
-          celled="interally"
-          className={"PlayerInfo" + (!this.props.data ? " none" : "")}
-        >
-          <Grid.Column width={4} verticalAlign={"middle"}>
-            <Grid centered>
-              <Grid.Row className="artistRow">
-                <p className="Author">
-                  {creator.substring(0, creator.indexOf("@"))}
-                </p>
-              </Grid.Row>
+      let commentsContent;
 
-              <Grid.Row className="imageRow">
-                <Image className="songImage" src={imgPath} />
-              </Grid.Row>
+      if (this.props.data.comments.length > 0) {
+        commentsContent = this.props.data.comments.map(comment => {
+          return (
+            <Grid className={"removeTopMargin"}>
+              <Grid.Column width={2}>
+                <Image
+                  className="profileImage"
+                  src={host + comment.user.picture.path}
+                />
+              </Grid.Column>
 
-              <Grid.Row className="titleRow">
-                <p className="Title">{title}</p>
-              </Grid.Row>
+              <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
+                <p className={"userName"}> {comment.user.email} </p>
+                <p className={"comment"}>{comment.comment}</p>
+              </Grid.Column>
             </Grid>
-          </Grid.Column>
+          );
+        });
+      } else {
+        commentsContent = "";
+      }
 
-          <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
-            <img
-              src={require("../../Assets/waveform_" + type + ".svg")}
-              className={"wavey"}
-            />
-            <div
-              className={
-                "Waveform" + (this.props.playing ? " playing" : " paused")
-              }
-            />
-          </Grid.Column>
-          <Grid.Column
-            width={2}
-            className={"noBorder"}
-            verticalAlign={"middle"}
+      return (
+        <Sticky>
+          <Grid
+            celled="interally"
+            className={"PlayerInfo" + (!this.props.data ? " none" : "")}
           >
-            <div className={!this.props.displayControls ? "hidden" : ""}>
-              <PlayButton
-                onClick={() => this.props.onToggle(this.props.data)}
-                playing={this.props.playing}
-                type={type}
+            <Grid.Column width={4} verticalAlign={"middle"}>
+              <Grid centered>
+                <Grid.Row className="artistRow">
+                  <p className="Author">
+                    {creator.substring(0, creator.indexOf("@"))}
+                  </p>
+                </Grid.Row>
+
+                <Grid.Row className="imageRow">
+                  <Image className="songImage" src={imgPath} />
+                </Grid.Row>
+
+                <Grid.Row className="titleRow">
+                  <p className="Title">{title}</p>
+                </Grid.Row>
+              </Grid>
+            </Grid.Column>
+
+            <Grid.Column width={10} className={"noLeftRightPadding noBorder"}>
+              <img
+                src={require("../../Assets/waveform_" + type + ".svg")}
+                className={"wavey"}
               />
-            </div>
-          </Grid.Column>
-        </Grid>
-        <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
-          <p className="infoTitle description noMargin">{description}</p>
-          <p className="date">{new Date(createdAt).toString().slice(4, 15)}</p>
-          <form className={"commentBox"}>
-            <input
-              type="text"
-              name="search"
-              placeholder="Write a comment ..."
-              ref="comment"
-            />
-          </form>
-          <button onClick={() => this.handleComment()}>Add comment</button>
-
-          <Grid className={"removeTopMargin"}>
-            <Grid.Column width={2}>
-              <Image className="profileImage" src={faker.internet.avatar()} />
+              <div
+                className={
+                  "Waveform" + (this.props.playing ? " playing" : " paused")
+                }
+              />
             </Grid.Column>
-
-            <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
-              <p className={"userName"}> Username </p>
-              <p className={"comment"}>
-                {" "}
-                Test CommentTest CommentTest CommentTest CommentTest CommentTest
-                CommentTest CommentTest Comment{" "}
-              </p>
+            <Grid.Column width={2} className={"noBorder"}>
+              <div className={!this.props.displayControls ? "hidden" : ""}>
+                <PlayButton
+                  onClick={() => this.props.onToggle(this.props.data)}
+                  playing={this.props.playing}
+                  type={type}
+                />
+              </div>
             </Grid.Column>
           </Grid>
-
-          <Grid className={"removeTopMargin"}>
-            <Grid.Column width={2}>
-              <Image className="profileImage" src={faker.internet.avatar()} />
-            </Grid.Column>
-
-            <Grid.Column width={14} className={"noLeftRightPadding noBorder"}>
-              <p className={"userName"}> Username 2 </p>
-              <p className={"comment"}>
-                {" "}
-                Test CommentTest CommentT2 2 est CommentTest CommentTest
-                CommentTest CommentTest Comm2 entTest Co 2 mment{" "}
-              </p>
-            </Grid.Column>
-          </Grid>
-        </div>
-      </Sticky>
-    );
+          <div className={"item-info" + (!this.props.data ? " hidden" : "")}>
+            <p className="infoTitle description noMargin">{description}</p>
+            <p className="date">
+              {new Date(createdAt).toString().slice(4, 15)}
+            </p>
+            <form
+              className={"commentBox"}
+              onSubmit={e => {
+                e.preventDefault();
+                this.handleComment();
+              }}
+            >
+              <input
+                type="text"
+                name="search"
+                placeholder="Write a comment ..."
+                ref="comment"
+              />
+            </form>
+            {commentsContent}
+          </div>
+        </Sticky>
+      );
+    } else {
+      return <div />;
+    }
   }
 }
 

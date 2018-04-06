@@ -81,3 +81,8 @@ img.wavey {
   font-family: "Poiret One", cursive !important;
   font-size: 20px;
 }
+
+.PlayerUploadButton {
+  width: 36px !important;
+  height: 36px !important;
+}

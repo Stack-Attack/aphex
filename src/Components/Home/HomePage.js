@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Player from "./Player.js";
 import ItemInfo from "./ItemInfo.js";
 import PropTypes from "prop-types";
-
+import {Link} from "react-router-dom";
 import "./Player.css";
 import { Button, Grid, Image } from "semantic-ui-react";
 
@@ -52,11 +52,11 @@ class Home extends Component {
       );
       let rect = currentElement.getBoundingClientRect();
       if (
-        rect.top >= 0 &&
+        rect.top >= -50 &&
         rect.left >= 0 &&
         rect.bottom <=
-          (window.innerHeight ||
-            document.documentElement.clientHeight) /*or $(window).height() */ &&
+          (window.innerHeight + 100 ||
+            document.documentElement.clientHeight + 100) /*or $(window).height() */ &&
         rect.right <=
           (window.innerWidth ||
             document.documentElement.clientWidth) /*or $(window).width() */
@@ -165,7 +165,11 @@ class Home extends Component {
                   className={"noBorder"}
                   verticalAlign={"middle"}
                 >
-                  <div className="Controls" />
+                  <div className="Controls">
+                    <Link to="/upload">
+                      <img className={"PlayerUploadButton"} src={require("../../Assets/upload_play_button.svg")} onClick={() => this.props.resetControls} />
+                    </Link>
+                  </div>
                 </Grid.Column>
               </Grid>
             </li>

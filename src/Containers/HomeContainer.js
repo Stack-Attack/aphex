@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {adjustFocus, playPressed, setSeek, resetControls} from "../Actions/controls";
-import {addComment} from "../Actions/sounds";
+import {addComment, searchSounds} from "../Actions/sounds";
 import {fetchSounds, clearLoadedSounds} from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
         return sound._id === state.controls.activeID;
     }),
     playerInFocus: state.controls.playerInFocus,
-    activeSeek: state.controls.activeSeek
+    activeSeek: state.controls.activeSeek,
+    searchMode: state.sounds.searchMode
 });
 
 /**
@@ -57,8 +58,6 @@ const mapDispatchToProps = dispatch => ({
     addComment: payload => {
         dispatch(addComment(payload, localStorage['id_token']));
     }
-
-
 });
 
 const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomePage);

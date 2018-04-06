@@ -51,7 +51,7 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
             'Authorization': token
         }
     };
-    let queryString = '?$sort[createdAt]=-1&$limit=' +limit + '&$skip=' + skip;
+    let queryString = '?$sort[createdAt]=-1&$limit=' + limit + '&$skip=' + skip;
 
 
     return fetch(SAMPLE_ENDPOINT + queryString, config)
@@ -77,10 +77,12 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
 
 export const searchSounds = (query, token) => dispatch => {
     dispatch(clearLoadedSounds());
-    dispatch(requestSounds());
+    dispatch(requestSearchSounds());
 
     let config = {
-        headers: 'Authorization'
+        headers: {
+            'Authorization': token
+        }
     }
     let queryString = '?$sort[createdAt]=-1&name=' + query;
 
@@ -93,13 +95,13 @@ export const searchSounds = (query, token) => dispatch => {
                     return Promise.reject(sounds);
                 }
                 else {
-                    dispatch(receiveSounds(sounds.data))
+                    dispatch(receiveSearchSounds(sounds.data))
                 }
             }
         )
         .catch(err => {
                 console.log("Error: ", err);
-                dispatch(failureSounds("Error:" + err));
+                dispatch(failureSearchSounds("Error:" + err));
             }
         )
 }
@@ -124,7 +126,7 @@ export const uploadSound = (file, token) => dispatch => {
             'Authorization': token,
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify({
+        body: JSON.stringify({
             'name': file.name,
             'description': file.description,
             'type': file.type,
@@ -187,7 +189,7 @@ export const addComment = (payload, token) => dispatch => {
 
 export const fetchComments = (payload, token) => dispatch => {
     dispatch(requestGetComments());
-    if(!token){
+    if (!token) {
         console.log("No token, cannot authenticate");
     }
 
@@ -201,11 +203,11 @@ export const fetchComments = (payload, token) => dispatch => {
     return fetch(endpoint, config)
         .then(response => response.json().then(comments => ({comments, response})))
         .then(({comments, response}) => {
-            if(!response.ok){
+            if (!response.ok) {
                 dispatch(failureGetComments(comments.message));
                 return Promise.reject(comments);
             }
-            else{
+            else {
                 dispatch(receiveGetComments(comments));
             }
         })
@@ -214,44 +216,47 @@ export const fetchComments = (payload, token) => dispatch => {
 
 
 
-export const refreshTimeline =  token => dispatch => {
+//actions for searching for sounds
+export const requestSearchSounds = () => ({
+    type: types.REQUEST_SEARCH_SOUNDS
+})
+export const receiveSearchSounds = sounds => ({
+    type: types.RECEIVE_SEARCH_SOUNDS,
+    payload: sounds
+})
+export const failureSearchSounds = message => ({
+    type: types.FAILURE_SEARCH_SOUNDS,
+    message
+})
 
-    dispatch(clearLoadedSounds());
-
-}
 
 
+//actions for adding a comment
 export const requestAddComment = () => ({
     type: types.REQUEST_ADD_COMMENT
 });
-
 export const receiveAddComment = sound => ({
     type: types.RECEIVE_ADD_COMMENT,
     sound
 })
-
 export const failureAddComment = message => ({
     type: types.FAILURE_ADD_COMMENT,
     message
 })
 
+
+//actions for getting comments
 export const requestGetComments = () => ({
     type: types.REQUEST_GET_COMMENTS
 })
-
 export const receiveGetComments = comments => ({
     type: types.RECEIVE_GET_COMMENTS,
     comments
 })
-
 export const failureGetComments = message => ({
     type: types.FAILURE_GET_COMMENTS,
     message
 })
-
-
-
-
 
 
 //actions for request a single sound from the server

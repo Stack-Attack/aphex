@@ -18,17 +18,17 @@ class Navbar extends Component {
         userInfo: PropTypes.object.isRequired,
         logoutClicked: PropTypes.func.isRequired,
         linkClicked: PropTypes.func.isRequired,
+        searchQuery: PropTypes.func.isRequired
     };
 
 
     handleSearch() {
         let query = this.refs.search.value.trim();
         this.refs.search.value = "";
-        alert(query);
+        this.props.searchQuery(query);
     }
 
     render() {
-
 
         let imgPath = 'https://syro.dannykivi.com' + this.props.userInfo.user.picture.path;
         let name = this.props.userInfo.user.email;

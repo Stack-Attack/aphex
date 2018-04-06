@@ -40,6 +40,7 @@ class App extends Component {
                                 History.push('/');
                             }}
                             linkClicked={() => this.props.resetControls()}
+                            searchQuery={query => this.props.searchQuery(query)}
 
                         />
                     </div>
@@ -132,7 +133,7 @@ const mapDispatchToProps = (dispatch, state) => ({
     pictureUpload: payload => {
         dispatch(uploadUserPicture(payload, localStorage.getItem("id_token")));
     },
-    search: query => {
+    searchQuery: query => {
         dispatch(searchSounds(query, localStorage.getItem("id_token")));
     }
 

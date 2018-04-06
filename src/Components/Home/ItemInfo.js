@@ -96,13 +96,13 @@ class ItemInfo extends Component {
                     <p className="infoTitle">
                         {new Date(createdAt).toString().slice(4, 15)}
                     </p>
-                    <form>
+                    <form onSubmit={e => {
+                        e.preventDefault();
+                        this.handleComment()
+                    }
+                    }>
                         <input type="text" name="search" placeholder="Write a comment.." ref="comment"/>
                     </form>
-                    <button onClick={() => this.handleComment()}>
-                        Add comment
-                    </button>
-
                 </div>
             </Sticky>
         );

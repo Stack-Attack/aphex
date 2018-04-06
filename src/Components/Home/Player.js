@@ -54,7 +54,10 @@ class Player extends Component {
 
   render() {
     return (
-      <Grid celled="interally" className="Player">
+      <Grid
+        celled="interally"
+        className={"Player " + (this.props.playing ? this.props.type : "")}
+      >
         <Grid.Column width={4} verticalAlign={"middle"}>
           <Grid centered>
             <Grid.Row className="artistRow">

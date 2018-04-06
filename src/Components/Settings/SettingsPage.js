@@ -44,9 +44,15 @@ class Account extends Component {
                 <Grid.Column textAlign={"center"} verticalAlign={"middle"} className={"SettingsColumn"} width={"10"} >
                     <Header className={"PoiretHeader Intro Upload"}> Settings </Header>
                     <Image className={"ProfileImage"} src={imgPath} circular centered/>
-                    <Header className={"PoiretHeader Subheading"}>{name}</Header>
+                    <Header className={"PoiretHeader Subheading"}>
+                        {" "}
+                        {this.props.userInfo.user.email.substring(
+                        0,
+                        this.props.userInfo.user.email.indexOf("@")
+                        )}{" "}
+                        </Header>
                     <input id="aphexPictureUpload" type="file" ref={ref => (this.fileUpload = ref)}/>
-                    <Header className={"PoiretHeader Intro Subtitle"}>Name:</Header>
+                    <Header className={"PoiretHeader Intro Subtitle"}>Email:</Header>
                     <Header className={"PoiretHeader Subheading"}>{name}</Header>
                     <Header className={"PoiretHeader Intro Subtitle"}>Secret Access Key:</Header>
                     <Header className={"PoiretHeader Subheading lol"}>{this.props.userInfo.accessToken}</Header>

@@ -6,14 +6,13 @@
     background-color: #003042;
     margin-top: 5px;
     border-radius: 15px;
-    height: 550px;
+    height: 600px !important;
 }
 
 .SettingsColumn {
     background-color: #003042;
     margin-top: 5px;
     border-radius: 15px;
-    height: 600px;
 }
 
 .PoiretHeader.Intro.Upload {

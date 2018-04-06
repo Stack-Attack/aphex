@@ -82,6 +82,12 @@ img.wavey {
   font-size: 20px;
 }
 
+
+.PlayerUploadButton {
+  width: 36px !important;
+  height: 36px !important;
+}
+
 .demo {
   box-shadow: 0 0 0 2pt #00b7f5 !important;
 }

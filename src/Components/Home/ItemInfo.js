@@ -103,7 +103,11 @@ class ItemInfo extends Component {
                 }
               />
             </Grid.Column>
-            <Grid.Column width={2} className={"noBorder"}>
+            <Grid.Column
+              width={2}
+              className={"noBorder"}
+              verticalAlign={"middle"}
+            >
               <div className={!this.props.displayControls ? "hidden" : ""}>
                 <PlayButton
                   onClick={() => this.props.onToggle(this.props.data)}

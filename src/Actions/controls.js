@@ -24,6 +24,7 @@ export const playPressed = id => (dispatch, getState) => {
     }
 };
 
+//actions for controls
 export const playSound = id => ({
     type: types.PLAY_SOUND,
     id

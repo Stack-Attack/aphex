@@ -1,24 +1,22 @@
 import * as types from '../Constants/UserActionTypes';
-import {clearLoadedSounds} from "./sounds";
 
-/*
+/**
     Actions for the user reducer. A container will dispatch one of these actions upon the user
     interacting with the app. The sounds reducer will receive one of these actions and adjust the
     Redux state accordingly.
  */
 
+const AUTH_ENDPOINT = 'https://syro.dannykivi.com/authentication';
+const USER_ENDPOINT = 'https://syro.dannykivi.com/users';
+
 /**
- * called when user logins in with a pair of credentials. Posts the credential data, and if it's authenticated on the server, returns a JWT
+ * called when user logs in with a pair of credentials. Posts the credential data, and if it's authenticated on the server, returns a JWT
+ * POST /authenticate
+ * @param {Object} creds - Object containing username and password for signin
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
-const authEndpoint = 'https://syro.dannykivi.com/authentication';
-const userEndpoint = 'https://syro.dannykivi.com/users';
-
-// POST /authenticate
-
 export const loginUser = creds => dispatch => {
-    console.log("Logging in...");
+
     let config = {
         method: "POST",
         headers: {
@@ -31,7 +29,7 @@ export const loginUser = creds => dispatch => {
     };
     dispatch(requestLogin());
 
-    return fetch(authEndpoint, config)
+    return fetch(AUTH_ENDPOINT, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
             console.log(user);
@@ -50,11 +48,11 @@ export const loginUser = creds => dispatch => {
 
 /**
  * called when a user signs up with a set of credentials
+ * POST /users
+ * @param {Object} creds - Object containing username and password for account creation
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 export const signUpUser = creds => dispatch => {
-
 
     let config = {
         method: "POST",
@@ -69,7 +67,7 @@ export const signUpUser = creds => dispatch => {
     };
 
     dispatch(requestCreateUser());
-    return fetch(userEndpoint, config)
+    return fetch(USER_ENDPOINT, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
 
@@ -86,17 +84,23 @@ export const signUpUser = creds => dispatch => {
         })
         .catch(err => console.log("Error: ", err));
 };
+
 /**
  * called when a user clicks the 'logout' button on the navbar
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 export const logoutUser = () => dispatch => {
     dispatch(requestLogout());
     localStorage.removeItem("id_token");
     dispatch(receiveLogout());
 };
 
+/**
+ * updates user info with updated data URL of profile picture
+ * PATCH /users
+ * @param {Object} payload -  Object containing data url of profile picture uploaded by user
+ * @param {string} token - JWT retrieved from localstorage
+ */
 export const uploadUserPicture = (payload, token) => dispatch => {
 
     dispatch(requestUploadPicture());
@@ -112,7 +116,7 @@ export const uploadUserPicture = (payload, token) => dispatch => {
         })
     };
 
-    return fetch(userEndpoint, config)
+    return fetch(USER_ENDPOINT, config)
         .then(response => response.json().then(user => ({user, response})))
         .then(({user, response}) => {
             console.log(user);
@@ -124,12 +128,10 @@ export const uploadUserPicture = (payload, token) => dispatch => {
             else {
 
                 dispatch(receiveUploadPicture(user));
-                //TODO: implement a refresh
             }
         })
         .catch(err => console.log("Error: ", err));
 };
-
 
 //actions for logging user in
 export const requestLogin = () => ({
@@ -157,7 +159,6 @@ export const failureCreateUser = message => ({
     message
 });
 
-
 //actions for logging user out
 export const requestLogout = () => ({
     type: types.REQUEST_LOGOUT
@@ -167,7 +168,6 @@ export const receiveLogout = () => ({
 });
 
 //actions for uploading profile picture
-
 export const requestUploadPicture = () => ({
     type: types.REQUEST_UPLOAD_PICTURE
 });

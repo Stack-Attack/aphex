@@ -6,8 +6,8 @@ import * as types from '../Constants/UserActionTypes';
     Redux state accordingly.
  */
 
-const AUTH_ENDPOINT = 'https://syro.dannykivi.com/authentication';
-const USER_ENDPOINT = 'https://syro.dannykivi.com/users';
+const AUTH_ENDPOINT = types.AUTH_ENDPOINT;
+const USER_ENDPOINT = types.USER_ENDPOINT;
 
 /**
  * called when user logs in with a pair of credentials. Posts the credential data, and if it's authenticated on the server, returns a JWT

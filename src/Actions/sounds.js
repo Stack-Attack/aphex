@@ -6,7 +6,7 @@ import History from '../Utils/History';
     Redux state accordingly.
  */
 
-const SOUND_ENDPOINT = 'https://syro.dannykivi.com/sample';
+const SOUND_ENDPOINT = types.SOUND_ENDPOINT;
 
 /**
  * Called when user loads sounds from server.

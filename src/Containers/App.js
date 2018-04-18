@@ -33,7 +33,6 @@ import History from "../Utils/History";
  * Next, the component checks to see what route has been provided and renders the corresponding component accordingly. Each rendered component can be examined in the ./Components/* directory.
  */
 class App extends Component {
-    //render the components that make up the application
     render() {
         if (this.props.isAuthenticated) {
             //if the user has signed in and authenticated, direct them to full app
@@ -58,16 +57,17 @@ class App extends Component {
                                 exact
                                 path="/upload"
                                 render={() => (
-                                    <Upload fileUpload={file => this.props.fileUpload(file)}/>
-                                )}
+                                    <Upload
+                                        fileUpload={file => this.props.fileUpload(file)}
+                                    />)}
                             />
                             <Route
                                 exact
                                 path="/account"
-                                render={() => <Account
-                                    userInfo={this.props.userInfo}
-
-                                />}
+                                render={() => (
+                                    <Account
+                                        userInfo={this.props.userInfo}
+                                    />)}
                             />
                             <Route
                                 exact
@@ -76,8 +76,7 @@ class App extends Component {
                                     <Settings
                                         pictureUpload={payload => this.props.pictureUpload(payload)}
                                         userInfo={this.props.userInfo}
-                                    />
-                                )}
+                                    />)}
                             />
                         </Switch>
                     </main>
@@ -105,47 +104,40 @@ class App extends Component {
 
 /**
  * mapStateToProps takes the global redux state, and maps the necessary pieces of state to the props of this component. That way, the global state can be passed down to each child component.
+ * @param {Object} state - Redux state, which will then have elements of it injected into the App component
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 const mapStateToProps = state => ({
     isAuthenticated: state.user.isAuthenticated,
     uploadSuccessful: state.sounds.uploadSuccessful,
     errorMessage: state.user.errorMessage,
     userInfo: state.user.userInfo,
-    //for account
     activeID: state.sounds.loadedSounds.find(sound => {
         return sound._id === state.controls.activeID;
     }),
     loadedSounds: state.sounds.loadedSounds,
     playing: state.controls.playing,
-
-
 });
 
 /**
  * Similarly to mapStateToProps, mapDispatchToProps assigns a series of component methods to actions that Redux will emit onto the state. As a result, state can be directly controlled via this component, so that child components have no knowledge of the state. This keeps things nice and clean.
  * @author Peter Luft <pwluft@lakeheadu.ca>
+ * @param {function} dispatch - redux dispatch which connects to the prop methods in HomePage.js
  */
-
-const mapDispatchToProps = (dispatch, state) => ({
+const mapDispatchToProps = (dispatch) => ({
     signupClicked: creds => {
         dispatch(signUpUser(creds));
     },
-
     loginClicked: creds => {
         dispatch(loginUser(creds));
     },
-
     logoutClicked: () => {
         dispatch(logoutUser());
         dispatch(clearLoadedSounds());
     },
-
     fileUpload: file => {
         dispatch(uploadSound(file, localStorage.getItem("id_token")));
     },
-
     resetControls: () => {
         dispatch(resetControls());
     },
@@ -154,21 +146,7 @@ const mapDispatchToProps = (dispatch, state) => ({
     },
     searchQuery: query => {
         dispatch(searchSounds(query, localStorage.getItem("id_token")));
-    },
-
-    //for account page sounds
-    // getUserSounds: id => {
-    //
-    // }
-    //
-    // playerToggle: entry => {
-    //
-    // }
+    }
 });
-
-/**
- * Last part is to connect the above Redux boilerplate to this component, and gets React to render it. Now we have a React component that connects to the Redux state, with a series of child components that will interact with the state via their parent.
- * @author Peter Luft <pwluft@lakeheadu.ca>
- */
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

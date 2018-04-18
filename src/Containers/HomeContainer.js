@@ -5,7 +5,7 @@ import {
   setSeek,
   resetControls
 } from "../Actions/controls";
-import { addComment, searchSounds } from "../Actions/sounds";
+import { addComment } from "../Actions/sounds";
 import { fetchSounds, clearLoadedSounds } from "../Actions/sounds";
 import HomePage from "../Components/Home/HomePage";
 
@@ -15,6 +15,7 @@ import HomePage from "../Components/Home/HomePage";
 
 /**
  * mapStateToProps takes our current Redux state and maps each relevant piece of the state to a prop in this component which can be interacted with and passed to child components. This way, HomePage.js exists with no knowledge of the Redux state; it simply passes everything via props to this container.
+ * @param {Object} state - Redux state, which will then have elements of it injected into the HomePage.js
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
 const mapStateToProps = state => ({
@@ -34,6 +35,7 @@ const mapStateToProps = state => ({
 /**
  * mapDispatch to props defines a series of methods that can be called from HomePage.js, passed to that file via props. Each method maps to a Redux action dispatch, which will modify the state accordingly. Similarly to mapStateToProps, this allows HomePage.js to fire actions with no knowledge of the global state.
  * @author Peter Luft <pwluft@lakeheadu.ca>
+ * @param {function} dispatch - redux dispatch which connects to the prop methods in HomePage.js
  */
 const mapDispatchToProps = dispatch => ({
   playerToggle: entry => {
@@ -47,8 +49,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(adjustFocus(isInFocus));
   },
   refreshTimeline: () => {
-    //wipes loaded sounds from redux state and reloads it from server
-      
     dispatch(clearLoadedSounds());
     dispatch(fetchSounds(7, 0, localStorage["id_token"]));
   },

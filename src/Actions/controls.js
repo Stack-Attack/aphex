@@ -6,7 +6,6 @@ import * as types from '../Constants/ControlsActionTypes';
 
 /**
  * Called when the user presses the play button. Toggles whether the sound is playing or not
- * @constructor
  * @param {string} id - ID of snippet to be played
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
@@ -29,22 +28,18 @@ export const playSound = id => ({
     type: types.PLAY_SOUND,
     id
 });
-
 export const pauseSound = id => ({
     type: types.PAUSE_SOUND,
     id
 });
-
 export const adjustFocus = inFocus => ({
     type: types.ADJUST_FOCUS,
     inFocus
 });
-
 export const setSeek = pos => ({
     type: types.SET_SEEK,
     pos
 });
-
 export const resetControls = () => ({
     type: types.RESET_CONTROLS
 });

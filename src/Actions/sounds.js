@@ -7,42 +7,16 @@ import History from '../Utils/History';
     Redux state accordingly.
  */
 
-/**
- * Called when a request to load more sounds from the server is sent. Notice how API calls will be made in this method, NOT in the reducer.
- * @author Peter Luft <pwluft@lakeheadu.ca>
- */
-
 const SAMPLE_ENDPOINT = 'https://syro.dannykivi.com/sample';
 
-
-//GET sample/{id}
-export const fetchSingleSound = (id, token) => dispatch => {
-    dispatch(requestSound());
-
-    let config = {
-        headers: {
-            'Authorization': token
-        }
-    };
-
-    return fetch(SAMPLE_ENDPOINT + '/${id}', config)
-        .then(response => response.json().then(sound => ({sound, response})))
-        .then(({sound, response}) => {
-                if (!response.ok) {
-                    //error in fetching single sound
-                    dispatch(failureSound(sound.message));
-                    return Promise.reject(sound);
-                }
-                else {
-                    dispatch(receiveSound(sound));
-                }
-            }
-        )
-        .catch(err => console.log("Error: ", err));
-
-};
-
-//GET sample
+/**
+ * Called when user loads sounds from server.
+ * GET /sample
+ * @param {number} limit - query for number of results to return from server
+ * @param {number} skip - query for number of results to skip. This is good for a avoiding getting duplicates from server
+ * @param {string} token - JWT retrieved from storage
+ * @author Peter Luft <pwluft@lakeheadu.ca>
+ */
 export const fetchSounds = (limit, skip, token) => dispatch => {
     dispatch(requestSounds());
 
@@ -74,7 +48,13 @@ export const fetchSounds = (limit, skip, token) => dispatch => {
         )
 };
 
-
+/**
+ * search sounds for a title matching the search term
+ * GET /sample/?$sort[createdAt]=-1&name={searchTerm}
+ * @param {string} query - term that was entered in search bar
+ * @param {string} token - JWT retrieved from localstorage
+ * @author Peter Luft <pwluft@lakeheadu.ca>
+ */
 export const searchSounds = (query, token) => dispatch => {
     dispatch(clearLoadedSounds());
     dispatch(requestSearchSounds());
@@ -89,7 +69,7 @@ export const searchSounds = (query, token) => dispatch => {
     return fetch(SAMPLE_ENDPOINT + queryString, config)
         .then(response => response.json().then(sounds => ({sounds, response})))
         .then(({sounds, response}) => {
-            console.log(sounds);
+                console.log(sounds);
                 if (!response.ok) {
                     //error in fetching sounds
                     dispatch(failureSounds(sounds.message));
@@ -107,13 +87,13 @@ export const searchSounds = (query, token) => dispatch => {
         )
 }
 
-
 /**
- * called when the user uploads a sound on the 'Upload' page. It will send a POST request to the server with the file data
+ * called when the user uploads a sound on the 'Upload' page.
+ * POST /sample
+ * @param {Object} file - object with properties and data url of user uploaded file
+ * @param {string} token - JWT token retrieved from local storage
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
-//POST sample
 export const uploadSound = (file, token) => dispatch => {
     dispatch(requestCreateSound());
 
@@ -150,6 +130,14 @@ export const uploadSound = (file, token) => dispatch => {
         .catch(err => console.log("Error: ", err));
 };
 
+
+/**
+ * posts a comment added to the given sound
+ * POST /sample/{id}/comment
+ * @param {Object} payload - Object which contains id of sound and the comment itself
+ * @param {string} token - JWT retrieved from localstorage
+ * @author Peter Luft <pwluft@lakeheadu.ca>
+ */
 export const addComment = (payload, token) => dispatch => {
 
     dispatch(requestAddComment());
@@ -183,11 +171,16 @@ export const addComment = (payload, token) => dispatch => {
             }
         })
         .catch(err => console.log("Error: ", err));
-
-
 };
 
 
+/**
+ * retrieves comments for a specific sound
+ * GET /sample/{id}/comment
+ * @param {Object} payload - Object which contains id of sound to retrieve comments for
+ * @param {string} token - JWT retrieved from localstorage
+ * @author Peter Luft <pwluft@lakeheadu.ca>
+ */
 export const fetchComments = (payload, token) => dispatch => {
     dispatch(requestGetComments());
     if (!token) {
@@ -200,7 +193,6 @@ export const fetchComments = (payload, token) => dispatch => {
             'Authorization': token
         }
     }
-
     return fetch(endpoint, config)
         .then(response => response.json().then(comments => ({comments, response})))
         .then(({comments, response}) => {
@@ -216,7 +208,6 @@ export const fetchComments = (payload, token) => dispatch => {
 }
 
 
-
 //actions for searching for sounds
 export const requestSearchSounds = () => ({
     type: types.REQUEST_SEARCH_SOUNDS
@@ -229,7 +220,6 @@ export const failureSearchSounds = message => ({
     type: types.FAILURE_SEARCH_SOUNDS,
     message
 })
-
 
 
 //actions for adding a comment
@@ -259,22 +249,6 @@ export const failureGetComments = message => ({
     message
 })
 
-
-//actions for request a single sound from the server
-export const requestSound = () => ({
-    //request sounds from the server
-    type: types.REQUEST_SOUND
-});
-export const receiveSound = sound => ({
-    //action for when we receive new sounds from the server.
-    //'sounds' should be an array of sound objects from the server
-    type: types.RECEIVE_SOUND,
-    payload: sound
-});
-export const failureSound = message => ({
-    type: types.FAILURE_SOUND,
-    message: message
-});
 
 //actions for requesting multiple sounds from the server
 export const requestSounds = () => ({
@@ -306,7 +280,6 @@ export const failureCreateSound = message => ({
 
 
 //other sound actions
-
 export const clearLoadedSounds = () => ({
     type: types.CLEAR_LOADED_SOUNDS
 })

@@ -80,6 +80,7 @@ class Player extends Component {
           <img
             src={require("../../Assets/waveform_" + this.props.type + ".svg")}
             className={"wavey"}
+            alt=""
           />
           <div
             className={

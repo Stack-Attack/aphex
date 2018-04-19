@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {PropTypes} from "prop-types";
 import "./UploadPage.css";
-import {Grid, Image, Button, Form, Header, Icon, Dropdown} from "semantic-ui-react";
+import {Grid, Button, Form, Header, Icon} from "semantic-ui-react";
 
 
 /**
@@ -21,13 +21,10 @@ class Upload extends Component {
 
     handleUpload() {
 
-        //TODO: make this UX a little nicer. perhaps some feedback or progress bar?
         const file = this.fileUpload.files[0];
         let url = '';
         let fileName = this.refs.fileName.value.trim();
         let description = this.refs.description.value.trim();
-
-        let error = "";
 
         if(this.fileUpload.files.length == 0){
             alert("Please select a file to upload");
@@ -49,13 +46,12 @@ class Upload extends Component {
                 name: fileName,
                 description: description,
                 type: this.typeSound
-            }
+            };
             this.props.fileUpload(newSample);
-            //todo: after a successful upload, show some  PROCESSING feedback. these should probably change
             document.getElementById("aphexSampleUpload").value = "";
             this.refs.fileName.value = "";
             this.refs.description.value = "";
-        }
+        };
 
         if (file) {
             reader.readAsDataURL(file);

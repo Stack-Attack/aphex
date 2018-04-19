@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-import {Grid, Image, Button, Form, Header, Icon, Dropdown} from "semantic-ui-react";
+import {Grid, Image, Button, Header, Icon} from "semantic-ui-react";
 
 
 /**
@@ -13,7 +13,7 @@ class Account extends Component {
     static propTypes = {
         pictureUpload: PropTypes.func.isRequired,
         userInfo: PropTypes.object.isRequired
-    }
+    };
 
 
     handleUpload(){
@@ -28,7 +28,7 @@ class Account extends Component {
                 url: url
             };
             this.props.pictureUpload(payload);
-        }
+        };
 
         if(file){
             reader.readAsDataURL(file);

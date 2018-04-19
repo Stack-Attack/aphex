@@ -1,11 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-
-
-import faker from "faker";
-
-import {Menu, Input, Dropdown, Icon, Image, Button, Form} from "semantic-ui-react";
+import {Menu, Dropdown, Icon, Image, Button} from "semantic-ui-react";
 
 /**
  * Presentational component for the navbar of the application. Displays the correct information to the user based on whether they have authentication.

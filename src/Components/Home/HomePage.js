@@ -71,7 +71,7 @@ class Home extends Component {
     }
 
     render() {
-        let content, bottomButton, waitMessage;
+        let content, bottomButton;
         //display loaded sounds from the server if there are any
         if (this.props.loadedSounds.length > 0) {
             content = this.props.loadedSounds.map(entry => {
@@ -165,6 +165,7 @@ class Home extends Component {
                                     <img
                                         src={require("../../Assets/share_waveform.svg")}
                                         className={"wavey"}
+                                        alt={""}
                                     />
                                     <div className={"Waveform"}/>
                                 </Grid.Column>
@@ -177,7 +178,9 @@ class Home extends Component {
                                         <Link to="/upload">
                                             <img className={"PlayerUploadButton"}
                                                  src={require("../../Assets/upload_play_button.svg")}
-                                                 onClick={() => this.props.resetControls}/>
+                                                 onClick={() => this.props.resetControls}
+                                                 alt={""}
+                                            />
                                         </Link>
                                     </div>
                                 </Grid.Column>
@@ -200,41 +203,12 @@ class Home extends Component {
         );
     }
 
-    //we may not even end up needed the below functions
+    //left here for future implementations
     onPlayerStart(pos) {
     }
-
     onPlayerEnd() {
     }
-
     playerLoaded(dur) {
-    }
-
-    handleScroll() {
-        const windowHeight =
-            "innerHeight" in window
-                ? window.innerHeight
-                : document.documentElement.offsetHeight;
-        const body = document.body;
-        const html = document.documentElement;
-        const docHeight = Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-        );
-        const windowBottom = windowHeight + window.pageYOffset;
-
-        if (windowBottom >= docHeight) {
-            this.setState({
-                message: "bottom reached"
-            });
-        } else {
-            this.setState({
-                message: "not at bottom"
-            });
-        }
     }
 }
 

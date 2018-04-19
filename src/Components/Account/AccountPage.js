@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-import {Menu, Input, Dropdown, Icon, Image, Button} from "semantic-ui-react";
+import {Image} from "semantic-ui-react";
 
 
 /**

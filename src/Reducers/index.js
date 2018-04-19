@@ -11,10 +11,9 @@ import * as controlTypes from '../Constants/ControlsActionTypes';
  * user reducer: this handles state functions for everything pertaining to the user and the authentication that accompanies them. Any time an action is dispatched for logging in, logging out, or authenticating the user, this reducer handles the action appropriately. It also sets the state to whatever the auth token in local storage dictates.
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 const user = (state = {
                   isFetching: false,
-                  isAuthenticated: localStorage.getItem("id_token") ? true : false,
+                  isAuthenticated: !!localStorage.getItem("id_token"),
                   userInfo: null
               },
               action) => {
@@ -46,7 +45,6 @@ const user = (state = {
                 isFetching: true,
                 isAuthenticated: false
             };
-
         case userTypes.RECEIVE_CREATE_USER:
             return {
                 ...state,
@@ -57,12 +55,12 @@ const user = (state = {
                 ...state,
                 isFetching: false,
                 errorMessage: action.message
-            }
+            };
         case userTypes.REQUEST_LOGOUT:
             return {
                 ...state,
                 isFetching: true
-            }
+            };
         case userTypes.RECEIVE_LOGOUT:
             return {
                 ...state,
@@ -94,8 +92,7 @@ const user = (state = {
                 ...state,
                 isFetching: false,
                 errorMessage: action.message
-            }
-
+            };
         default:
             return state;
     }
@@ -105,7 +102,6 @@ const user = (state = {
  * sounds reducer: describes the state of whatever sound clips have been loaded into the browser. The state includes a 'loadedSounds' array which contains all of the current sounds loaded on the clientside. They can be rendered accordingly by the correct components. It also determines whether an asynchronous request is being made to load more sounds from the server.
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 const sounds = (state = {
                     isFetching: false,
                     uploadSuccessful: false,
@@ -113,9 +109,16 @@ const sounds = (state = {
                 },
                 action) => {
     switch (action.type) {
+        case soundTypes.REQUEST_SOUNDS:
+            return {
+                ...state,
+                uploadSuccessful: false,
+                isFetching: true,
+                searchMode: false
+            };
         case soundTypes.RECEIVE_SOUNDS:
-             let newSounds = [...state.loadedSounds, ...action.payload];
-             //algorithm to ensure we don't add any duplicates
+            let newSounds = [...state.loadedSounds, ...action.payload];
+            //algorithm to ensure we don't add any duplicates
             for (let i = 0; i < newSounds.length; ++i) {
                 for (let j = i + 1; j < newSounds.length; ++j) {
                     if (newSounds[i]._id == newSounds[j]._id) {
@@ -128,13 +131,6 @@ const sounds = (state = {
                 isFetching: false,
                 uploadSuccessful: true,
                 loadedSounds: newSounds,
-                searchMode: false
-            };
-        case soundTypes.REQUEST_SOUNDS:
-            return {
-                ...state,
-                uploadSuccessful: false,
-                isFetching: true,
                 searchMode: false
             };
         case soundTypes.FAILURE_SOUNDS:
@@ -167,16 +163,8 @@ const sounds = (state = {
                 uploadSuccessful: false,
                 searchMode: false,
                 errorMessage: action.message
-            }
-
-        case soundTypes.CLEAR_LOADED_SOUNDS:
-            return {
-                ...state,
-                isFetching: false,
-                uploadSuccessful: false,
-                errorMessage: "",
-                loadedSounds: []
             };
+
         case soundTypes.REQUEST_CREATE_SOUND:
             return {
                 ...state,
@@ -190,20 +178,18 @@ const sounds = (state = {
                 uploadSuccessful: true,
                 errorMessage: ""
             };
-
         case soundTypes.FAILURE_CREATE_SOUND:
             return {
                 ...state,
                 isFetching: false,
                 uploadSuccessful: false,
                 errorMessage: action.message
-            }
+            };
         case soundTypes.REQUEST_ADD_COMMENT:
             return {
                 ...state,
                 isFetching: true
             };
-
         case soundTypes.RECEIVE_ADD_COMMENT:
             return {
                 ...state,
@@ -216,7 +202,6 @@ const sounds = (state = {
                 isFetching: false,
                 errorMessage: action.message
             };
-
         case soundTypes.REQUEST_GET_COMMENTS:
             return {
                 ...state,
@@ -230,19 +215,33 @@ const sounds = (state = {
                 isFetching: false,
                 loadedSounds: state.loadedSounds.map(
                     sound => {
-                        if(sound._id === sampleId){
+                        if (sound._id === sampleId) {
                             return {
                                 ...sound,
                                 comments: action.comments
                             }
                         }
-                        else{
+                        else {
                             return sound
                         }
                     }
                 ),
                 errorMessage: ""
-            }
+            };
+        case soundTypes.FAILURE_GET_COMMENTS:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.message
+            };
+        case soundTypes.CLEAR_LOADED_SOUNDS:
+            return {
+                ...state,
+                isFetching: false,
+                uploadSuccessful: false,
+                errorMessage: "",
+                loadedSounds: []
+            };
         default:
             return state;
     }
@@ -252,7 +251,6 @@ const sounds = (state = {
  * controls reducer: describes all aspects of the user interface on the homepage, and how playing of sound files is handled. It encapsulates the state of what sound is playing, where it is, and what info is associated with that sound.
  * @author Peter Luft <pwluft@lakeheadu.ca>
  */
-
 const controls = (state = {
                       activeID: null,
                       playing: false,
@@ -271,7 +269,6 @@ const controls = (state = {
                 playing: true,
                 activeID: action.id
             };
-
         case controlTypes.PAUSE_SOUND:
             return {
                 ...state,
@@ -287,8 +284,7 @@ const controls = (state = {
             return {
                 ...state,
                 activeSeek: action.pos
-            }
-
+            };
         case controlTypes.RESET_CONTROLS:
             return {
                 ...state,

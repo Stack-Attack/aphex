@@ -17,26 +17,11 @@ export const REQUEST_UPLOAD_PICTURE = 'REQUEST_UPLOAD_PICTURE';
 export const RECEIVE_UPLOAD_PICTURE = 'RECEIVE_UPLOAD_PICTURE';
 export const FAILURE_UPLOAD_PICTURE = 'FAILURE_UPLOAD_PICTURE';
 
+//endpoints
+export const AUTH_ENDPOINT = 'https://syro.dannykivi.com/authentication';
+export const USER_ENDPOINT = 'https://syro.dannykivi.com/users';
 
 
-
-
-//currently unused
-
-//get current user (me) from token in localstorage
-export const ME_FROM_TOKEN = 'ME_FROM_TOKEN';
-export const ME_FROM_TOKEN_SUCCESS = 'ME_FROM_TOKEN_SUCCESS';
-export const ME_FROM_TOKEN_FAILURE = 'ME_FROM_TOKEN_FAILURE';
-export const RESET_TOKEN = 'RESET_TOKEN';
-
-
-//validate email, if success, then load user and login
-export const VALIDATE_EMAIL_REQUEST = 'VALIDATE_EMAIL_REQUEST';
-export const VALIDATE_EMAIL_SUCCESS = 'VALIDATE_EMAIL_SUCCESS';
-export const VALIDATE_EMAIL_FAILURE = 'VALIDATE_EMAIL_FAILURE';
-
-//called when email is updated in profile to update main user's email
-export const UPDATE_USER_EMAIL = 'UPDATE_USER_EMAIL';
 
 
 
